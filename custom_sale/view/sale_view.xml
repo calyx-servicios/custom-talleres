@@ -15,13 +15,13 @@
             <xpath expr="//field[@name='payment_term_id']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <xpath expr="//notebook/page[2]/group[1]/group[1]" position="attributes">
+            <xpath expr="//notebook/page[2]/group[1]/group[@name='sales_person']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <xpath expr="//notebook/page[2]/group[1]/group[2]" position="attributes">
+            <xpath expr="//notebook/page[2]/group[1]/group[@name='sale_pay']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <xpath expr="//notebook/page[2]/group[1]/group[3]" position="attributes">
+            <xpath expr="//notebook/page[2]/group[1]/group[@name='technical']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
 
