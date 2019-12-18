@@ -11,6 +11,7 @@ class SaleProductWizardLine(models.TransientModel):
 
     wizard_id = fields.Many2one('sale.product.wizard', string='Wizard')
     attribute_id = fields.Many2one('product.attribute', string='Attribute')
+    product_ids = fields.Many2many('product.product', string='Variants', readonly=True)
     attribute_value_id = fields.Many2one('product.attribute.value', string='Attributes')
 
 
@@ -70,13 +71,18 @@ class SaleProductWizard(models.TransientModel):
     @api.model
     def _default_lines(self):
         sale_obj = self.env['sale.order']
+        product_obj = self.env['product.product']
         lines = []
+
         if self._context.get('res_id'):
             line_obj=self.env['sale.order.line']
             line=line_obj.browse(self._context.get('res_id'))
+            domain=[('product_tmpl_id','=',line.template_id.id)]
+            product_ids=product_obj.search(domain).ids
             for attribute in line.product_id.attribute_value_ids:
                 lines.append({
                     'attribute_id':attribute.attribute_id.id,
+                    'product_ids':product_ids,
                     'attribute_value_id': attribute.id
                     })
 

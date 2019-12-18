@@ -13,7 +13,8 @@
                           <field name="line_ids" >
                           <tree editable="bottom" create="false" delete="false">
                                   <field name="attribute_id" readonly="1"/>
-                                  <field name="attribute_value_id" domain="[('attribute_id', '=', attribute_id)]" create="false"/>
+                                  <field name="product_ids" invisible="True"/>
+                                  <field name="attribute_value_id" domain="[('attribute_id', '=', attribute_id),('product_ids','in', product_ids)]" create="false"/>
                           </tree>
 
                           </field>

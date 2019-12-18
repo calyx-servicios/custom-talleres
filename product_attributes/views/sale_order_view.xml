@@ -22,14 +22,14 @@
           <field name="arch" type="xml">
              <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
                   <field name="template_id" />
-                  <button name="action_custom_selection" icon="fa-pencil-alt" type="object" context="{'res_id':id}" />
+                  <button name="action_custom_selection" icon="fa-pencil-alt" type="object" context="{'res_id':id or None}" />
 
                     <!-- attrs="{'invisible': [('sale_order_id.state', '=', 'open' )]}" /> -->
               </xpath>
               <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">
                   <attribute name="invisible">True</attribute>
                </xpath>
-              
+
           </field>
       </record>
 
