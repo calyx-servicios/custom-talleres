@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model='ir.ui.view' id='view_sale_viatic_wizard_form'>
+        <field name='name'>sale.product.wizard.form</field>
+        <field name='model'>sale.product.wizard</field>
+        <field name='arch' type='xml'>
+            <form string="Sale Proiduct Selector" >
+
+                  <notebook>
+                      <page name="selector_page" string="Lines">
+                        <field name="template_id" />
+                          <field name="line_ids" >
+                          <tree editable="bottom" create="false" delete="false">
+                                  <field name="attribute_id" readonly="1"/>
+                                  <field name="attribute_value_id" domain="[('attribute_id', '=', attribute_id)]" create="false"/>
+                          </tree>
+
+                          </field>
+                        <group>
+                          <group>
+                            <field name="height"/>
+                            <field name="width"/>
+                            <field name="length"/>
+                            <field name="note"/>
+                          </group>
+                        </group>
+                      </page>
+                  </notebook>
+                <footer>
+                  <button name='set_product' string='Set'  class='oe_highlight' type='object'/>
+
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>
