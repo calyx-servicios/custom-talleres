@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model='ir.ui.view' id='view_impute_payment_to_order_form'>
+        <field name='name'>impute.payment.to.order.form</field>
+        <field name='model'>impute.payment.to.order</field>
+        <field name='arch' type='xml'>
+            <form string="Impute Payment" >
+                <group>
+                    <group>
+                        
+                        <field name="name" required="1" />
+                        <field name="amount" required="1"  />
+                        <field name="partner_id" invisible="1"  />
+
+                    </group>
+                    <group>
+                        <field name="payment_id" domain="[('state', '=', 'posted')]" required="1" />
+                        <field name="amount_payment" readonly="1" />
+                    </group> 
+                </group>
+                <footer>
+                   <button name='impute_payment' string='Impute Payment'  class='oe_highlight' type='object'/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_impute_payment_to_order"
+            multi="True"
+            key2="client_action_multi" name="Impute Payment"
+            res_model="impute.payment.to.order" src_model="account.payment"
+            view_mode="form" target="new" view_type="form" />
+    
+</odoo>

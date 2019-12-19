@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+
+
+
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">Sale Order Inherit</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+<!-- 
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <button name="create_easy_invoice" type="object" string="Create Easy Invoice"
+                    attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"  /> 
+
+                                groups="easy_invoice.easy_invoice_responsible_group"
+                                attrs="{'invisible': [('state', '!=', 'open')]}" 
+            </xpath>
+ -->
+            <xpath expr="//notebook" position="inside">
+                <page  name="advancement_ids_page" string="Advancement Lines">
+                    <group cols="4" >
+                        <field name="calcule_amount_imputed" readonly="1"/>
+                        <button name="%(action_impute_payment_to_order)d" 
+                                string="Impute Invoice" type="action" class="oe_highlight" 
+                                context="{'default_partner_id':partner_id}"
+                                  />
+                    </group>
+                    <field name="advancement_line_ids" readonly="1">
+                        <tree string="Invoice Lines" editable="bottom" >
+                            <field name="name" />
+                            <field name="payment_id" />
+                            <field name="amount_imputed"  sum="Total" />
+                        </tree>
+                    </field>
+               </page> 
+            </xpath>
+
+
+
+        </field>
+    </record>
+<!-- 
+
+ -->
+  </data>
+</odoo>
+
+
