@@ -38,6 +38,11 @@ msgid "Amount Payment"
 msgstr "Monto de Pago"
 
 #. module: sale_order_advancement
+#: model:ir.ui.view,arch_db:sale_order_advancement.sale_order_form_inherit
+msgid "Impute Payment"
+msgstr "Imputar Pago"
+
+#. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_impute_payment_to_order_create_uid
 #: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_advancement_create_uid
 msgid "Created by"
