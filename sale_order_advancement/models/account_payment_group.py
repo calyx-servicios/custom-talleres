@@ -17,7 +17,9 @@ class AccountpPaymentGroup(models.Model):
     @api.depends('advancement_line_ids.payment_id', 'advancement_line_ids.order_id', 'advancement_line_ids.amount_imputed')
     def _compute_amount_to_impute(self):
         amount_to_impute = self.payments_amount
-        for line in self.advancement_line_ids:
-            amount_to_impute -= line.amount_imputed
-        self.amount_to_impute = amount_to_impute
+        for group_obj in self:
+            for line in group_obj.advancement_line_ids:
+                if line.state == 'imputed':
+                    amount_to_impute -= line.amount_imputed
+            group_obj.amount_to_impute = amount_to_impute
         

@@ -16,4 +16,13 @@ class SaleOrderAdvancement(models.Model):
     payment_id = fields.Many2one('account.payment.group', required=True, string='Payment',ondelete='cascade' )
     order_id = fields.Many2one('sale.order', required=True, string='Sale Order',ondelete='cascade' )
     amount_imputed = fields.Float(string='Amount Imputed', required=True)
+    state = fields.Selection([('imputed','Imputed'),
+                              ('cancel','Cancel'),
+                             ], string='State',default='imputed')
 ### ends Field
+
+    @api.multi
+    def cancel(self):
+        for self_obj in self: 
+            self_obj.state = 'cancel'
+            
