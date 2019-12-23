@@ -27,6 +27,12 @@
                           </group>
                         </group>
                       </page>
+                      <page name="files_page" string="Files">
+
+                          <field name="attachment_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
+
+
+                      </page>
                   </notebook>
                 <footer>
                   <button name='set_product' string='Set'  class='oe_highlight' type='object'/>

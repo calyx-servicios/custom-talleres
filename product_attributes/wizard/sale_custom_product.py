@@ -88,14 +88,31 @@ class SaleProductWizard(models.TransientModel):
 
         return lines
 
+    @api.model
+    def _default_attachments(self):
+        sale_obj = self.env['sale.order']
+        product_obj = self.env['product.product']
+        lines = []
+
+        if self._context.get('res_id'):
+            line_obj=self.env['sale.order.line']
+            line=line_obj.browse(self._context.get('res_id'))
+
+            for attribute in line.attachment_ids:
+                lines.append(attribute.id)
+
+        return lines
+
     line_ids = fields.One2many('sale.product.wizard.line', 'wizard_id', string='Lines', default=_default_lines)
+    attachment_ids = fields.Many2many(
+        'ir.attachment', 'product_custom_ir_attachments_rel',
+        'wizard_id', 'attachment_id', 'Attachments',default=_default_attachments)
     template_id = fields.Many2one("product.template", string="Template",default=_default_template, readonly=True)
     line_id = fields.Many2one("sale.order.line", string="Line",default=_default_line_id)
 
     @api.multi
     def set_product(self):
         product_obj = self.env['product.product']
-
         for wiz in self:
             domain=[('product_tmpl_id','=',wiz.template_id.id)]
 
@@ -128,5 +145,11 @@ class SaleProductWizard(models.TransientModel):
             self.line_id.height=wiz.height
             self.line_id.width=wiz.width
             self.line_id.note=wiz.note
+            if wiz.attachment_ids:
+                new_attachment_ids = []
+
+                for attachment in wiz.attachment_ids:
+                        new_attachment_ids.append(attachment.id)
+                self.line_id.write({'attachment_ids': [(6, 0, new_attachment_ids)]})
 
         return {}

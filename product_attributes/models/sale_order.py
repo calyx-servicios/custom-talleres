@@ -4,6 +4,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
@@ -25,12 +26,14 @@ class SaleOrderLine(models.Model):
         name += '\n' +message
         self.name=name
 
-    template_id = fields.Many2one('product.template', string='Template',domain=[('sale_ok', '=', True)])
+    template_id = fields.Many2one('product.template', string='Product',domain=[('sale_ok', '=', True)])
     length = fields.Float('Length')
     height = fields.Float('Height')
     width = fields.Float('Width')
     note = fields.Text('Note')
-
+    attachment_ids = fields.Many2many(
+        'ir.attachment', 'sale_line_ir_attachments_rel',
+        'wizard_id', 'attachment_id', 'Attachments')
 
     @api.multi
     @api.onchange('template_id')
