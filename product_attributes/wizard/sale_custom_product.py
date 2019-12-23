@@ -55,10 +55,18 @@ class SaleProductWizard(models.TransientModel):
             line=line_obj.browse(self._context.get('res_id'))
             return line.height
 
+    @api.model
+    def _default_to_quote(self):
+        if self._context.get('res_id'):
+            line_obj=self.env['sale.order.line']
+            line=line_obj.browse(self._context.get('res_id'))
+            return line.to_quote
+
     length = fields.Float('Length',default=_default_length)
     height = fields.Float('Height',default=_default_height)
     width = fields.Float('Width',default=_default_width)
     note = fields.Text('Note',default=_default_note)
+
 
     @api.model
     def _default_template(self):

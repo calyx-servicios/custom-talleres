@@ -8,6 +8,16 @@ _logger = logging.getLogger(__name__)
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
+    template_id = fields.Many2one('product.template', string='Product',domain=[('sale_ok', '=', True)])
+    length = fields.Float('Length')
+    height = fields.Float('Height')
+    width = fields.Float('Width')
+    note = fields.Text('Note')
+    to_quote = fields.Boolean(string='To Quote',help='This means that the price will be set to zero everytime the custom wizard is called')
+    attachment_ids = fields.Many2many(
+        'ir.attachment', 'sale_line_ir_attachments_rel','wizard_id', 'attachment_id', 'Attachments')
+
+
     @api.multi
     @api.onchange('length','height','width','note')
     def change_product(self):
@@ -26,14 +36,20 @@ class SaleOrderLine(models.Model):
         name += '\n' +message
         self.name=name
 
-    template_id = fields.Many2one('product.template', string='Product',domain=[('sale_ok', '=', True)])
-    length = fields.Float('Length')
-    height = fields.Float('Height')
-    width = fields.Float('Width')
-    note = fields.Text('Note')
-    attachment_ids = fields.Many2many(
-        'ir.attachment', 'sale_line_ir_attachments_rel',
-        'wizard_id', 'attachment_id', 'Attachments')
+
+    @api.multi
+    @api.onchange('price_unit')
+    def product_id_change_quote(self):
+        if self.price_unit>0.0:
+            self.to_quote=False
+
+    @api.multi
+    @api.onchange('to_quote')
+    def product_id_reset_price(self):
+        _logger.debug('===onchange to quote set quote===')
+        if self.to_quote:
+            self.price_unit=0.0
+
 
     @api.multi
     @api.onchange('template_id')

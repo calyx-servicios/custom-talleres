@@ -5,7 +5,7 @@
         <field name='name'>sale.product.wizard.form</field>
         <field name='model'>sale.product.wizard</field>
         <field name='arch' type='xml'>
-            <form string="Sale Proiduct Selector" >
+            <form string="Sale Product Selector" >
 
                   <notebook>
                       <page name="selector_page" string="Lines">
