@@ -8,10 +8,10 @@ class SaleOrder(models.Model):
   
 
     advancement_line_ids = fields.One2many('sale.order.advancement', 'order_id', string='Advancement Lines',)
-    calcule_amount_imputed = fields.Monetary(string='Total', readonly=True,compute='_compute_amount_imputed' ) #
+    calcule_amount_imputed = fields.Monetary(string='Total', readonly=True, compute='_compute_amount_imputed' )
     
     @api.multi
-    @api.depends('advancement_line_ids.payment_id', 'advancement_line_ids.order_id', 'advancement_line_ids.amount_imputed')
+    @api.depends('advancement_line_ids')
     def _compute_amount_imputed(self):
         amount_imputed = 0.0
         for order_obj in self:
