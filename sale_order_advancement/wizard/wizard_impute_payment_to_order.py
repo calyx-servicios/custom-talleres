@@ -35,3 +35,6 @@ class ImputePaymentToOrder(models.TransientModel):
                 'order_id': self._context['active_id'],    
             }
             advancement_obj = self.env['sale.order.advancement'].create(vals) 
+
+            if self_obj.payment_id.amount_to_impute == self_obj.amount:
+                self_obj.payment_id.boolean_total_imputed = True

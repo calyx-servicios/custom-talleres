@@ -24,5 +24,7 @@ class SaleOrderAdvancement(models.Model):
     @api.multi
     def cancel(self):
         for self_obj in self: 
-            self_obj.state = 'cancel'
+            #self_obj.state = 'cancel'
+            self_obj.payment_id.boolean_total_imputed = False
+            self_obj.unlink()
             

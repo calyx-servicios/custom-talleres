@@ -8,7 +8,8 @@ class AccountpPaymentGroup(models.Model):
 
 ### Fields
     advancement_line_ids = fields.One2many('sale.order.advancement', 'payment_id', string='Advancement Lines',)
-    amount_to_impute = fields.Monetary(string='Total', readonly=True,compute='_compute_amount_to_impute' ) #
+    amount_to_impute = fields.Monetary(string='Total', readonly=True, compute='_compute_amount_to_impute'  ) #
+    boolean_total_imputed = fields.Boolean(string='Total Imputed',) #
 ### ends Field  < >
 
 
@@ -22,4 +23,18 @@ class AccountpPaymentGroup(models.Model):
                 if line.state == 'imputed':
                     amount_to_impute -= line.amount_imputed
             group_obj.amount_to_impute = amount_to_impute
+            print(' a ver que apsa aca')
+            print(' a ver que apsa aca')
+            print(amount_to_impute)
+            print(' a ver que apsa aca')
+            if amount_to_impute > 0.001:
+                print('    entro al false')
+                print('    entro al false')
+                group_obj.write({'boolean_total_imputed':False}) 
+            else:
+                print('    entro al True')
+                print('    entro al true')
+                group_obj.write({'boolean_total_imputed':True})  
+            print(' a ver que apsa aca')
+            print(' a ver que apsa aca')
         

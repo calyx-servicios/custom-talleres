@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
     calcule_amount_residual = fields.Monetary(string='Amount Residual', readonly=True, compute='_compute_amount_residual' )
     
     @api.multi
-    @api.depends('advancement_line_ids')
+    @api.depends('advancement_line_ids.payment_id', 'advancement_line_ids.order_id', 'advancement_line_ids.amount_imputed')
     def _compute_amount_residual(self):
         amount_imputed = 0.0
         for order_obj in self:
