@@ -12,7 +12,6 @@
     'category': 'Sales',
     'version': '11.0.1.0.0',
     'depends' : [
-        'base',
         'sale',
         'base_fontawesome',
         ],
@@ -20,6 +19,5 @@
     'data': [
         'views/sale_order_view.xml',
         'wizard/sale_custom_product.xml',
-
     ],
 }
