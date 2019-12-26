@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="view_users_form_brand" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="name">res.users.brand.form</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+        <xpath expr="//group[@name='messaging']" position="after">
+            <group string="Brands" name="brandss">
+                <label for="brand_ids"/>
+                <field name="brand_ids">
+                  <tree editable="bottom">
+                    <field name="name"/>
+                  </tree>
+                </field>
+
+            </group>
+        </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>

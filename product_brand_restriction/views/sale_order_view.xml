@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+
+      <record model="ir.ui.view" id="sale_attr_sale_order_brand_form">
+          <field name="name">sale.order.line.tree.attr.view.form</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale.view_order_form"/>
+          <field name="arch" type="xml">
+             <xpath expr="//field[@name='order_line']/tree//field[@name='template_id']" position="replace">
+                  <field name="template_id" domain="[('sale_ok', '=', True),('product_brand_id.user_ids','in',uid)]"/>
+
+              </xpath>
+              <field name="client_order_ref" position="after">
+                <field name="brand_ids" widget="many2many_tags"/>
+              </field>
+          </field>
+      </record>
+
+  </data>
+</odoo>
