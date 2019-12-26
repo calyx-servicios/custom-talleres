@@ -13,6 +13,7 @@
     'version': '11.0.1.0.0',
     'depends' : [
         'product_attributes',
+        'product_brand',
         'sale',
         ],
     'data': [
