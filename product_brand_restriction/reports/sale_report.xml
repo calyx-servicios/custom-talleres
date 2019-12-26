@@ -40,7 +40,7 @@
                 <t t-foreach="doc.brand_ids" t-as="brand">
                   <div class="col-xs-2">
                   <img t-if="brand.logo" t-att-src="'data:image/png;base64,%s' % to_text(brand.logo)"
-                  style="overflow:hidden; margin:0 0%;height:100px;width:100px;"/>
+                  style="overflow:hidden; margin:0 -40%;height:100px;width:100px;"/>
                   </div>
                 </t>
 
@@ -165,7 +165,11 @@
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr>
-                                    <td><span t-field="l.name"/></td>
+                                    <td><span t-field="l.name"/>
+                                    <t t-if="l.to_quote" class="text-right">
+                                        <strong>**A Cotizar**</strong>
+                                    </t>
+                                    </td>
                                     <td class="text-right">
                                         <span t-field="l.product_uom_qty"/>
                                         <span t-field="l.product_uom" groups="product.group_uom"/>
