@@ -1,0 +1,74 @@
+<odoo>
+  <data>
+
+
+
+    <record id="sale_order_form_design" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">Sale Order Desgin</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <button name="action_design" type="object" string="To Design"
+                    attrs="{'invisible': [('state', 'not in', ['draft','sent'])]}"  />
+                <button name="action_cancel" states="design" type="object" string="Cancel"/>
+                <button name="action_draft" states="design" type="object" string="Set to Quotation"/>
+                <button name="action_confirm"
+                            string="Confirm Sale" type="object"
+                            attrs="{'invisible': [('state', 'not in', ['design'])]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                    <field name="production_ids" invisible="1"/>
+                    <button type="object" name="action_view_productions" class="oe_stat_button" icon="fa-industry" attrs="{'invisible': [('production_count', '=', 0)]}" groups="base.group_user">
+                        <field name="production_count" widget="statinfo" string="Production"/>
+                    </button>
+                </xpath>
+            <field name="state" position="replace">
+            <field name="state" widget="statusbar" statusbar_visible="draft,sent,design,sale"/>
+          </field >
+
+        </field>
+    </record>
+
+
+    <record id="sale_order_view_search_wf_quotation" model="ir.ui.view">
+            <field name="name">sale.order.search.wf.quotation</field>
+            <field name="model">sale.order</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='sent']" position="after">
+                    <filter string="Design" name="design" domain="[('state','=','design')]"/>
+                </xpath>
+                <xpath expr="//filter[@name='customer']" position="after">
+                  <filter name="status" string="State" domain="[]" context="{'group_by':'state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+      <record id="view_order_tree_wf" model="ir.ui.view">
+                <field name="name">sale.order.wf.tree</field>
+                <field name="model">sale.order</field>
+                <field name="priority">2</field>
+                <field name="inherit_id" ref="sale.view_order_tree"/>
+                <field name="arch" type="xml">
+                    <field name="invoice_status" position="after">
+                        <field name="production_status" />
+                    </field>
+                </field>
+            </record>
+
+            <record id="mrp_production_sale_action" model="ir.actions.act_window">
+                  <field name="name">Manufacturing Orders</field>
+                  <field name="type">ir.actions.act_window</field>
+                  <field name="res_model">mrp.production</field>
+                  <field name="view_type">form</field>
+                  <field name="view_mode">tree,form</field>
+                  <field name="view_id" eval="False"/>
+                  <field name="context">{'search_default_todo': True}</field>
+                  
+              </record>
+
+  </data>
+</odoo>
