@@ -14,6 +14,7 @@
         'base',
         'sale',
         'account',
+        'sale_mrp',
         ],
     'data': [
         'views/sale_order_view.xml',
