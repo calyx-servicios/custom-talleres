@@ -63,8 +63,8 @@ msgstr "Archivos"
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_height
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_height
-msgid "Height"
-msgstr "Altura"
+msgid "Height (Cm)"
+msgstr "Altura (Cm)"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_id
@@ -93,8 +93,8 @@ msgstr "Última actualización en"
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_length
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_length
-msgid "Length"
-msgstr "Largo"
+msgid "Length (Cm)"
+msgstr "Largo (Cm)"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_id_5842
@@ -177,8 +177,8 @@ msgstr "Variantes"
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_width
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_width
-msgid "Width"
-msgstr "Ancho"
+msgid "Width (Cm)"
+msgstr "Ancho (Cm)"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_wizard_id

@@ -1,0 +1,26 @@
+<odoo>
+  <data>
+
+
+
+    <record id="mrp_production_form_view_design" model="ir.ui.view">
+        <field name="name">mrp.production.form.design</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+
+
+          <xpath expr="//notebook" position="inside">
+              <page  name="attachments_page" string="Attachments">
+                   <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2"/>
+             </page>
+
+
+
+          </xpath>
+
+        </field>
+    </record>
+
+  </data>
+  </odoo>

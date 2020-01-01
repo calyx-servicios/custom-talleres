@@ -9,14 +9,13 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    state = fields.Selection([
-        ('draft', 'Quotation'),
-        ('sent', 'Quotation Sent'),
-        ('design', 'Design'),
-        ('sale', 'Sales Order'),
-        ('done', 'Locked'),
-        ('cancel', 'Cancelled'),
-        ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
+
+    design_status = fields.Selection([
+            ('to design', 'To Design'),
+            ('in design', 'In Design'),
+            ('ready', 'Ready'),
+            ('no', 'Nothing to Design')
+            ], string='Design Status', default='no',track_visibility='onchange')
 
     production_ids = fields.Many2many("mrp.production", string='Productions', compute="_get_produced", readonly=True, copy=False)
     production_count = fields.Integer(string='# of Productions', compute='_get_produced', readonly=True)
@@ -67,9 +66,9 @@ class SaleOrder(models.Model):
             if production_count>0:
                 if order.state not in ('sale', 'done'):
                     production_status = 'no'
-                elif any(production_status in ['confirmed'] for production_status in line_production_status):
+                elif all(production_status in ['confirmed'] for production_status in line_production_status):
                     production_status = 'to produce'
-                elif all(production_status in ['progress'] for production_status in line_production_status):
+                elif any(production_status in ['progress'] for production_status in line_production_status):
                     production_status = 'in production'
                 elif all(production_status in ['done'] for production_status in line_production_status):
                     production_status = 'ready'
@@ -81,12 +80,10 @@ class SaleOrder(models.Model):
             _logger.debug('=====order data %r %r %r=====' % (production_ids, production_status, production_count))
             order.update({
                 'production_ids': production_ids.ids or False,
+                'production_status': production_status,
                 'production_count': production_count
             })
 
-    @api.multi
-    def action_design(self):
-        return self.write({'state': 'design'})
 
     @api.multi
     def action_view_productions(self):
@@ -96,9 +93,9 @@ class SaleOrder(models.Model):
         action = {
                 'name': _('Productions'),
                 'view_type': 'form',
-                'view_mode': 'tree',
+                'view_mode': 'tree,form',
                 'res_model': 'mrp.production',
-                'view_id': self.env.ref('mrp.mrp_production_tree_view').id,
+                'view_id': False, #self.env.ref('mrp.mrp_production_tree_view').id,
                 'type': 'ir.actions.act_window',
                 'domain': None,
                 'res_id': None
@@ -113,3 +110,28 @@ class SaleOrder(models.Model):
         else:
             action = {'type': 'ir.actions.act_window_close'}
         return action
+
+    @api.multi
+    def action_confirm(self):
+        res=super(SaleOrder, self).action_confirm()
+        production_obj=self.env['mrp.production']
+        if res:
+            for order in self:
+                for line in order.order_line:
+                    production_ids=production_obj.search([('sale_id','=',order.id),('product_id','=',line.product_id.id)])
+                    if line.attachment_ids:
+                        new_attachment_ids=[]
+                        for attach in line.attachment_ids:
+                            new_attachment_ids.append(attach.id)
+                        for prod in production_ids:
+                            prod.write({'attachment_ids': [(6, 0, new_attachment_ids)]})
+                    else:
+                        if line.template_id:
+                            if line.template_id.attachment_ids:
+                                new_attachment_ids=[]
+                                for attach in line.template_id.attachment_ids:
+                                    new_attachment_ids.append(attach.id)
+                                for prod in production_ids:
+                                    prod.write({'attachment_ids': [(6, 0, new_attachment_ids)]})
+
+            return True

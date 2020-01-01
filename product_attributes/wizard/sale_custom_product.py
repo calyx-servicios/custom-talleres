@@ -62,9 +62,9 @@ class SaleProductWizard(models.TransientModel):
             line=line_obj.browse(self._context.get('res_id'))
             return line.to_quote
 
-    length = fields.Float('Length',default=_default_length)
-    height = fields.Float('Height',default=_default_height)
-    width = fields.Float('Width',default=_default_width)
+    length = fields.Float('Length (Cm)',default=_default_length)
+    height = fields.Float('Height (Cm)',default=_default_height)
+    width = fields.Float('Width (Cm)',default=_default_width)
     note = fields.Text('Note',default=_default_note)
 
 
@@ -159,5 +159,7 @@ class SaleProductWizard(models.TransientModel):
                 for attachment in wiz.attachment_ids:
                         new_attachment_ids.append(attachment.id)
                 self.line_id.write({'attachment_ids': [(6, 0, new_attachment_ids)]})
+            else:
+                self.line_id.write({'attachment_ids': [(6, 0, [])]})
 
         return {}

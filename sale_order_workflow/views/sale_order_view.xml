@@ -9,24 +9,16 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
 
-            <xpath expr="//button[@name='action_quotation_send']" position="after">
-                <button name="action_design" type="object" string="To Design"
-                    attrs="{'invisible': [('state', 'not in', ['draft','sent'])]}"  />
-                <button name="action_cancel" states="design" type="object" string="Cancel"/>
-                <button name="action_draft" states="design" type="object" string="Set to Quotation"/>
-                <button name="action_confirm"
-                            string="Confirm Sale" type="object"
-                            attrs="{'invisible': [('state', 'not in', ['design'])]}"/>
-            </xpath>
+
             <xpath expr="//button[@name='action_view_invoice']" position="before">
                     <field name="production_ids" invisible="1"/>
                     <button type="object" name="action_view_productions" class="oe_stat_button" icon="fa-industry" attrs="{'invisible': [('production_count', '=', 0)]}" groups="base.group_user">
                         <field name="production_count" widget="statinfo" string="Production"/>
                     </button>
                 </xpath>
-            <field name="state" position="replace">
-            <field name="state" widget="statusbar" statusbar_visible="draft,sent,design,sale"/>
-          </field >
+                <field name="client_order_ref" position="after">
+                  <field name="design_status" />
+                </field>
 
         </field>
     </record>
@@ -54,6 +46,7 @@
                 <field name="inherit_id" ref="sale.view_order_tree"/>
                 <field name="arch" type="xml">
                     <field name="invoice_status" position="after">
+                        <field name="design_status" />
                         <field name="production_status" />
                     </field>
                 </field>
@@ -66,7 +59,9 @@
                   <field name="inherit_id" ref="sale.view_quotation_tree"/>
                   <field name="arch" type="xml">
                     <field name="state" position="after">
+
                           <field name="invoice_status" />
+                          <field name="design_status" />
                           <field name="production_status" />
                       </field>
                   </field>
