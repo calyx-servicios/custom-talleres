@@ -45,7 +45,7 @@ msgstr "Diseño"
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_design_status
 msgid "Design Status"
-msgstr "Design Status"
+msgstr "Estado de Diseño"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
