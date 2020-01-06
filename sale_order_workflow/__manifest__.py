@@ -15,7 +15,8 @@
         'sale',
         'account',
         'sale_mrp',
-        'mrp_sale_info'
+        'mrp_sale_info',
+        'sale_order_advancement'
         ],
     'data': [
         'views/sale_order_view.xml',

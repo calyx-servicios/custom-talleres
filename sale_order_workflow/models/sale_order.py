@@ -16,6 +16,11 @@ class SaleOrder(models.Model):
             ('ready', 'Ready'),
             ('no', 'Nothing to Design')
             ], string='Design Status', default='no',track_visibility='onchange')
+    quote_status = fields.Selection([
+            ('to quote', 'To Quote'),
+            ('quoted', 'Quoted'),
+            ('no', 'Nothing to Quote')
+            ], string='Quote Status', default='no',track_visibility='onchange')
 
     production_ids = fields.Many2many("mrp.production", string='Productions', compute="_get_produced", readonly=True, copy=False)
     production_count = fields.Integer(string='# of Productions', compute='_get_produced', readonly=True)
@@ -25,8 +30,16 @@ class SaleOrder(models.Model):
             ('ready', 'Ready'),
             ('no', 'Nothing to Produce')
             ], string='Production Status', compute='_get_produced_state', store=True, readonly=True)
+    picking_status = fields.Selection([
+        ('no', 'Nothing to Deliver'),
+        ('draft', 'New'), ('cancel', 'Cancelled'),
+        ('waiting', 'Waiting Another Move'),
+        ('confirmed', 'Waiting Availability'),
+        ('partially_available', 'Partially Available'),
+        ('assigned', 'Available'),
+        ('done', 'Done')], string='Picking Status',compute='_get_picking_state', store=True, readonly=True)
 
-    @api.depends('production_ids','production_ids.state')
+    @api.depends('state','production_ids','production_ids.state')
     def _get_produced_state(self):
         _logger.debug('======debug===== get produced')
         for order in self:
@@ -49,6 +62,31 @@ class SaleOrder(models.Model):
                     production_status = 'no'
             order.update({
                 'production_status': production_status
+            })
+
+    @api.depends('state','picking_ids','picking_ids.state')
+    def _get_picking_state(self):
+        _logger.debug('======debug===== get pickings')
+        for order in self:
+            line_picking_status=[]
+            for pick in order.picking_ids:
+                line_picking_status.append(pick.state)
+            _logger.debug('======pickings> %r', line_picking_status)
+            picking_count=len(line_picking_status)
+            picking_status = 'no'
+            if picking_count>0:
+                if order.state not in ('sale', 'done'):
+                    picking_status = 'no'
+                elif any(picking_status in ['confirmed',['waiting']] for picking_status in line_picking_status):
+                    picking_status = 'confirmed'
+                elif all(picking_status in ['partially_available','assigned'] for picking_status in line_picking_status):
+                    picking_status = 'assigned'
+                elif all(picking_status in ['done'] for picking_status in line_picking_status):
+                    picking_status = 'done'
+                else:
+                    picking_status = 'no'
+            order.update({
+                'picking_status': picking_status
             })
 
     @api.depends('state')

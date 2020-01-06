@@ -16,9 +16,15 @@
                         <field name="production_count" widget="statinfo" string="Production"/>
                     </button>
                 </xpath>
-                <field name="client_order_ref" position="after">
-                  <field name="design_status" />
-                </field>
+
+            <xpath expr="/form/sheet/group" position="inside">
+              <group>
+                <field name="design_status" />
+                <field name="quote_status" />
+                <field name="production_status" readonly="1"/>
+                <field name="picking_status" readonly="1"/>
+              </group>
+            </xpath>
 
         </field>
     </record>
@@ -48,6 +54,10 @@
                     <field name="invoice_status" position="after">
                         <field name="design_status" />
                         <field name="production_status" />
+                        <field name="picking_status" />
+                    </field>
+                    <field name="invoice_status" position="before">
+                        <field name="quote_status" />
                     </field>
                 </field>
             </record>
@@ -59,10 +69,11 @@
                   <field name="inherit_id" ref="sale.view_quotation_tree"/>
                   <field name="arch" type="xml">
                     <field name="state" position="after">
-
+                          <field name="quote_status" />
                           <field name="invoice_status" />
                           <field name="design_status" />
                           <field name="production_status" />
+                          <field name="picking_status" />
                       </field>
                   </field>
               </record>
@@ -77,6 +88,27 @@
                   <field name="context">{'search_default_todo': True}</field>
 
               </record>
+
+              <record id="view_sales_order_filter_wf" model="ir.ui.view">
+                    <field name="name">sale.order.list.wf</field>
+                    <field name="model">sale.order</field>
+                    <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+                    <field name="arch" type="xml">
+                      <filter name="activities_my" position="after">
+                        <filter string="With Design" name="design_tasks"
+                            domain="[('design_status', '!=', 'no')]"/>
+                        <filter string="With Production" name="production_tasks"
+
+                            domain="[('production_status', '!=', 'no')]"/>
+                      </filter>
+                      <filter name="customer" position="after">
+                        <filter name="design_status" string="Design" domain="[]" context="{'group_by':'design_status'}"/>
+                        <filter name="production_status" string="Production" domain="[]" context="{'group_by':'production_status'}"/>
+                        <filter name="picking_status" string="Picking" domain="[]" context="{'group_by':'picking_status'}"/>
+                      </filter>
+
+                    </field>
+                </record>
 
   </data>
 </odoo>
