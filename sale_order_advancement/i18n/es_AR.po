@@ -40,7 +40,7 @@ msgstr "Monto de Pago"
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_calcule_amount_residual
 msgid "Amount Residual"
-msgstr "Importe Inicial"
+msgstr "Saldo a Pagar"
 
 #. module: sale_order_advancement
 #: selection:sale.order.advancement,state:0
