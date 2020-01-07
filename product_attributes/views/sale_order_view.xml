@@ -24,6 +24,7 @@
              <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
                   <field name="template_id" />
                   <field name="to_quote" />
+                  <field name="to_design" />
                   <button name="action_custom_selection" icon="fa-pencil-alt" type="object" context="{'res_id':id or None}" />
 
                     <!-- attrs="{'invisible': [('sale_order_id.state', '=', 'open' )]}" /> -->
@@ -34,7 +35,9 @@
                </xpath>
                <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']" position="after">
                     <field name="to_quote" />
+                    <field name="to_design" />
                    <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2"/>
+                   <field name="design_ids" widget="many2many_binary" string="Design Attachments" colspan="2"/>
                </xpath>
 
           </field>

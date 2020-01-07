@@ -16,6 +16,7 @@
         'account',
         'sale_mrp',
         'mrp_sale_info',
+        'product_attributes',
         'sale_order_advancement'
         ],
     'data': [

@@ -39,6 +39,9 @@ class SaleOrder(models.Model):
         ('partially_available', 'Partially Available'),
         ('assigned', 'Available'),
         ('done', 'Done')], string='Picking Status',compute='_get_picking_state', store=True, readonly=True)
+    design_ids = fields.Many2many(
+        'ir.attachment', 'sale_line_ir_design_rel','wizard_id', 'attachment_id', 'Design Attachments')
+
 
     @api.depends('state','production_ids','production_ids.state')
     def _get_produced_state(self):
@@ -156,11 +159,15 @@ class SaleOrder(models.Model):
         production_obj=self.env['mrp.production']
         if res:
             for order in self:
+                if order.design_status not in ['no','ready']:
+                    raise ValidationError(_('You cannot confirm sales with desing task in progress.'))
+                if order.quote_status not in ['no','quoted']:
+                    raise ValidationError(_('You cannot confirm sales with quote task in progress.'))
                 for line in order.order_line:
                     production_ids=production_obj.search([('sale_id','=',order.id),('product_id','=',line.product_id.id)])
-                    if line.attachment_ids:
+                    if line.design_ids:
                         new_attachment_ids=[]
-                        for attach in line.attachment_ids:
+                        for attach in line.design_ids:
                             new_attachment_ids.append(attach.id)
                         for prod in production_ids:
                             prod.write({'attachment_ids': [(6, 0, new_attachment_ids)]})
@@ -173,7 +180,31 @@ class SaleOrder(models.Model):
                                 for prod in production_ids:
                                     prod.write({'attachment_ids': [(6, 0, new_attachment_ids)]})
 
-            return True
+            return res
+
+    @api.multi
+    @api.onchange('state','order_line','order_line.to_quote')
+    def line_quote_change(self):
+        for order in self:
+            status='no'
+            for line in order.order_line:
+                if line.to_quote:
+                    status='to quote'
+            order.update({
+                'quote_status': status
+            })
+
+    @api.multi
+    @api.onchange('state','order_line','order_line.to_design')
+    def line_design_change(self):
+        for order in self:
+            status='no'
+            for line in order.order_line:
+                if line.to_design:
+                    status='to design'
+            order.update({
+                'design_status': status
+            })
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -183,6 +214,5 @@ class SaleOrderLine(models.Model):
         Pull = self.env['stock.location.route']
         res = Pull.search(expression.AND([[('sale_selectable','=', True)],]), order='sequence', limit=1)
         return res
-
 
     route_id = fields.Many2one('stock.location.route', string='Route', domain=[('sale_selectable', '=', True)], ondelete='restrict', default=_get_route)

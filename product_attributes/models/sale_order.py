@@ -16,7 +16,9 @@ class SaleOrderLine(models.Model):
     to_quote = fields.Boolean(string='To Quote',help='This means that the price will be set to zero everytime the custom wizard is called')
     attachment_ids = fields.Many2many(
         'ir.attachment', 'sale_line_ir_attachments_rel','wizard_id', 'attachment_id', 'Attachments')
-
+    to_design = fields.Boolean(string='To Design')
+    design_ids = fields.Many2many(
+        'ir.attachment', 'sale_line_ir_design_attachments_rel','wizard_id', 'attachment_id', 'Design')
 
     @api.multi
     @api.onchange('length','height','width','note')

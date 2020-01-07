@@ -21,6 +21,8 @@
               <group>
                 <field name="design_status" />
                 <field name="quote_status" />
+              </group>
+              <group>
                 <field name="production_status" readonly="1"/>
                 <field name="picking_status" readonly="1"/>
               </group>
@@ -28,6 +30,7 @@
 
         </field>
     </record>
+
 
 
     <record id="sale_order_view_search_wf_quotation" model="ir.ui.view">
@@ -109,6 +112,33 @@
 
                     </field>
                 </record>
+
+          <record id="view_order_tree_date_hide" model="ir.ui.view">
+              <field name="model">sale.order</field>
+              <field name="inherit_id" ref="sale_order_dates.view_order_tree_date"/>
+              <field name="arch" type="xml">
+                  <field name="requested_date" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                  </field>
+                  <field name="commitment_date" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                  </field>
+              </field>
+          </record>
+
+          <!-- Add requested_date and commitment_date on quotation view -->
+          <record id="view_quotation_tree_date_hide" model="ir.ui.view">
+              <field name="model">sale.order</field>
+              <field name="inherit_id" ref="sale_order_dates.view_quotation_tree_date"/>
+              <field name="arch" type="xml">
+                <field name="requested_date" position="attributes">
+                  <attribute name="invisible">True</attribute>
+                </field>
+                <field name="commitment_date" position="attributes">
+                  <attribute name="invisible">True</attribute>
+                </field>
+              </field>
+          </record>
 
   </data>
 </odoo>

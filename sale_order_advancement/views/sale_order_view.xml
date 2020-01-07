@@ -53,6 +53,7 @@
 
                   <field name="state" position="before">
                       <field name="calcule_amount_imputed" />
+                      <field name="calcule_amount_residual" />
                   </field>
               </field>
           </record>
@@ -65,7 +66,7 @@
                 <field name="arch" type="xml">
                   <field name="state" position="before">
                         <field name="calcule_amount_imputed" />
-
+                        <field name="calcule_amount_residual" />
                     </field>
                 </field>
             </record>
