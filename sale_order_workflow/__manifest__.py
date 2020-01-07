@@ -17,7 +17,8 @@
         'sale_mrp',
         'mrp_sale_info',
         'product_attributes',
-        'sale_order_advancement'
+        'sale_order_advancement',
+        'web_tree_dynamic_colored_field',
         ],
     'data': [
         'views/sale_order_view.xml',

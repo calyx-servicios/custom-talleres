@@ -55,12 +55,17 @@
                 <field name="inherit_id" ref="sale.view_order_tree"/>
                 <field name="arch" type="xml">
                     <field name="invoice_status" position="after">
-                        <field name="design_status" />
-                        <field name="production_status" />
+                        <field name="design_status"
+                          options='{"fg_color": "red:design_status in (&apos;to design&apos;);
+                          orange:design_status in (&apos;in design&apos;);green:design_status in (&apos;ready&apos;);"}'/>
+                        <field name="production_status"
+                          options='{"fg_color": "red:production_status in (&apos;to produce&apos;);
+                          orange:production_status in (&apos;in production&apos;);green:production_status in (&apos;ready&apos;);"}'/>
                         <field name="picking_status" />
                     </field>
                     <field name="invoice_status" position="before">
-                        <field name="quote_status" />
+                        <field name="quote_status"
+                          options='{"fg_color": "red:quote_status in (&apos;to quote&apos;);;green:quote_status in (&apos;quoted&apos;);"}'/>
                     </field>
                 </field>
             </record>
@@ -72,10 +77,15 @@
                   <field name="inherit_id" ref="sale.view_quotation_tree"/>
                   <field name="arch" type="xml">
                     <field name="state" position="after">
-                          <field name="quote_status" />
+                          <field name="quote_status"
+                            options='{"fg_color": "red:quote_status in (&apos;to quote&apos;);;green:quote_status in (&apos;quoted&apos;);"}'/>
                           <field name="invoice_status" />
-                          <field name="design_status" />
-                          <field name="production_status" />
+                          <field name="design_status"
+                            options='{"fg_color": "red:design_status in (&apos;to design&apos;);
+                            orange:design_status in (&apos;in design&apos;);green:design_status in (&apos;ready&apos;);"}'/>
+                          <field name="production_status"
+                            options='{"fg_color": "red:production_status in (&apos;to produce&apos;);
+                            orange:production_status in (&apos;in production&apos;);green:production_status in (&apos;ready&apos;);"}'/>
                           <field name="picking_status" />
                       </field>
                   </field>
