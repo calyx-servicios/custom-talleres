@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-06 16:58+0000\n"
-"PO-Revision-Date: 2020-01-06 16:58+0000\n"
+"POT-Creation-Date: 2020-01-18 16:01+0000\n"
+"PO-Revision-Date: 2020-01-18 16:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Adjuntos"
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
 msgid "Available"
-msgstr "Dispoible"
+msgstr "Disponible"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -43,9 +43,19 @@ msgid "Design"
 msgstr "Diseño"
 
 #. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_design_ids
+msgid "Design Attachments"
+msgstr "Adjuntos de Diseño"
+
+#. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_design_status
 msgid "Design Status"
 msgstr "Estado de Diseño"
+
+#. module: sale_order_workflow
+#: selection:sale.order,design_status:0
+msgid "Designed"
+msgstr "Diseñado"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -53,24 +63,24 @@ msgid "Done"
 msgstr "Hecho"
 
 #. module: sale_order_workflow
-#: selection:sale.order,production_status:0
-msgid "En Produccion"
-msgstr "En Produccion"
-
-#. module: sale_order_workflow
 #: selection:sale.order,design_status:0
 msgid "In Design"
 msgstr "En Diseño"
 
 #. module: sale_order_workflow
+#: selection:sale.order,production_status:0
+msgid "In Production"
+msgstr "En Producción"
+
+#. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_mrp_production
 msgid "Manufacturing Order"
-msgstr "Orden de producción"
+msgstr "Orden de Producción"
 
 #. module: sale_order_workflow
 #: model:ir.actions.act_window,name:sale_order_workflow.mrp_production_sale_action
 msgid "Manufacturing Orders"
-msgstr "Órdenes de producción"
+msgstr "Órdenes de Producción"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -113,6 +123,11 @@ msgid "Picking Status"
 msgstr "Estado de Entrega"
 
 #. module: sale_order_workflow
+#: selection:sale.order,production_status:0
+msgid "Produced"
+msgstr "Producido"
+
+#. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sales_order_filter_wf
 msgid "Production"
@@ -121,10 +136,10 @@ msgstr "Producción"
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_status
 msgid "Production Status"
-msgstr "Estado de Produccion"
+msgstr "Estado de Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:132
+#: code:addons/sale_order_workflow/models/sale_order.py:136
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_ids
 #, python-format
 msgid "Productions"
@@ -138,7 +153,7 @@ msgstr "Presupuesto"
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_quote_status
 msgid "Quote Status"
-msgstr "Estado de Cotizacion"
+msgstr "Estado de Cotización"
 
 #. module: sale_order_workflow
 #: selection:sale.order,quote_status:0
@@ -146,10 +161,9 @@ msgid "Quoted"
 msgstr "Cotizado"
 
 #. module: sale_order_workflow
-#: selection:sale.order,design_status:0
-#: selection:sale.order,production_status:0
-msgid "Ready"
-msgstr "Listo"
+#: model:ir.model,name:sale_order_workflow.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de ventas"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_view_search_wf_quotation
@@ -157,6 +171,7 @@ msgid "State"
 msgstr "Estado"
 
 #. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_line_to_design
 #: selection:sale.order,design_status:0
 msgid "To Design"
 msgstr "A Diseñar"
@@ -189,4 +204,28 @@ msgstr "Con Diseño"
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sales_order_filter_wf
 msgid "With Production"
-msgstr "Con Produccion"
+msgstr "Con Producción"
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:163
+#, python-format
+msgid "You cannot confirm sales with desing task in progress."
+msgstr "No puede confirmar ventas con estado de diseño en curso."
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:170
+#, python-format
+msgid "You cannot confirm sales with make_to_order procurement rules on this warehouse."
+msgstr "No puede confirmar ventas con reglas de producción en este almacén."
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:172
+#, python-format
+msgid "You cannot confirm sales with make_to_stock procurement rules for custom products."
+msgstr "No puede confirmar ventas con reglas de stock para productos custom."
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:165
+#, python-format
+msgid "You cannot confirm sales with quote task in progress."
+msgstr "No puede confirmar ventas con estado de cotización en curso."

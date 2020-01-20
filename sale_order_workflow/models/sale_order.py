@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
     design_status = fields.Selection([
             ('to design', 'To Design'),
             ('in design', 'In Design'),
-            ('ready', 'Ready'),
+            ('ready', 'Designed'),
             ('no', 'Nothing to Design')
             ], string='Design Status', default='no',track_visibility='onchange')
     quote_status = fields.Selection([
@@ -27,8 +27,8 @@ class SaleOrder(models.Model):
     production_count = fields.Integer(string='# of Productions', compute='_get_produced', readonly=True)
     production_status = fields.Selection([
             ('to produce', 'To Produce'),
-            ('in production', 'En Produccion'),
-            ('ready', 'Ready'),
+            ('in production', 'In Production'),
+            ('ready', 'Produced'),
             ('no', 'Nothing to Produce')
             ], string='Production Status', compute='_get_produced_state', store=True, readonly=True)
     picking_status = fields.Selection([
@@ -164,6 +164,14 @@ class SaleOrder(models.Model):
                 if order.quote_status not in ['no','quoted']:
                     raise ValidationError(_('You cannot confirm sales with quote task in progress.'))
                 for line in order.order_line:
+                    if line.route_id:
+                        for procurement in line.route_id.pull_ids:
+                            if procurement.procure_method in ['make_to_order'] and not order.warehouse_id.manufacture_to_resupply:
+                                raise ValidationError(_('You cannot confirm sales with make_to_order procurement rules on this warehouse.'))
+                            if procurement.procure_method in ['make_to_stock'] and (line.to_quote or line.to_design):
+                                raise ValidationError(_('You cannot confirm sales with make_to_stock procurement rules for custom products.'))
+
+                for line in order.order_line:
                     production_ids=production_obj.search([('sale_id','=',order.id),('product_id','=',line.product_id.id)])
                     if line.design_ids:
                         new_attachment_ids=[]
@@ -183,27 +191,33 @@ class SaleOrder(models.Model):
             return res
 
     @api.multi
-    @api.onchange('state','order_line','order_line.to_quote')
-    def line_quote_change(self):
-        for order in self:
-            status='no'
-            for line in order.order_line:
-                if line.to_quote:
-                    status='to quote'
-            order.update({
-                'quote_status': status
-            })
+    def _get_production_route(self):
+        Pull = self.env['stock.location.route']
+        res = Pull.search(expression.AND([[('sale_selectable','=', True)],]), order='sequence desc', limit=1)
+        _logger.debug('=====production rute___%r' % res.name)
+        return res
+
 
     @api.multi
-    @api.onchange('state','order_line','order_line.to_design')
+    @api.onchange('state','order_line','order_line.to_design','order_line.to_quote')
     def line_design_change(self):
+        route_id=self._get_production_route()
+
         for order in self:
-            status='no'
+            quote_status=order.quote_status
+            design_status=order.design_status
             for line in order.order_line:
                 if line.to_design:
-                    status='to design'
+                    design_status='to design'
+
+                if line.to_quote:
+                    quote_status='to quote'
+
+                if line.to_quote or line.to_design:
+                    line.update({'route_id':route_id})
             order.update({
-                'design_status': status
+                'design_status': design_status,
+                'quote_status': quote_status
             })
 
 class SaleOrderLine(models.Model):

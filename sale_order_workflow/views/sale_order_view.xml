@@ -28,10 +28,21 @@
               </group>
             </xpath>
 
+
+
         </field>
     </record>
 
-
+    <record id="view_order_form_inherit_sale_stock_inherit" model="ir.ui.view">
+                <field name="name">sale.order.form.sale.talleres</field>
+                <field name="model">sale.order</field>
+                <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="replace">
+                        <field name="route_id" groups="sale_stock.group_route_so_lines" options="{'no_create': True}" style="width:50% !important"/>
+                    </xpath>
+               </field>
+            </record>
 
     <record id="sale_order_view_search_wf_quotation" model="ir.ui.view">
             <field name="name">sale.order.search.wf.quotation</field>
