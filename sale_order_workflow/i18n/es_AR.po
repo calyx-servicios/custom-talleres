@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-18 16:01+0000\n"
-"PO-Revision-Date: 2020-01-18 16:01+0000\n"
+"POT-Creation-Date: 2020-02-14 16:48+0000\n"
+"PO-Revision-Date: 2020-02-14 16:48+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,11 @@ msgid "Done"
 msgstr "Hecho"
 
 #. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_freight
+msgid "Freight"
+msgstr "Flete"
+
+#. module: sale_order_workflow
 #: selection:sale.order,design_status:0
 msgid "In Design"
 msgstr "En Diseño"
@@ -80,7 +85,7 @@ msgstr "Orden de Producción"
 #. module: sale_order_workflow
 #: model:ir.actions.act_window,name:sale_order_workflow.mrp_production_sale_action
 msgid "Manufacturing Orders"
-msgstr "Órdenes de Producción"
+msgstr "Órdenes de producción"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -123,9 +128,19 @@ msgid "Picking Status"
 msgstr "Estado de Entrega"
 
 #. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_placement
+msgid "Placement"
+msgstr "Colocación"
+
+#. module: sale_order_workflow
 #: selection:sale.order,production_status:0
 msgid "Produced"
 msgstr "Producido"
+
+#. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_date_produced_state
+msgid "Produced Date Done"
+msgstr "Fecha Producido"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
@@ -134,12 +149,17 @@ msgid "Production"
 msgstr "Producción"
 
 #. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_final_countdown
+msgid "Production Countdown Days"
+msgstr "Días de Producción"
+
+#. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_status
 msgid "Production Status"
 msgstr "Estado de Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:136
+#: code:addons/sale_order_workflow/models/sale_order.py:223
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_ids
 #, python-format
 msgid "Productions"
@@ -163,7 +183,7 @@ msgstr "Cotizado"
 #. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de orden de ventas"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_view_search_wf_quotation
@@ -171,7 +191,6 @@ msgid "State"
 msgstr "Estado"
 
 #. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_line_to_design
 #: selection:sale.order,design_status:0
 msgid "To Design"
 msgstr "A Diseñar"
@@ -207,25 +226,31 @@ msgid "With Production"
 msgstr "Con Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:163
+#: model:ir.ui.view,arch_db:sale_order_workflow.view_sales_order_filter_wf
+msgid "With Quotation"
+msgstr "Con Cotización"
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:253
 #, python-format
 msgid "You cannot confirm sales with desing task in progress."
 msgstr "No puede confirmar ventas con estado de diseño en curso."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:170
+#: code:addons/sale_order_workflow/models/sale_order.py:274
 #, python-format
 msgid "You cannot confirm sales with make_to_order procurement rules on this warehouse."
 msgstr "No puede confirmar ventas con reglas de producción en este almacén."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:172
+#: code:addons/sale_order_workflow/models/sale_order.py:284
 #, python-format
 msgid "You cannot confirm sales with make_to_stock procurement rules for custom products."
 msgstr "No puede confirmar ventas con reglas de stock para productos custom."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:165
+#: code:addons/sale_order_workflow/models/sale_order.py:260
 #, python-format
 msgid "You cannot confirm sales with quote task in progress."
 msgstr "No puede confirmar ventas con estado de cotización en curso."
+

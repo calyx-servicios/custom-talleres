@@ -323,9 +323,13 @@ msgstr "Adelantos"
 
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_account_payment_group_amount_to_impute
-#: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_calcule_amount_imputed
 msgid "Total"
 msgstr "Total"
+
+#. module: sale_order_advancement
+#: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_calcule_amount_imputed
+msgid "Payment"
+msgstr "Pago"
 
 #. module: sale_order_advancement
 #: code:addons/sale_order_advancement/wizard/wizard_impute_payment_to_order.py:30
