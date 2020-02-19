@@ -12,5 +12,21 @@
           </field>
 
       </record>
+
+
+      <record id="product_brand.action_open_brand_products" model="ir.actions.act_window">
+         <field name="domain">[('product_brand_id', '=', active_id),('user_ids','in',uid)]</field>
+        </record>
+        
+
+        <record id="product_brand.action_open_single_product_brand" model="ir.actions.act_window">
+            <field name="domain">[('product_ids', 'in', active_id),('user_ids','in',uid)]</field>
+           </record>
+    
+           <record id="product_brand.action_product_brand" model="ir.actions.act_window">
+            <field name="domain">[('user_ids','in',uid)]</field>
+           </record>
+           
+
     </data>
 </odoo>
