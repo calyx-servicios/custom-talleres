@@ -23,6 +23,18 @@ class stockPicking(models.Model):
         default="no",
     )
 
+    extra = fields.Boolean(string="Extra Invoice?", default=False)
+    freight_extra = fields.Float(string="Extra freight")
+    placement_extra = fields.Float(string="Extra placement")
+    extra_freigt_placement_status = fields.Selection(
+        [("invoiced", "Invoiced"), ("no", "Nothing in invoice")],
+        string="Invoice Status Extra",
+        default="no",
+    )
+    invoice_freight_placement_id_extra = fields.Many2one(
+        "account.invoice", string="Invoice Extra"
+    )
+
     @api.multi
     @api.onchange("freight", "placement")
     def _onchange_freight_placement(self):
@@ -38,6 +50,10 @@ class stockPicking(models.Model):
             vals = {}
             invoice_obj = self.env["account.invoice"]
             product_obj = self.env["product.product"]
+            context = False
+            if self._context.get("extra"):
+                context = self._context["extra"]
+
             freight = product_obj.search(
                 [("freight", "=", True)], limit=1
             )
@@ -56,35 +72,69 @@ class stockPicking(models.Model):
                 accounts = (
                     freight.product_tmpl_id.get_product_accounts()
                 )
-                rec._create_invoices_lines(
-                    accounts,
-                    freight,
-                    rec.freight,
-                    rec.name,
-                    invoice_id.id,
-                )
+                if context:
+                    rec._create_invoices_lines(
+                        accounts,
+                        freight,
+                        rec.freight_extra,
+                        rec.name,
+                        invoice_id.id,
+                        context,
+                    )
+                else:
+                    rec._create_invoices_lines(
+                        accounts,
+                        freight,
+                        rec.freight,
+                        rec.name,
+                        invoice_id.id,
+                        context,
+                    )
             if placement:
                 accounts = (
                     placement.product_tmpl_id.get_product_accounts()
                 )
-                rec._create_invoices_lines(
-                    accounts,
-                    placement,
-                    rec.placement,
-                    rec.name,
-                    invoice_id.id,
-                )
-            rec.freigt_placement_status = "invoiced"
-            rec.invoice_freight_placement_id = invoice_id.id
+                if context:
+                    rec._create_invoices_lines(
+                        accounts,
+                        placement,
+                        rec.placement_extra,
+                        rec.name,
+                        invoice_id.id,
+                        context,
+                    )
+
+                else:
+                    rec._create_invoices_lines(
+                        accounts,
+                        placement,
+                        rec.placement,
+                        rec.name,
+                        invoice_id.id,
+                        context,
+                    )
+            if context:
+                rec.extra_freigt_placement_status = "invoiced"
+                rec.invoice_freight_placement_id_extra = invoice_id.id
+            else:
+                rec.freigt_placement_status = "invoiced"
+                rec.invoice_freight_placement_id = invoice_id.id
 
     def _create_invoices_lines(
-        self, accounts, freight, precio, origin, invoice_id
+        self, accounts, freight, precio, origin, invoice_id, context
     ):
         invoice_line = self.env["account.invoice.line"]
+        name_line = ""
+        if context:
+            name_line = (
+                str(freight.name) + " Extra - Orden: " + str(origin)
+            )
+        else:
+            name_line = str(freight.name) + " - Orden: " + str(origin)
         invoice_line.create(
             {
                 "invoice_id": invoice_id,
-                "name": str(freight.name) + " Orden: " + str(origin),
+                "name": name_line,
                 "product_id": freight.id,
                 "price_unit": precio,
                 "quantity": 1,
