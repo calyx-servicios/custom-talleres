@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="True">
+    <record model='product.product' id='freight_product'>
+        <field name='name'>Flete</field>
+        <field name="freight">True</field>
+        <field name="purchase_ok">False</field>
+    </record>
+    <record model='product.product' id='placement_product'>
+        <field name='name'>Colocación</field>
+        <field name="placement">True</field>
+        <field name="purchase_ok">False</field>
+    </record>
+</odoo>

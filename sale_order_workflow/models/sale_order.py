@@ -92,9 +92,9 @@ class SaleOrder(models.Model):
         string="Produced Date Done", compute="date_done_production"
     )
 
-    freight = fields.Char(string="Freight")
+    freight = fields.Float(string="Freight")
 
-    placement = fields.Char(string="Placement")
+    placement = fields.Float(string="Placement")
 
     @api.depends("state", "production_ids", "production_ids.state")
     def _get_produced_state(self):
@@ -103,9 +103,6 @@ class SaleOrder(models.Model):
             line_production_status = []
             for prod in order.production_ids:
                 line_production_status.append(prod.state)
-            _logger.debug(
-                "======production> %r", line_production_status
-            )
             production_count = len(line_production_status)
             production_status = "no"
             if production_count > 0:
@@ -116,6 +113,9 @@ class SaleOrder(models.Model):
                     for production_status in line_production_status
                 ):
                     production_status = "to produce"
+                    _logger.info(
+                        "======product1ion> %r", line_production_status
+                    )
                 elif all(
                     production_status in ["progress"]
                     for production_status in line_production_status
@@ -375,7 +375,10 @@ class SaleOrder(models.Model):
         for rec in self:
             days_default = 30
             actual_date = datetime.datetime.now().date()
-            if rec.production_status == "to produce":
+            if (
+                rec.production_status == "to produce"
+                or rec.production_status == "in production"
+            ):
                 date_confirmation = dateutil.parser.parse(
                     rec.confirmation_date
                 ).date()
@@ -391,24 +394,64 @@ class SaleOrder(models.Model):
                 date_confirmation = dateutil.parser.parse(
                     rec.confirmation_date
                 ).date()
-                date_done = dateutil.parser.parse(
-                    rec.date_produced_state
-                ).date()
-                days_countdown = date_done - date_confirmation
-                days_countdown = days_countdown.days
-                production_countdown_days_stop = (
-                    days_default - days_countdown
-                )
-                rec.update(
-                    {"final_countdown": production_countdown_days_stop}
-                )
+                if rec.date_produced_state:
+                    date_done = dateutil.parser.parse(
+                        rec.date_produced_state
+                    ).date()
+                    days_countdown = date_done - date_confirmation
+                    days_countdown = days_countdown.days
+                    production_countdown_days_stop = (
+                        days_default - days_countdown
+                    )
+                    rec.update(
+                        {
+                            "final_countdown": production_countdown_days_stop
+                        }
+                    )
 
     @api.depends("production_status")
     def date_done_production(self):
         for rec in self:
+            date_produced_state = ""
             if rec.production_status == "ready":
-                date_produced_state = datetime.datetime.now().date()
+                for prod in rec.production_ids:
+                    date_produced_state = dateutil.parser.parse(
+                        prod.date_finished
+                    ).date()
                 rec.update({"date_produced_state": date_produced_state})
+
+    @api.multi
+    @api.onchange("warehouse_id", "order_line")
+    def _onchange_warehouse(self):
+        for rec in self:
+            Pull = self.env["stock.location.route"]
+            res = Pull.search(
+                [
+                    ("sale_selectable", "=", True),
+                    ("warehouse_ids", "in", (rec.warehouse_id.ids),),
+                ],
+                order="sequence",
+                limit=1,
+            )
+            for line in rec.order_line:
+                line.route_id = res.id
+
+    @api.multi
+    @api.onchange("freight", "placement")
+    def _onchange_freight_placement(self):
+        for rec in self:
+            freight = rec.freight
+            placement = rec.placement
+            for pick in rec.picking_ids:
+                pick_freight = freight
+                pick_placement = placement
+
+                pick.write(
+                    {
+                        "freight": pick_freight,
+                        "placement": pick_placement,
+                    }
+                )
 
 
 class SaleOrderLine(models.Model):
@@ -429,5 +472,5 @@ class SaleOrderLine(models.Model):
         string="Route",
         domain=[("sale_selectable", "=", True)],
         ondelete="restrict",
-        default=_get_route,
+        # default=_get_route,
     )

@@ -21,15 +21,19 @@
           <group>
             <field name="design_status" />
             <field name="quote_status" />
+            <field name="freight" widget="monetary" />
+            <field name="placement" widget="monetary"/>
           </group>
           <group>
             <field name="production_status" readonly="1"/>
-            <field name="final_countdown" attrs="{'invisible': [('production_status', 'not in',['ready', 'to produce'])]}"/>
+            <field name="final_countdown" attrs="{'invisible': [('production_status', 'not in',['ready', 'to produce', 'in production'])]}"/>
             <field name="date_produced_state" invisible="1"/>
             <field name="picking_status" readonly="1"/>
           </group>
         </xpath>
-
+        <xpath expr="//field[@name='amount_tax']" position="replace">
+          <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+        </xpath>
 
 
       </field>
@@ -42,6 +46,9 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="replace">
           <field name="route_id" groups="sale_stock.group_route_so_lines" options="{'no_create': True}" style="width:50% !important"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="replace">
+          <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" invisible="1" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
         </xpath>
       </field>
     </record>
@@ -72,7 +79,8 @@
                   orange:design_status in (&apos;in design&apos;);green:design_status in (&apos;ready&apos;);"}'/>
           <field name="production_status" options='{"fg_color": "red:production_status in (&apos;to produce&apos;);
                   orange:production_status in (&apos;in production&apos;);green:production_status in (&apos;ready&apos;);"}'/>
-          <field name="final_countdown" options='{"fg_color": "red"}'/>
+          <field name="final_countdown" options='{"fg_color": "red:final_countdown &lt; (&apos;0&apos;);
+                       green:final_countdown &gt; (&apos;0&apos;);red:final_countdown == (&apos;0&apos;)"}'/>
           <field name="picking_status" />
         </field>
         <field name="invoice_status" position="before">
@@ -94,7 +102,8 @@
                       orange:design_status in (&apos;in design&apos;);green:design_status in (&apos;ready&apos;);"}'/>
           <field name="production_status" options='{"fg_color": "red:production_status in (&apos;to produce&apos;);
                       orange:production_status in (&apos;in production&apos;);green:production_status in (&apos;ready&apos;);"}'/>
-          <field name="final_countdown" options='{"fg_color": "red"}'/>
+          <field name="final_countdown" options='{"fg_color": "red:final_countdown &lt; (&apos;0&apos;);
+                       green:final_countdown &gt; (&apos;0&apos;);red:final_countdown == (&apos;0&apos;)"}'/>
           <field name="picking_status" />
         </field>
       </field>
