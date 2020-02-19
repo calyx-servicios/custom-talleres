@@ -11,6 +11,14 @@
                     <field name="freigt_placement_status" invisible="1"/>
                     <field name="invoice_freight_placement_id" attrs="{'invisible': [('freigt_placement_status', 'not in',['invoiced'])]}" readonly="1"/>
                     <button name="create_invoice_fregiht_placement" type="object" class="oe_highlight" string="Create Invoice" attrs="{'invisible': [('freigt_placement_status', 'not in',['no'])]}"/>
+
+                    <field name="extra"/>
+                    <field name="extra_freigt_placement_status" invisible="1"/>
+                    <field name="freight_extra" widget="monetary" attrs="{'invisible': [('extra', '=', False)]}"/>
+                    <field name="placement_extra" widget="monetary" attrs="{'invisible': [('extra', '=', False)]}"/>
+                    <field name="invoice_freight_placement_id_extra" attrs="{'invisible': [('extra_freigt_placement_status', 'not in',['invoiced'])]}" readonly="1"/>
+
+                    <button name="create_invoice_fregiht_placement" type="object" class="oe_highlight" string="Create Extra Invoice" attrs="{'invisible': ['|',('extra', '=', False), ('extra_freigt_placement_status', 'not in',['no']) ]}" context="{'extra': True}"/>
                 </xpath>
             </field>
         </record>
