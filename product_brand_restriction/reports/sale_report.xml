@@ -146,7 +146,7 @@
                             <th class="text-right">Quantity</th>
                             <th class="text-right">Unit Price</th>
                             <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">Disc.(%)</th>
-                            <th class="text-right">Taxes</th>
+                            <!-- <th class="text-right">Taxes</th> -->
                             <th class="text-right" groups="sale.group_show_price_subtotal">Amount</th>
                             <th class="text-right price_tax_included" groups="sale.group_show_price_total">Total Price</th>
                         </tr>
@@ -180,9 +180,9 @@
                                     <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
                                         <span t-field="l.discount"/>
                                     </td>
-                                    <td class="text-right">
+                                    <!-- <td class="text-right">
                                         <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
-                                    </td>
+                                    </td> -->
                                     <td class="text-right" groups="sale.group_show_price_subtotal">
                                         <span t-field="l.price_subtotal"
                                             t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
@@ -252,6 +252,41 @@
                                 </td>
                             </tr>
                         </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clearfix">
+                <div class="row">
+                    <div class="col-xs-6 pull-right">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <strong>Servicio de Flete</strong>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <t t-if="doc.freight_defined">
+                                    <span t-field="doc.freight"
+                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                </t>
+                                <t t-else="not doc.freight_defined">
+                                    <span><strong>A definir</strong></span>
+                                </t>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <strong>Servicio de Colocación</strong>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <t t-if="doc.placement_defined">
+                                    <span t-field="doc.placement"
+                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                </t>
+                                <t t-else="not doc.placement_defined">
+                                    <span><strong>A definir</strong></span>
+                                </t>
+                            </div>   
+                        </div>
                     </div>
                 </div>
             </div>

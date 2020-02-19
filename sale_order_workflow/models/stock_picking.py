@@ -160,6 +160,38 @@ class stockPicking(models.Model):
             else:
                 rec.write({"freight": freight, "placement": placement})
 
+    def cancel_invoice_fg(self):
+        for rec in self:
+            invoice = rec.invoice_freight_placement_id
+            extra_invoice = rec.invoice_freight_placement_id_extra
+            if invoice:
+                if invoice.state == "draft":
+                    invoice.action_invoice_cancel()
+                    rec.freigt_placement_status = "no"
+                    rec.invoice_freight_placement_id = False
+                else:
+                    raise ValidationError(
+                        _(
+                            "You cancel this invoice because"
+                            " isn't in draft."
+                        )
+                    )
+            if extra_invoice:
+                if extra_invoice.state == "draft":
+                    extra_invoice.action_invoice_cancel()
+                    rec.extra_freigt_placement_status = "no"
+                    rec.invoice_freight_placement_id_extra = False
+                    rec.extra = False
+                    rec.freight_extra = 0
+                    rec.placement_extra = 0
+                else:
+                    raise ValidationError(
+                        _(
+                            "You cancel this extra - invoice because"
+                            " isn't in draft."
+                        )
+                    )
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.product"

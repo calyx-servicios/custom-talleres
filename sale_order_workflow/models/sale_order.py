@@ -96,6 +96,10 @@ class SaleOrder(models.Model):
 
     placement = fields.Float(string="Placement")
 
+    freight_defined = fields.Boolean(string="Freight Defined?")
+
+    placement_defined = fields.Boolean(string="Placement Defined?")
+
     @api.depends("state", "production_ids", "production_ids.state")
     def _get_produced_state(self):
         _logger.debug("======debug===== get produced")
@@ -174,9 +178,7 @@ class SaleOrder(models.Model):
             line_production_status = []
             for prod in production_ids:
                 line_production_status.append(prod.state)
-            _logger.debug(
-                "======production> %r", line_production_status
-            )
+            _logger.info("======production> %r", line_production_status)
             production_count = len(line_production_status)
             production_status = "no"
             if production_count > 0:
@@ -444,6 +446,20 @@ class SaleOrder(models.Model):
             placement = rec.placement
             for pick in rec.picking_ids:
                 pick._freight_placement_change(freight, placement)
+
+    @api.multi
+    @api.onchange("freight_defined")
+    def _onchange_freight_defined(self):
+        for rec in self:
+            if not rec.freight_defined:
+                rec.write({"freight": 0})
+
+    @api.multi
+    @api.onchange("placement_defined")
+    def _onchange_placement_defined(self):
+        for rec in self:
+            if not rec.placement_defined:
+                rec.write({"placement": 0})
 
 
 class SaleOrderLine(models.Model):
