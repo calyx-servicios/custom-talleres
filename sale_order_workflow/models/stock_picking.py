@@ -3,7 +3,6 @@
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 import datetime
-import dateutil.parser
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -97,6 +96,19 @@ class stockPicking(models.Model):
                 "origin": origin,
             }
         )
+
+    def _freight_placement_change(self, freight, placement):
+        for rec in self:
+            if rec.freigt_placement_status == "invoiced":
+                raise ValidationError(
+                    _(
+                        "You cannot change this values because "
+                        "invoice already create for freight "
+                        "and placement."
+                    )
+                )
+            else:
+                rec.write({"freight": freight, "placement": placement})
 
 
 class ProductTemplate(models.Model):

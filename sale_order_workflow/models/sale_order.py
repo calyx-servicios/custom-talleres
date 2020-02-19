@@ -443,15 +443,7 @@ class SaleOrder(models.Model):
             freight = rec.freight
             placement = rec.placement
             for pick in rec.picking_ids:
-                pick_freight = freight
-                pick_placement = placement
-
-                pick.write(
-                    {
-                        "freight": pick_freight,
-                        "placement": pick_placement,
-                    }
-                )
+                pick._freight_placement_change(freight, placement)
 
 
 class SaleOrderLine(models.Model):
