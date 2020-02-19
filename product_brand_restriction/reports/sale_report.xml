@@ -40,7 +40,7 @@
                 <t t-foreach="doc.brand_ids" t-as="brand">
                   <div class="col-xs-2">
                   <img t-if="brand.logo" t-att-src="'data:image/png;base64,%s' % to_text(brand.logo)"
-                  style="overflow:hidden; margin:0 -40%;height:100px;width:100px;"/>
+                  style="overflow:hidden; margin-left:0%;height:100px;width:100px;"/>
                   </div>
                 </t>
 
