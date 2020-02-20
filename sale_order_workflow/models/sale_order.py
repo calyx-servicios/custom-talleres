@@ -102,7 +102,7 @@ class SaleOrder(models.Model):
 
     @api.depends("state", "production_ids", "production_ids.state")
     def _get_produced_state(self):
-        _logger.debug("======debug===== get produced")
+        # _logger.debug("======debug===== get produced")
         for order in self:
             line_production_status = []
             for prod in order.production_ids:
@@ -130,8 +130,8 @@ class SaleOrder(models.Model):
                     for production_status in line_production_status
                 ):
                     production_status = "ready"
-                else:
-                    production_status = "no"
+                # else:
+                #     production_status = "no"
             order.update({"production_status": production_status})
 
     @api.depends("state", "picking_ids", "picking_ids.state")

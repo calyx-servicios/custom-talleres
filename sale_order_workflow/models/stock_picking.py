@@ -41,7 +41,12 @@ class stockPicking(models.Model):
         for rec in self:
             if rec.sale_id:
                 rec.sale_id.write(
-                    {"freight": rec.freight, "placement": rec.placement}
+                    {
+                        "freight": rec.freight,
+                        "placement": rec.placement,
+                        "freight_defined": True,
+                        "placement_defined": True,
+                    }
                 )
 
     @api.multi
