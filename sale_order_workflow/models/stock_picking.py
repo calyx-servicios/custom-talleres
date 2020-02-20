@@ -192,6 +192,19 @@ class stockPicking(models.Model):
                         )
                     )
 
+    @api.multi
+    @api.onchange("freight_extra", "placement_extra")
+    def _onchange_fg_extra(self):
+        for rec in self:
+            if rec.sale_id:
+                f = rec.freight
+                g = rec.placement
+                if f and g:
+                    f += rec.freight_extra
+                    g += rec.placement_extra
+                if rec.sale_id:
+                    rec.sale_id.write({"freight": f, "placement": g})
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.product"
