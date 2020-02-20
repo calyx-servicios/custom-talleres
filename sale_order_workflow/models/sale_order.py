@@ -117,9 +117,9 @@ class SaleOrder(models.Model):
                     for production_status in line_production_status
                 ):
                     production_status = "to produce"
-                    _logger.info(
-                        "======product1ion> %r", line_production_status
-                    )
+                    # _logger.info(
+                    #     "======product1ion> %r", line_production_status
+                    # )
                 elif all(
                     production_status in ["progress"]
                     for production_status in line_production_status
