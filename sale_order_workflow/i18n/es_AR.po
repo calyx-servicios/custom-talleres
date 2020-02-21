@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 18:20+0000\n"
-"PO-Revision-Date: 2020-02-20 18:20+0000\n"
+"POT-Creation-Date: 2020-02-21 15:41+0000\n"
+"PO-Revision-Date: 2020-02-21 15:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,8 +33,8 @@ msgstr "Disponible"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.stock_picking_form_placementn_freight
-msgid "Cancel Invoices"
-msgstr "Cancelar Facturas"
+msgid "Cancel/Unlink Invoices"
+msgstr "Cancelar/Desvincular Facturas"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -171,7 +171,7 @@ msgstr "Nuevo"
 #: selection:stock.picking,extra_freigt_placement_status:0
 #: selection:stock.picking,freigt_placement_status:0
 msgid "Nothing in invoice"
-msgstr "Nothing in invoice"
+msgstr "No"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -238,7 +238,7 @@ msgstr "Producto"
 #. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_product_template
 msgid "Product Template"
-msgstr "Plantilla de Producto"
+msgstr "Plantilla de producto"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
@@ -257,7 +257,7 @@ msgid "Production Status"
 msgstr "Estado de Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:225
+#: code:addons/sale_order_workflow/models/sale_order.py:221
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_ids
 #, python-format
 msgid "Productions"
@@ -334,43 +334,31 @@ msgid "With Quotation"
 msgstr "Con Cotización"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/stock_picking.py:189
-#, python-format
-msgid "You cancel this extra - invoice because isn't in draft."
-msgstr "No puede cancelar la factur extra, esta no se encuentra en estado borrador."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/stock_picking.py:174
-#, python-format
-msgid "You cancel this invoice because isn't in draft."
-msgstr "No puede cancelar esta factura, no se encuentra en estado borrador."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/stock_picking.py:154
+#: code:addons/sale_order_workflow/models/stock_picking.py:149
 #, python-format
 msgid "You cannot change this values because invoice already create for freight and placement."
 msgstr "No puede modificar estos valores porque ya existe una factura relacionada para flete y colocación."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:255
+#: code:addons/sale_order_workflow/models/sale_order.py:249
 #, python-format
 msgid "You cannot confirm sales with desing task in progress."
 msgstr "No puede confirmar ventas con estado de diseño en curso."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:276
+#: code:addons/sale_order_workflow/models/sale_order.py:270
 #, python-format
 msgid "You cannot confirm sales with make_to_order procurement rules on this warehouse."
 msgstr "No puede confirmar ventas con reglas de producción en este almacén."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:286
+#: code:addons/sale_order_workflow/models/sale_order.py:280
 #, python-format
 msgid "You cannot confirm sales with make_to_stock procurement rules for custom products."
 msgstr "No puede confirmar ventas con reglas de stock para productos custom."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:262
+#: code:addons/sale_order_workflow/models/sale_order.py:256
 #, python-format
 msgid "You cannot confirm sales with quote task in progress."
 msgstr "No puede confirmar ventas con estado de cotización en curso."
