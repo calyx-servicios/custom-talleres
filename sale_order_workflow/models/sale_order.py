@@ -43,9 +43,7 @@ class SaleOrder(models.Model):
         copy=False,
     )
     production_count = fields.Integer(
-        string="# of Productions",
-        compute="_get_produced",
-        readonly=True,
+        string="# of Productions", compute="_get_produced", readonly=True,
     )
     production_status = fields.Selection(
         [
@@ -84,8 +82,7 @@ class SaleOrder(models.Model):
     )
 
     final_countdown = fields.Char(
-        string="Production Countdown Days",
-        compute="production_countdown",
+        string="Production Countdown Days", compute="production_countdown",
     )
 
     date_produced_state = fields.Date(
@@ -153,8 +150,7 @@ class SaleOrder(models.Model):
                 ):
                     picking_status = "confirmed"
                 elif all(
-                    picking_status
-                    in ["partially_available", "assigned"]
+                    picking_status in ["partially_available", "assigned"]
                     for picking_status in line_picking_status
                 ):
                     picking_status = "assigned"
@@ -235,9 +231,7 @@ class SaleOrder(models.Model):
         if len(productions) > 1:
             action["domain"] = [("id", "in", productions.ids)]
         elif len(productions) == 1:
-            action["view_id"] = self.env.ref(
-                "mrp.mrp_production_form_view"
-            ).id
+            action["view_id"] = self.env.ref("mrp.mrp_production_form_view").id
             action["res_id"] = productions.ids[0]
             action["view_mode"] = "form"
         else:
@@ -267,10 +261,10 @@ class SaleOrder(models.Model):
                 for line in order.order_line:
                     if line.route_id:
                         for procurement in line.route_id.pull_ids:
-                            if (
-                                procurement.procure_method
-                                in ["make_to_order"]
-                                and not order.warehouse_id.manufacture_to_resupply
+                            if procurement.procure_method in [
+                                "make_to_order"
+                            ] and not (
+                                order.warehouse_id.manufacture_to_resupply
                             ):
                                 raise ValidationError(
                                     _(
@@ -313,19 +307,13 @@ class SaleOrder(models.Model):
                         if line.template_id:
                             if line.template_id.attachment_ids:
                                 new_attachment_ids = []
-                                for (
-                                    attach
-                                ) in line.template_id.attachment_ids:
+                                for attach in line.template_id.attachment_ids:
                                     new_attachment_ids.append(attach.id)
                                 for prod in production_ids:
                                     prod.write(
                                         {
                                             "attachment_ids": [
-                                                (
-                                                    6,
-                                                    0,
-                                                    new_attachment_ids,
-                                                )
+                                                (6, 0, new_attachment_ids,)
                                             ]
                                         }
                                     )
@@ -345,10 +333,7 @@ class SaleOrder(models.Model):
 
     @api.multi
     @api.onchange(
-        "state",
-        "order_line",
-        "order_line.to_design",
-        "order_line.to_quote",
+        "state", "order_line", "order_line.to_design", "order_line.to_quote",
     )
     def line_design_change(self):
         route_id = self._get_production_route()
@@ -366,10 +351,7 @@ class SaleOrder(models.Model):
                 if line.to_quote or line.to_design:
                     line.update({"route_id": route_id})
             order.update(
-                {
-                    "design_status": design_status,
-                    "quote_status": quote_status,
-                }
+                {"design_status": design_status, "quote_status": quote_status}
             )
 
     @api.multi
@@ -386,12 +368,8 @@ class SaleOrder(models.Model):
                 ).date()
                 days_countdown = actual_date - date_confirmation
                 days_countdown = days_countdown.days
-                production_countdown_days = (
-                    days_default - days_countdown
-                )
-                rec.update(
-                    {"final_countdown": production_countdown_days}
-                )
+                production_countdown_days = days_default - days_countdown
+                rec.update({"final_countdown": production_countdown_days})
             if rec.production_status == "ready":
                 date_confirmation = dateutil.parser.parse(
                     rec.confirmation_date
@@ -406,9 +384,7 @@ class SaleOrder(models.Model):
                         days_default - days_countdown
                     )
                     rec.update(
-                        {
-                            "final_countdown": production_countdown_days_stop
-                        }
+                        {"final_countdown": production_countdown_days_stop}
                     )
 
     @api.depends("production_status")

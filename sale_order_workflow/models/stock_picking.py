@@ -164,7 +164,16 @@ class stockPicking(models.Model):
                     invoice.action_invoice_cancel()
                     rec.freigt_placement_status = "no"
                     rec.invoice_freight_placement_id = False
+                    self.env.user.notify_info("La facturas fue cancelada.")
                 elif invoice.state == ("open" or "cancel"):
+                    if invoice.state == "open":
+                        self.env.user.notify_warning(
+                            "La factura "
+                            + str(invoice.display_name)
+                            + " no sera cancelada, "
+                            "solo se desvinculara de la orden,"
+                            " la puede cancelar con una orden de credito."
+                        )
                     rec.freigt_placement_status = "no"
                     rec.invoice_freight_placement_id = False
 
@@ -177,9 +186,20 @@ class stockPicking(models.Model):
                     rec.freight_extra = 0
                     rec.placement_extra = 0
                     rec._onchange_fg_extra()
+                    self.env.user.notify_info(
+                        "La factura extra fue cancelada."
+                    )
                 elif extra_invoice.state == ("open" or "cancel"):
-                    rec.freigt_placement_status = "no"
-                    rec.invoice_freight_placement_id = False
+                    if extra_invoice.state == "open":
+                        self.env.user.notify_warning(
+                            "La factura extra "
+                            + str(extra_invoice.display_name)
+                            + " no sera cancelada, "
+                            "solo se desvinculara de la orden"
+                            " la puede cancelar con una nota de credito."
+                        )
+                    rec.extra_freigt_placement_status = "no"
+                    rec.invoice_freight_placement_id_extra = False
                     rec.extra = False
                     rec.freight_extra = 0
                     rec.placement_extra = 0
