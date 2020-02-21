@@ -59,12 +59,8 @@ class stockPicking(models.Model):
             if self._context.get("extra"):
                 context = self._context["extra"]
 
-            freight = product_obj.search(
-                [("freight", "=", True)], limit=1
-            )
-            placement = product_obj.search(
-                [("placement", "=", True)], limit=1
-            )
+            freight = product_obj.search([("freight", "=", True)], limit=1)
+            placement = product_obj.search([("placement", "=", True)], limit=1)
             vals = {
                 "partner_id": rec.partner_id.id,
                 "team_id": rec.sale_id.team_id.id,
@@ -74,9 +70,7 @@ class stockPicking(models.Model):
 
             invoice_id = invoice_obj.create(vals)
             if freight:
-                accounts = (
-                    freight.product_tmpl_id.get_product_accounts()
-                )
+                accounts = freight.product_tmpl_id.get_product_accounts()
                 if context:
                     rec._create_invoices_lines(
                         accounts,
@@ -96,9 +90,7 @@ class stockPicking(models.Model):
                         context,
                     )
             if placement:
-                accounts = (
-                    placement.product_tmpl_id.get_product_accounts()
-                )
+                accounts = placement.product_tmpl_id.get_product_accounts()
                 if context:
                     rec._create_invoices_lines(
                         accounts,
@@ -131,9 +123,7 @@ class stockPicking(models.Model):
         invoice_line = self.env["account.invoice.line"]
         name_line = ""
         if context:
-            name_line = (
-                str(freight.name) + " Extra - Orden: " + str(origin)
-            )
+            name_line = str(freight.name) + " Extra - Orden: " + str(origin)
         else:
             name_line = str(freight.name) + " - Orden: " + str(origin)
         invoice_line.create(
@@ -174,13 +164,10 @@ class stockPicking(models.Model):
                     invoice.action_invoice_cancel()
                     rec.freigt_placement_status = "no"
                     rec.invoice_freight_placement_id = False
-                else:
-                    raise ValidationError(
-                        _(
-                            "You cancel this invoice because"
-                            " isn't in draft."
-                        )
-                    )
+                elif invoice.state == ("open" or "cancel"):
+                    rec.freigt_placement_status = "no"
+                    rec.invoice_freight_placement_id = False
+
             if extra_invoice:
                 if extra_invoice.state == "draft":
                     extra_invoice.action_invoice_cancel()
@@ -189,13 +176,14 @@ class stockPicking(models.Model):
                     rec.extra = False
                     rec.freight_extra = 0
                     rec.placement_extra = 0
-                else:
-                    raise ValidationError(
-                        _(
-                            "You cancel this extra - invoice because"
-                            " isn't in draft."
-                        )
-                    )
+                    rec._onchange_fg_extra()
+                elif extra_invoice.state == ("open" or "cancel"):
+                    rec.freigt_placement_status = "no"
+                    rec.invoice_freight_placement_id = False
+                    rec.extra = False
+                    rec.freight_extra = 0
+                    rec.placement_extra = 0
+                    rec._onchange_fg_extra()
 
     @api.multi
     @api.onchange("freight_extra", "placement_extra")
@@ -209,6 +197,15 @@ class stockPicking(models.Model):
                     g += rec.placement_extra
                 if rec.sale_id:
                     rec.sale_id.write({"freight": f, "placement": g})
+
+    @api.multi
+    @api.onchange("extra")
+    def onchange_extra(self):
+        for rec in self:
+            if not rec.extra:
+                rec.freight_extra = 0
+                rec.placement_extra = 0
+                rec._onchange_fg_extra()
 
 
 class ProductTemplate(models.Model):
