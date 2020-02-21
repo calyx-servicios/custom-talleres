@@ -258,6 +258,15 @@ class SaleOrder(models.Model):
                             "in progress."
                         )
                     )
+                for pick in order.picking_ids:
+                    f = 0
+                    g = 0
+                    if order.freight_defined:
+                        f = order.freight
+                    if order.placement_defined:
+                        g = order.placement
+                    pick.write({"freight": f, "placement": g})
+
                 for line in order.order_line:
                     if line.route_id:
                         for procurement in line.route_id.pull_ids:

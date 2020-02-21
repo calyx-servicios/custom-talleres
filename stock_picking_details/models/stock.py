@@ -4,13 +4,20 @@
 from odoo import api, fields, models, _
 from odoo.addons.base.res.res_partner import WARNING_MESSAGE, WARNING_HELP
 import logging
+
 _logger = logging.getLogger(__name__)
 
-class stockPicking(models.Model):
-    
-    _inherit = 'stock.picking'
 
-    elevator = fields.Boolean(string='Elevator', required=True, default=True)
-    staircase = fields.Boolean(string='Staircase', required=True, default=True)
-    exterior_access = fields.Boolean(string='Exterior Access', required=True, default=True)
-    req_authorization = fields.Boolean(string='Req Authorization', required=True, default=True)
+class stockPicking(models.Model):
+
+    _inherit = "stock.picking"
+    elevator = fields.Boolean(string="Elevator", required=True, default=False)
+    staircase = fields.Boolean(
+        string="Staircase", required=True, default=False
+    )
+    exterior_access = fields.Boolean(
+        string="Exterior Access", required=True, default=False
+    )
+    req_authorization = fields.Boolean(
+        string="Req Authorization", required=True, default=False
+    )

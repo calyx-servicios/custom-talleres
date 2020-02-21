@@ -2,46 +2,55 @@
 <odoo>
 
 
-<template id="report_delivery_document_details" inherit_id="stock.report_delivery_document">
+    <template id="report_delivery_document_details" inherit_id="stock.report_delivery_document">
 
-    
+        <xpath expr="//table[3]" position="after">
+            <p t-field="o.note"/>
+        </xpath>
 
+        <xpath expr="//table[1]" position="before">
 
-<xpath expr="//table[1]" position="before">
+            <table class="table table-condensed" name ="details">
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>Elevator</strong>
+                        </th>
 
-    <table class="table table-condensed" name ="details">
-        <thead>
-            <tr>
-                <th><strong>Elevator</strong></th>
+                        <th>
+                            <strong>Staircase</strong>
+                        </th>
 
-                <th><strong>Staircase</strong></th>
+                        <th>
+                            <strong>Exterior_access</strong>
+                        </th>
 
-                <th><strong>Exterior_access</strong></th>
+                        <th>
+                            <strong>Req Authorization</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td >
+                            <input t-if="o.elevator" type="checkbox" checked="checked"/>
+                        </td>
+                        <td >
+                            <input t-if="o.staircase" type="checkbox" checked="checked"/>
+                        </td>
+                        <td >
+                            <input t-if="o.exterior_access" type="checkbox" checked="checked"/>
+                        </td>
+                        <td >
+                            <input t-if="o.req_authorization" type="checkbox" checked="checked"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                <th><strong>Req Authorization</strong></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td >
-                    <input t-if="o.elevator" type="checkbox" checked="checked"/>
-                </td>
-                <td >
-                    <input t-if="o.staircase" type="checkbox" checked="checked"/>
-                </td>
-                <td >
-                    <input t-if="o.exterior_access" type="checkbox" checked="checked"/>
-                </td>
-                <td >
-                    <input t-if="o.req_authorization" type="checkbox" checked="checked"/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        </xpath>
 
-</xpath>      
-             
-</template>
+    </template>
 
 
 </odoo>
