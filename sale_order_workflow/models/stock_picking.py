@@ -164,7 +164,9 @@ class stockPicking(models.Model):
                     invoice.action_invoice_cancel()
                     rec.freigt_placement_status = "no"
                     rec.invoice_freight_placement_id = False
-                    self.env.user.notify_info("La facturas fue cancelada.")
+                    self.env.user.notify_info(
+                        "La facturas fue cancelada.", "Información", 1
+                    )
                 elif invoice.state == ("open" or "cancel"):
                     if invoice.state == "open":
                         self.env.user.notify_warning(
@@ -172,7 +174,9 @@ class stockPicking(models.Model):
                             + str(invoice.display_name)
                             + " no sera cancelada, "
                             "solo se desvinculara de la orden,"
-                            " la puede cancelar con una orden de credito."
+                            " la puede cancelar con una nota de credito.",
+                            "Advertencia",
+                            1,
                         )
                     rec.freigt_placement_status = "no"
                     rec.invoice_freight_placement_id = False
@@ -187,7 +191,7 @@ class stockPicking(models.Model):
                     rec.placement_extra = 0
                     rec._onchange_fg_extra()
                     self.env.user.notify_info(
-                        "La factura extra fue cancelada."
+                        "La factura extra fue cancelada.", "Información", 1
                     )
                 elif extra_invoice.state == ("open" or "cancel"):
                     if extra_invoice.state == "open":
@@ -196,7 +200,9 @@ class stockPicking(models.Model):
                             + str(extra_invoice.display_name)
                             + " no sera cancelada, "
                             "solo se desvinculara de la orden"
-                            " la puede cancelar con una nota de credito."
+                            " la puede cancelar con una nota de credito.",
+                            "Advertencia",
+                            1,
                         )
                     rec.extra_freigt_placement_status = "no"
                     rec.invoice_freight_placement_id_extra = False
