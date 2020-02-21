@@ -158,7 +158,7 @@
       <field name="priority">2</field>
       <field name="inherit_id" ref="sale.view_quotation_tree"/>
       <field name="arch" type="xml">
-        <field name="user_id" position="after">
+        <field name="final_countdown" position="after">
           <field name="freight" />
           <field name="placement" />
         </field>
