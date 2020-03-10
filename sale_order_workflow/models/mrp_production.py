@@ -12,4 +12,4 @@ class Production(models.Model):
     attachment_ids = fields.Many2many(
         'ir.attachment', 'production_ir_attachments_rel','production_id', 'attachment_id', 'Attachments')
 
-    
+

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+vendor_user_template,VendorUserProductTemplate,product.model_product_template,vendor_group_user,1,1,1,0
+vendor_user_product,VendorUserProductProduct,product.model_product_product,vendor_group_user,1,1,1,0
+vendor_manager_template,VendorManagerTemplate,product.model_product_template,vendor_group_manager,1,1,1,1
+vendor_manager_product,VendorManagerTemplate,product.model_product_product,vendor_group_manager,1,1,1,1

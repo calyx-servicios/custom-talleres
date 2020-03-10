@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_template_form_view_extend" model="ir.ui.view">
+        <field name="name">Product Template: Hide "Can be Sold?" Boolean</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name='purchase_ok' position="attributes">
+                <attribute name="groups">product_vendor_restrictions.vendor_group_manager</attribute>
+            </field>
+            <label for="purchase_ok" position="attributes">
+                <attribute name="groups">product_vendor_restrictions.vendor_group_manager</attribute>
+            </label>
+        </field>
+    </record>
+
+</odoo>
+
