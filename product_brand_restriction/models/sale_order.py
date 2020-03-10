@@ -21,8 +21,7 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 if line.template_id and line.template_id.product_brand_id:
                     brands.append(line.template_id.product_brand_id.id)
-            order.brand_ids=brands
-            
+            order.brand_ids = brands
 
     brand_ids = fields.Many2many(
-        'product.brand', 'sale_brand_rel','order_id', 'brand_id', 'Brands',compute=_get_brands, store=True)
+        'product.brand', 'sale_brand_rel', 'order_id', 'brand_id', 'Brands', compute=_get_brands, store=True)

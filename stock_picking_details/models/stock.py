@@ -8,7 +8,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class stockPicking(models.Model):
+class StockPicking(models.Model):
 
     _inherit = "stock.picking"
     elevator = fields.Boolean(string="Elevator", required=True, default=False)
