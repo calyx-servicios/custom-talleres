@@ -10,4 +10,4 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     brand_ids = fields.Many2many(
-        'product.brand', 'users_brand_rel','user_id', 'brand_id', 'Brands')
+        'product.brand', 'users_brand_rel', 'user_id', 'brand_id', 'Brands')

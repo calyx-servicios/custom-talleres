@@ -7,8 +7,10 @@
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
         <xpath expr="//page[@name='variants']" position="after">
-          <page name="attachments" string="Attachments" >
-            <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2"/>
+          <page name="attachments" string="Attachments">
+              <group string="Attached files">
+                  <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2" />
+              </group>
           </page>
         </xpath>
         </field>
