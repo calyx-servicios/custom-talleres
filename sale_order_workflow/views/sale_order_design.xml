@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- FILTROS DESIGN -->
+        <record id="view_sale_order_design_filter" model="ir.ui.view">
+            <field name="name">sale.order.design.select</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Design">
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <filter name="to design" string="To Design" domain="[('state', '=', 'to design')]" />
+                    <filter name="sent design" string="Sent Design" domain="[('state', '=', 'sent design')]" />
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="design_status" string="Design" domain="[('state', 'in', ['to design','sent design'])]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- TREE DESIGN -->
+        <record id="sale_order_design_tree" model="ir.ui.view">
+            <field name="name">sale.order.design.tree</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <tree string="Design" create="false" delete="false">
+                    <field name="name" />
+                    <field name="partner_id"/>
+                    <field name="state" options='{"fg_color": "orange:state in (&apos;to design&apos;);green:state in (&apos;sent design&apos;);"}' />
+                    <field name="date_order" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- FORM DESIGN -->
+        <record id="sale_order_design_form" model="ir.ui.view">
+            <field name="name">sale.order.design.form</field>
+            <field name="model">sale.order</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="Sale Order" class="o_invoice_form" create="false">
+                    <header>
+                        <button name="action_sent_design" type="object" states="to design" string="Sent Design" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="to design,sent design"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="partner_id" readonly="True"/>
+                            <field name="quote_status"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Sales Order Lines">
+                                <field name="order_line" mode="tree" readonly="1">
+                                    <form string="Sales Order Lines">
+                                        <group>
+                                            <group>
+                                                <field name="template_id" />
+                                                <field name="name"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                    <tree string="Sales Order Lines" create="false" delete="false">
+                                        <field name="template_id" />
+                                        <field name="name"/>
+                                        <field name="to_design"/>
+                                        <button name="create_new_design" type="object" icon="fa-pencil-alt" attrs="{'invisible': [('to_design', '=', False)]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_design_tree" model="ir.actions.act_window">
+            <field name="name">Sale Order Design</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('state','in',['to design', 'sent design'])]</field>
+            <field name="context">{'default_type':'design'}</field>
+            <field name="search_view_id" ref="view_sale_order_design_filter"/>
+        </record>
+
+        <record id="sale_order_design_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_order_design_tree"/>
+            <field name="act_window_id" ref="action_sale_design_tree"/>
+        </record>
+
+        <record id="sale_order_design_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_order_design_form"/>
+            <field name="act_window_id" ref="action_sale_design_tree"/>
+        </record>
+
+        <!-- <menuitem id="menu_action_design_sale_order" name="Design" parent="sale.sale_menu_root" sequence="50"/> -->
+        <menuitem id="menu_action_design_sale_order" name="Design" sequence="50"/>
+        <menuitem id="design_sale_order_menu" name="Design" parent="menu_action_design_sale_order" sequence="10"/>
+        <menuitem action="action_sale_design_tree" id="action_sale_order_design_tree" parent="design_sale_order_menu" sequence="10"/>
+
+        <menuitem id="mrp_sale_design" name="Fabrication" parent="menu_action_design_sale_order" sequence="50"/>
+        <menuitem action="mrp.mrp_bom_form_action" id="action_design_bom" parent="mrp_sale_design" sequence="11"/>
+        <menuitem action="mrp.mrp_routing_action" id="action_design_routing" parent="mrp_sale_design" sequence="12"/>
+
+    </data>
+</odoo>

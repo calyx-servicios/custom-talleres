@@ -13,6 +13,24 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    state = fields.Selection(
+        [
+            ("draft", "Quotation"),
+            ("sent", "Quotation Sent"),
+            ("to design", "To Design"),
+            ("sent design", "Quotation Design"),
+            ("sale", "Sales Order"),
+            ("done", "Locked"),
+            ("cancel", "Cancelled"),
+        ],
+        string="Status",
+        readonly=True,
+        copy=False,
+        index=True,
+        tracking=3,
+        default="draft",
+    )
+
     design_status = fields.Selection(
         [
             ("to design", "To Design"),
@@ -22,6 +40,7 @@ class SaleOrder(models.Model):
         ],
         string="Design Status",
         default="no",
+        # compute="_get_design",
         track_visibility="onchange",
     )
     quote_status = fields.Selection(
@@ -32,6 +51,7 @@ class SaleOrder(models.Model):
         ],
         string="Quote Status",
         default="no",
+        compute="_get_quote_state",
         track_visibility="onchange",
     )
 
@@ -54,7 +74,7 @@ class SaleOrder(models.Model):
         ],
         string="Production Status",
         compute="_get_produced_state",
-        store=True,
+        # store=True,
         readonly=True,
     )
     picking_status = fields.Selection(
@@ -70,7 +90,7 @@ class SaleOrder(models.Model):
         ],
         string="Picking Status",
         compute="_get_picking_state",
-        store=True,
+        # store=True,
         readonly=True,
     )
     design_ids = fields.Many2many(
@@ -110,7 +130,7 @@ class SaleOrder(models.Model):
                 if order.state not in ("sale", "done"):
                     production_status = "no"
                 elif any(
-                    production_status in ["confirmed"]
+                    production_status in ["confirmed", "planned"]
                     for production_status in line_production_status
                 ):
                     production_status = "to produce"
@@ -165,7 +185,7 @@ class SaleOrder(models.Model):
 
     @api.depends("state")
     def _get_produced(self):
-        _logger.debug("======debug===== get produced")
+        # _logger.debug("======debug===== get produced")
         for order in self:
             production_obj = self.env["mrp.production"]
             production_ids = production_obj.search(
@@ -174,7 +194,7 @@ class SaleOrder(models.Model):
             line_production_status = []
             for prod in production_ids:
                 line_production_status.append(prod.state)
-            _logger.info("======production> %r", line_production_status)
+            # _logger.info("======production> %r", line_production_status)
             production_count = len(line_production_status)
             production_status = "no"
             if production_count > 0:
@@ -198,17 +218,55 @@ class SaleOrder(models.Model):
                 else:
                     production_status = "no"
 
-            _logger.debug(
-                "=====order data %r %r %r====="
-                % (production_ids, production_status, production_count)
-            )
+            # _logger.debug(
+            #     "=====order data %r %r %r====="
+            #     % (production_ids, production_status, production_count)
+            # )
             order.update(
                 {
                     "production_ids": production_ids.ids or False,
-                    "production_status": production_status,
+                    # "production_status": production_status,
                     "production_count": production_count,
                 }
             )
+
+    @api.depends("order_line.quote_status")
+    def _get_quote_state(self):
+        for order in self:
+            line_quote_status = []
+            for line in order.order_line:
+                line_quote_status.append(line.quote_status)
+            quote_state = "no"
+            quote_count = len(line_quote_status)
+            if quote_count > 0:
+                if any(q_s in ["to quote"] for q_s in line_quote_status):
+                    quote_state = "to quote"
+                elif all(q_s in ["quoted"] for q_s in line_quote_status):
+                    quote_state = "quoted"
+                elif any(
+                    q_s in ["quoted"] for q_s in line_quote_status
+                ) and all(
+                    q_s not in ["to quote"] for q_s in line_quote_status
+                ):
+                    quote_state = "quoted"
+                elif all(q_s in ["no"] for q_s in line_quote_status):
+                    quote_state = "no"
+            order.update({"quote_status": quote_state})
+
+    @api.multi
+    def action_confirm_new(self):
+        for order in self:
+            if order.state != "sent design":
+                for line in order.order_line:
+                    if line.to_design:
+                        raise ValidationError(
+                            _(
+                                "You cannot confirm sales with"
+                                " products to design."
+                            )
+                        )
+            else:
+                order.action_confirm()
 
     @api.multi
     def action_view_productions(self):
@@ -241,16 +299,9 @@ class SaleOrder(models.Model):
     @api.multi
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
-        production_obj = self.env["mrp.production"]
+        # production_obj = self.env["mrp.production"]
         if res:
             for order in self:
-                if order.design_status not in ["no", "ready"]:
-                    raise ValidationError(
-                        _(
-                            "You cannot confirm sales with desing task "
-                            "in progress."
-                        )
-                    )
                 if order.quote_status not in ["no", "quoted"]:
                     raise ValidationError(
                         _(
@@ -258,6 +309,7 @@ class SaleOrder(models.Model):
                             "in progress."
                         )
                     )
+
                 for pick in order.picking_ids:
                     f = 0
                     g = 0
@@ -293,39 +345,39 @@ class SaleOrder(models.Model):
                                     )
                                 )
 
-                for line in order.order_line:
-                    production_ids = production_obj.search(
-                        [
-                            ("sale_id", "=", order.id),
-                            ("product_id", "=", line.product_id.id),
-                        ]
-                    )
-                    if line.design_ids:
-                        new_attachment_ids = []
-                        for attach in line.design_ids:
-                            new_attachment_ids.append(attach.id)
-                        for prod in production_ids:
-                            prod.write(
-                                {
-                                    "attachment_ids": [
-                                        (6, 0, new_attachment_ids)
-                                    ]
-                                }
-                            )
-                    else:
-                        if line.template_id:
-                            if line.template_id.attachment_ids:
-                                new_attachment_ids = []
-                                for attach in line.template_id.attachment_ids:
-                                    new_attachment_ids.append(attach.id)
-                                for prod in production_ids:
-                                    prod.write(
-                                        {
-                                            "attachment_ids": [
-                                                (6, 0, new_attachment_ids,)
-                                            ]
-                                        }
-                                    )
+                # for line in order.order_line:
+                #     production_ids = production_obj.search(
+                #         [
+                #             ("sale_id", "=", order.id),
+                #             ("product_id", "=", line.product_id.id),
+                #         ]
+                #     )
+                #     if line.design_ids:
+                #         new_attachment_ids = []
+                #         for attach in line.design_ids:
+                #             new_attachment_ids.append(attach.id)
+                #         for prod in production_ids:
+                #             prod.write(
+                #                 {
+                #                     "attachment_ids": [
+                #                         (6, 0, new_attachment_ids)
+                #                     ]
+                #                 }
+                #             )
+                #     else:
+                #         if line.template_id:
+                #             if line.template_id.attachment_ids:
+                #                 new_attachment_ids = []
+                #                 for attach in line.template_id.attachment_ids:
+                #                     new_attachment_ids.append(attach.id)
+                #                 for prod in production_ids:
+                #                     prod.write(
+                #                         {
+                #                             "attachment_ids": [
+                #                                 (6, 0, new_attachment_ids,)
+                #                             ]
+                #                         }
+                #                     )
 
             return res
 
@@ -349,19 +401,14 @@ class SaleOrder(models.Model):
 
         for order in self:
             quote_status = order.quote_status
-            design_status = order.design_status
             for line in order.order_line:
-                if line.to_design:
-                    design_status = "to design"
 
                 if line.to_quote:
                     quote_status = "to quote"
 
                 if line.to_quote or line.to_design:
                     line.update({"route_id": route_id})
-            order.update(
-                {"design_status": design_status, "quote_status": quote_status}
-            )
+            order.update({"quote_status": quote_status})
 
     @api.multi
     def production_countdown(self):
@@ -446,6 +493,59 @@ class SaleOrder(models.Model):
             if not rec.placement_defined:
                 rec.write({"placement": 0})
 
+    def action_to_design(self):
+        for rec in self:
+            design_cont = 0
+            if not rec.order_line:
+                raise ValidationError(
+                    _("You cannot design sales without products.")
+                )
+
+            for line in rec.order_line:
+                if line.to_design:
+                    design_cont += 1
+
+            if rec.quote_status != "quoted":
+                raise ValidationError(
+                    _("You cannot change sales without quoted.")
+                )
+            if design_cont == 0:
+                raise ValidationError(
+                    _("You cannot change sales without products to design.")
+                )
+            else:
+                for line in rec.order_line:
+                    if line.to_design:
+                        product_obj = line.template_id
+                        for attribute in product_obj.attribute_line_ids:
+                            for value in attribute.value_ids:
+                                if value.create_from_sale:
+                                    attribute.write(
+                                        {"value_ids": [(3, value.id)]}
+                                    )
+                                    product_obj.create_variant_ids()
+
+                return self.write({"state": "to design"})
+
+    def action_sent_design(self):
+        for order in self:
+            for line in order.order_line:
+                if line.to_design:
+                    mrp_obj = self.env["mrp.bom"]
+                    domain = [
+                        ("product_tmpl_id", "=", line.template_id.id),
+                        ("product_id", "=", line.product_id.id),
+                    ]
+                    bom_s = mrp_obj.search(domain, limit=1)
+                    if not bom_s:
+                        raise ValidationError(
+                            _(
+                                "You cannot sent to design because the product "
+                                "%s don't have BOM." % (line.template_id.name)
+                            )
+                        )
+            return order.write({"state": "sent design"})
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
@@ -467,3 +567,82 @@ class SaleOrderLine(models.Model):
         ondelete="restrict",
         # default=_get_route,
     )
+
+    @api.multi
+    def create_new_design(self):
+        view_id = self.env.ref("mrp.mrp_bom_form_view").id
+        view_tree = self.env.ref("mrp.mrp_bom_tree_view").id
+        mrp_obj = self.env["mrp.bom"]
+        boms = []
+        domain = [
+            ("product_tmpl_id", "=", self.template_id.id),
+            ("product_id", "=", self.product_id.id),
+        ]
+        bom_s = mrp_obj.search(domain, limit=1)
+        if not bom_s:
+            domain = [
+                ("product_tmpl_id", "=", self.template_id.id),
+                ("product_id", "=", False),
+            ]
+            bom = mrp_obj.search(domain, limit=1)
+            return {
+                "name": "New Design BOM",
+                "view_type": "form",
+                "view_mode": "form",
+                "res_model": "mrp.bom",
+                "view_id": view_id,
+                "target": "current",
+                "type": "ir.actions.act_window",
+                "context": {
+                    "default_product_tmpl_id": self.template_id.id,
+                    "default_product_id": self.product_id.id,
+                    # "default_bom_line_ids": bom.bom_line_ids.ids,
+                    "default_bom_line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "product_id": x.product_id.id,
+                                "product_uom_id": x.product_id.uom_id.id,
+                                "product_qty": x.product_qty,
+                            },
+                        )
+                        for x in bom.bom_line_ids
+                    ],
+                    "default_design": True,
+                },
+            }
+        else:
+            for b in bom_s:
+                boms.append(b.id)
+            return {
+                "type": "ir.actions.act_window",
+                "name": "New Design BOM",
+                "views": [[view_tree, "tree"], [view_id, "form"]],
+                "res_model": "mrp.bom",
+                "domain": [("id", "in", boms)],
+                "target": "current",
+            }
+
+
+class ProductAttributeValue(models.Model):
+    _inherit = "product.attribute.value"
+    create_from_sale = fields.Boolean(
+        string="Create from sale?", default=False
+    )
+
+
+class MrpBom(models.Model):
+    _inherit = "mrp.bom"
+
+    design = fields.Boolean("Design?", default=False)
+
+    @api.model
+    def create(self, values):
+        bom = super(MrpBom, self).create(values)
+        if bom.design:
+            if not bom.routing_id:
+                raise ValidationError(
+                    _("You can't save design bom without routing")
+                )
+        return bom

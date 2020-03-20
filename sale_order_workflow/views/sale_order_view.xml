@@ -7,6 +7,25 @@
       <field name="inherit_id" ref="sale.view_order_form" />
       <field name="arch" type="xml">
 
+        <xpath expr="//header" position="replace">
+          <header>
+            <button name="action_quotation_send" string="Send by Email" type="object" states="draft,sent design" class="btn-primary"/>
+            <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
+            <button name="print_quotation" string="Print" type="object" states="draft,sent design" class="btn-primary o_sale_print"/>
+            <button name="action_confirm_new" id="action_confirm" string="Confirm Sale" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+            <button name="action_confirm_new" string="Confirm Sale" type="object" attrs="{'invisible': [('state', 'not in', ['draft', 'sent design'])]}"/>
+            <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', 'in', ['draft', 'sent design']), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
+            <button name="print_quotation" string="Print" type="object" states="sent,sale" class="o_sale_print"/>
+            <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale"/>
+            <button name="action_cancel" states="draft,to design,sent design,sent,sale" type="object" string="Cancel"/>
+            <button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
+            <button name="action_done" type="object" string="Lock" states="sale" help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."/>
+            <button name="action_unlock" type="object" string="Unlock" states="done" groups="sales_team.group_sale_manager"/>
+            <button name="action_to_design" type="object" states="draft,sent" string="To Design" class="oe_highlight"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,sent,to design,sent design,sale"/>
+          </header>
+        </xpath>
+
         <xpath expr="//button[@name='action_view_invoice']" position="before">
           <field name="production_ids" invisible="1"/>
           <button type="object" name="action_view_productions" class="oe_stat_button" icon="fa-industry" attrs="{'invisible': [('production_count', '=', 0)]}" groups="base.group_user">
@@ -16,7 +35,7 @@
 
         <xpath expr="/form/sheet/group" position="inside">
           <group>
-            <field name="design_status" />
+            <field name="design_status" invisible="1"/>
             <field name="quote_status" />
             <field name="freight_defined" />
             <field name="freight" widget="monetary" attrs="{'invisible': [('freight_defined', '=', False)]}"/>
@@ -59,9 +78,9 @@
       <field name="mode">primary</field>
       <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
       <field name="arch" type="xml">
-        <xpath expr="//filter[@name='sent']" position="after">
+        <!-- <xpath expr="//filter[@name='sent']" position="after">
           <filter string="Design" name="design" domain="[('state','=','design')]"/>
-        </xpath>
+        </xpath> -->
         <xpath expr="//filter[@name='customer']" position="after">
           <filter name="status" string="State" domain="[]" context="{'group_by':'state'}"/>
         </xpath>
@@ -75,8 +94,6 @@
       <field name="inherit_id" ref="sale.view_order_tree"/>
       <field name="arch" type="xml">
         <field name="invoice_status" position="after">
-          <field name="design_status" options='{"fg_color": "red:design_status in (&apos;to design&apos;);
-                  orange:design_status in (&apos;in design&apos;);green:design_status in (&apos;ready&apos;);"}'/>
           <field name="production_status" options='{"fg_color": "red:production_status in (&apos;to produce&apos;);
                   orange:production_status in (&apos;in production&apos;);green:production_status in (&apos;ready&apos;);"}'/>
           <field name="final_countdown" options='{"fg_color": "red:final_countdown &lt; (&apos;0&apos;);
@@ -84,6 +101,7 @@
           <field name="picking_status" />
         </field>
         <field name="invoice_status" position="before">
+          <field name="state" options='{"fg_color": "orange:state in (&apos;to design&apos;);green:state in (&apos;sent design&apos;);"}'/>
           <field name="quote_status" options='{"fg_color": "red:quote_status in (&apos;to quote&apos;);;green:quote_status in (&apos;quoted&apos;);"}'/>
         </field>
       </field>
@@ -95,11 +113,12 @@
       <field name="priority">2</field>
       <field name="inherit_id" ref="sale.view_quotation_tree"/>
       <field name="arch" type="xml">
+        <field name="state" position="replace">
+          <field name="state" options='{"fg_color": "orange:state in (&apos;to design&apos;);green:state in (&apos;sent design&apos;);"}'/>
+        </field>
         <field name="state" position="after">
           <field name="quote_status" options='{"fg_color": "red:quote_status in (&apos;to quote&apos;);;green:quote_status in (&apos;quoted&apos;);"}'/>
           <field name="invoice_status" />
-          <field name="design_status" options='{"fg_color": "red:design_status in (&apos;to design&apos;);
-                      orange:design_status in (&apos;in design&apos;);green:design_status in (&apos;ready&apos;);"}'/>
           <field name="production_status" options='{"fg_color": "red:production_status in (&apos;to produce&apos;);
                       orange:production_status in (&apos;in production&apos;);green:production_status in (&apos;ready&apos;);"}'/>
           <field name="final_countdown" options='{"fg_color": "red:final_countdown &lt; (&apos;0&apos;);
@@ -126,12 +145,12 @@
       <field name="inherit_id" ref="sale.view_sales_order_filter"/>
       <field name="arch" type="xml">
         <filter name="activities_my" position="after">
-          <filter string="With Design" name="design_tasks" domain="[('design_status', '!=', 'no')]"/>
+          <filter string="With Design" name="design_tasks" domain="[('state', 'in', ['to design','sent design'])]"/>
           <filter string="With Production" name="production_tasks" domain="[('production_status', '!=', 'no')]"/>
           <filter string="With Quotation" name="quotation_tasks" domain="[('quote_status', '!=', 'no')]"/>
         </filter>
         <filter name="customer" position="after">
-          <filter name="design_status" string="Design" domain="[]" context="{'group_by':'design_status'}"/>
+          <filter name="design_status" string="Design" domain="[('state', 'in', ['to design','sent design'])]" context="{'group_by':'state'}"/>
           <filter name="production_status" string="Production" domain="[]" context="{'group_by':'production_status'}"/>
           <filter name="picking_status" string="Picking" domain="[]" context="{'group_by':'picking_status'}"/>
         </filter>

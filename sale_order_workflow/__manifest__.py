@@ -13,6 +13,7 @@
         "base",
         "sale",
         "account",
+        "mrp",
         "sale_mrp",
         "mrp_sale_info",
         "product_attributes",
@@ -24,6 +25,7 @@
         "views/sale_order_view.xml",
         "views/mrp_production_view.xml",
         "views/stock_picking_view.xml",
+        "views/sale_order_design.xml",
         "data/product_template_data.xml",
     ],
 }
