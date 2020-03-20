@@ -26,27 +26,6 @@
           </header>
         </xpath>
 
-        <!-- <button name="action_quotation_send" position="replace">
-          <button name="action_quotation_send" string="Send by Email" type="object" states="draft,sent design" class="btn-primary"/>
-        </button>
-
-        <button name="action_confirm" position="replace">
-          <button name="action_confirm" string="Confirm Sale" type="object" attrs="{'invisible': [('state', 'not in', ['draft', 'sent design'])]}"/>
-        </button>
-
-        <button name="print_quotation" position="replace">
-          <button name="print_quotation" string="Print" type="object" states="draft,sent design" class="btn-primary o_sale_print"/>
-        </button>
-
-
-        <button name="action_cancel" position="replace">
-          <button name="action_cancel" states="draft,to design,sent design,sent,sale" type="object" string="Cancel"/>
-        </button>
-
-        <xpath expr="//field[@name='state']" position="replace">
-          <field name="state" widget="statusbar" statusbar_visible="draft,to design,sent design,sent,sale"/>
-        </xpath> -->
-
         <xpath expr="//button[@name='action_view_invoice']" position="before">
           <field name="production_ids" invisible="1"/>
           <button type="object" name="action_view_productions" class="oe_stat_button" icon="fa-industry" attrs="{'invisible': [('production_count', '=', 0)]}" groups="base.group_user">
@@ -56,7 +35,7 @@
 
         <xpath expr="/form/sheet/group" position="inside">
           <group>
-            <field name="design_status"/>
+            <field name="design_status" invisible="1"/>
             <field name="quote_status" />
             <field name="freight_defined" />
             <field name="freight" widget="monetary" attrs="{'invisible': [('freight_defined', '=', False)]}"/>

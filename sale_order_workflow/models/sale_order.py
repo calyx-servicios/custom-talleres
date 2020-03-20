@@ -253,23 +253,6 @@ class SaleOrder(models.Model):
                     quote_state = "no"
             order.update({"quote_status": quote_state})
 
-    # @api.depends("order_line.to_design", "state")
-    # def _get_design(self):
-    #     for order in self:
-    #         if order.state == "sent design":
-    #             design_status = "ready"
-    #         elif order.state == "to design":
-    #             design_status = "in design"
-    #         else:
-    #             line_design_status = []
-    #             for line in order.order_line:
-    #                 line_design_status.append(line.to_design)
-    #             design_status = "no"
-    #             design_count = len(line_design_status)
-    #             if design_count > 0:
-    #                 design_status = "to design"
-    #         order.update({"design_status": design_status})
-
     @api.multi
     def action_confirm_new(self):
         for order in self:
@@ -319,13 +302,6 @@ class SaleOrder(models.Model):
         # production_obj = self.env["mrp.production"]
         if res:
             for order in self:
-                # if order.design_status not in ["no", "ready"]:
-                #     raise ValidationError(
-                #         _(
-                #             "You cannot confirm sales with desing task "
-                #             "in progress."
-                #         )
-                #     )
                 if order.quote_status not in ["no", "quoted"]:
                     raise ValidationError(
                         _(
@@ -333,14 +309,6 @@ class SaleOrder(models.Model):
                             "in progress."
                         )
                     )
-
-                # if order.design_status in ["to design", "in design"]:
-                #     raise ValidationError(
-                #         _(
-                #             "You cannot confirm sales with"
-                #             " products to design."
-                #         )
-                #     )
 
                 for pick in order.picking_ids:
                     f = 0
