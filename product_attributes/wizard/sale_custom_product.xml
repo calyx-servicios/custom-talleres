@@ -1,52 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record model='ir.ui.view' id='view_sale_viatic_wizard_form'>
-        <field name='name'>sale.product.wizard.form</field>
-        <field name='model'>sale.product.wizard</field>
-        <field name='arch' type='xml'>
-            <form string="Sale Product Selector" >
+  <record model='ir.ui.view' id='view_sale_viatic_wizard_form'>
+    <field name='name'>sale.product.wizard.form</field>
+    <field name='model'>sale.product.wizard</field>
+    <field name='arch' type='xml'>
+      <form string="Sale Product Selector">
 
-                  <notebook>
-                      <page name="selector_page" string="Lines">
-                        <field name="template_id" />
-                          <field name="line_ids" >
-                          <tree editable="bottom" create="false" delete="false">
-                                  <field name="attribute_id" readonly="1"/>
-                                  <field name="product_ids" invisible="True"/>
-                                  <field name="attribute_value_id" domain="[('attribute_id', '=', attribute_id),('product_ids','in', product_ids)]" create="false"/>
-                          </tree>
+        <notebook>
+          <page name="selector_page" string="Lines">
+            <field name="template_id" />
+            <field name="to_design" invisible="True"/>
+            <field name="line_ids">
+              <tree editable="bottom" create="false" delete="false">
+                <field name="attribute_id" readonly="1"/>
+                <field name="product_ids" invisible="True"/>
+                <field name="attribute_value_id" domain="[('attribute_id', '=', attribute_id),('product_ids','in', product_ids)]" options="{'no_create': True}"/>
+              </tree>
 
-                          </field>
-                        <group>
-                          <group>
-                            <field name="height"/>
+            </field>
+            <group>
+              <group>
+                <!-- <field name="height"/>
                             <field name="width"/>
-                            <field name="length"/>
-                            <field name="note"/>
-                          </group>
-                        </group>
-                      </page>
-                      <page name="files_page" string="Files">
+                            <field name="length"/> -->
+                <field name="note"/>
+              </group>
+            </group>
+          </page>
+          <page name="variant_page" string="New Variant" attrs="{'invisible': [('to_design', '=', False)]}">
+            <field name="line_create_ids">
+              <tree editable="bottom">
+                <field name="attribute_id"/>
+                <field name="attribute_value_id" domain="[('attribute_id', '=', attribute_id)]" options="{'no_create_edit': True}" context="{'default_attribute_id': attribute_id, 'show_attribute': False}"/>
+              </tree>
+            </field>
 
-                          <field name="attachment_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
+            <button name='set_new_variant' string='Set to product' class='oe_highlight' type='object'/>
+
+          </page>
+          <page name="files_page" string="Files">
+
+            <field name="attachment_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
 
 
-                      </page>
-                      <page name="design_page" string="Design Files">
+          </page>
+          <!-- <page name="design_page" string="Design Files">
 
-                          <field name="design_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
+            <field name="design_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
 
 
-                      </page>
-                  </notebook>
-                <footer>
-                  <button name='set_product' string='Set'  class='oe_highlight' type='object'/>
+          </page> -->
+        </notebook>
+        <footer>
+          <button name='set_product' string='Set' class='oe_highlight' type='object'/>
 
-                </footer>
-            </form>
-        </field>
-    </record>
+        </footer>
+      </form>
+    </field>
+  </record>
 
 
 </odoo>
