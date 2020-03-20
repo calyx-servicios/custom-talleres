@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-23 18:38+0000\n"
-"PO-Revision-Date: 2019-12-23 18:38+0000\n"
+"POT-Creation-Date: 2020-03-20 15:10+0000\n"
+"PO-Revision-Date: 2020-03-20 15:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,8 @@ msgid "Attach a file"
 msgstr "Adjuntar un archivo"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_product_product_attachment_ids
+#: model:ir.model.fields,field_description:product_attributes.field_product_template_attachment_ids
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_attachment_ids
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_attachment_ids
 #: model:ir.ui.view,arch_db:product_attributes.sale_attr_sale_order_line_form
@@ -28,32 +30,42 @@ msgid "Attachments"
 msgstr "Adjuntos"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_attribute_id
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_attribute_id
 msgid "Attribute"
 msgstr "Atributo"
 
 #. module: product_attributes
-#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_attribute_value_id
-msgid "Attributes"
-msgstr "Atributos"
-
-#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_create_uid
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_uid
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_create_date
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_date
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_create_date
 msgid "Created on"
 msgstr "Creado en"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_design_ids
+msgid "Design"
+msgstr "Diseño"
+
+#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_design_ids
+#: model:ir.ui.view,arch_db:product_attributes.sale_attr_sale_order_line_form
+msgid "Design Attachments"
+msgstr "Adjuntos de Diseño"
+
+#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_display_name
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_display_name
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_display_name
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Nombre a Mostrar"
 
 #. module: product_attributes
 #: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
@@ -61,51 +73,49 @@ msgid "Files"
 msgstr "Archivos"
 
 #. module: product_attributes
-#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_height
-#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_height
-msgid "Height (Cm)"
-msgstr "Altura (Cm)"
-
-#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_id
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_id
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "ID"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard___last_update
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create___last_update
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line___last_update
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Última Modificación en"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_write_uid
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_write_uid
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_write_uid
 msgid "Last Updated by"
 msgstr "Última actualización de"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_write_date
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_write_date
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
 
 #. module: product_attributes
-#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_length
-#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_length
-msgid "Length (Cm)"
-msgstr "Largo (Cm)"
-
-#. module: product_attributes
-#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_id_5842
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_id_4180
 msgid "Line"
 msgstr "Linea"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_create_ids
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_ids
 #: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
 msgid "Lines"
 msgstr "Líneas"
+
+#. module: product_attributes
+#: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
+msgid "New Variant"
+msgstr "Nuevos Atributos"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_note
@@ -114,12 +124,18 @@ msgid "Note"
 msgstr "Nota"
 
 #. module: product_attributes
+#: selection:sale.order.line,quote_status:0
+msgid "Nothing to Quote"
+msgstr "Nada que cotizar"
+
+#. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_template_id
 msgid "Product"
 msgstr "Producto"
 
 #. module: product_attributes
-#: code:addons/product_attributes/models/sale_order.py:79
+#: code:addons/product_attributes/models/sale_order.py:129
+#: code:addons/product_attributes/wizard/sale_custom_product.py:317
 #, python-format
 msgid "Product Selector"
 msgstr "Selector de Productos"
@@ -130,9 +146,24 @@ msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_quote_status
+msgid "Quote Status"
+msgstr "Estado de Cotización"
+
+#. module: product_attributes
+#: selection:sale.order.line,quote_status:0
+msgid "Quoted"
+msgstr "Cotizado"
+
+#. module: product_attributes
+#: model:ir.model,name:product_attributes.model_sale_product_wizard_create
+msgid "Sale Product Attribute Create"
+msgstr "Crear atributo para producto"
+
+#. module: product_attributes
 #: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
 msgid "Sale Product Selector"
-msgstr "Sale Product Selector"
+msgstr "Selector de producto"
 
 #. module: product_attributes
 #: model:ir.model,name:product_attributes.model_sale_product_wizard
@@ -147,12 +178,17 @@ msgstr "Linea de Asistente de Productos"
 #. module: product_attributes
 #: model:ir.model,name:product_attributes.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de orden de ventas"
 
 #. module: product_attributes
 #: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
 msgid "Set"
 msgstr "Establecer"
+
+#. module: product_attributes
+#: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
+msgid "Set to product"
+msgstr "Agregar a Producto"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_template_id
@@ -165,32 +201,32 @@ msgid "This means that the price will be set to zero everytime the custom wizard
 msgstr "Establece el valor en cero para que sea cotizado"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_to_design
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_to_design
+msgid "To Design"
+msgstr "A diseñar"
+
+#. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_to_quote
+#: selection:sale.order.line,quote_status:0
 msgid "To Quote"
 msgstr "A Cotizar"
 
 #. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_attribute_value_id
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_attribute_value_id
+msgid "Values"
+msgstr "Valores"
+
+#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_product_ids
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_product_ids
 msgid "Variants"
 msgstr "Variantes"
 
 #. module: product_attributes
-#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_width
-#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_width
-msgid "Width (Cm)"
-msgstr "Ancho (Cm)"
-
-#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_wizard_id
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_wizard_id
 msgid "Wizard"
 msgstr "Asistente"
 
-#. module: product_attributes
-#: model:ir.model,name:product_attributes.model_sale_order_line_attach
-msgid "sale.order.line.attach"
-msgstr "sale.order.line.attach"
-
-#. module: product_attributes
-#: model:ir.model,name:product_attributes.model_sale_product_wizard_attach
-msgid "sale.product.wizard.attach"
-msgstr "sale.product.wizard.attach"
