@@ -265,6 +265,7 @@ class SaleOrder(models.Model):
                                 " products to design."
                             )
                         )
+                order.action_confirm()
             else:
                 order.action_confirm()
 
@@ -586,7 +587,7 @@ class SaleOrderLine(models.Model):
             ]
             bom = mrp_obj.search(domain, limit=1)
             return {
-                "name": "New Design BOM",
+                "name": "Lista de Materiales",
                 "view_type": "form",
                 "view_mode": "form",
                 "res_model": "mrp.bom",

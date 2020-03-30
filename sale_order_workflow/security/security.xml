@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="sale_order_designs" model="ir.module.category">
+            <field name="name">Sale Order Design</field>
+            <field name="sequence">1</field>
+            <field name="description">Vista de diseñador de ventas</field>
+        </record>
+
+        <record id="sale_order_designs_responsible_group" model="res.groups">
+            <field name="name">Sale Order Design</field>
+            <field name="category_id" ref="sale_order_designs"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+    </data>
+</odoo>

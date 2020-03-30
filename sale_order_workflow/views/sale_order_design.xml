@@ -67,9 +67,10 @@
                                     </form>
                                     <tree string="Sales Order Lines" create="false" delete="false">
                                         <field name="template_id" />
+                                        <button name="action_custom_selection" icon="fa-pencil-alt" type="object" context="{'res_id':id or None, 'design': True}" />
                                         <field name="name"/>
                                         <field name="to_design"/>
-                                        <button name="create_new_design" type="object" icon="fa-pencil-alt" attrs="{'invisible': [('to_design', '=', False)]}"/>
+                                        <button name="create_new_design" type="object" icon="fa-list-alt" attrs="{'invisible': [('to_design', '=', False)]}"/>
                                     </tree>
                                 </field>
                             </page>
@@ -85,12 +86,23 @@
         </record>
 
         <record id="action_sale_design_tree" model="ir.actions.act_window">
-            <field name="name">Sale Order Design</field>
+            <field name="name">Sale Order To Design</field>
             <field name="res_model">sale.order</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','in',['to design', 'sent design'])]</field>
+            <field name="domain">[('state','in',['to design'])]</field>
+            <field name="context">{'default_type':'design'}</field>
+            <field name="search_view_id" ref="view_sale_order_design_filter"/>
+        </record>
+
+        <record id="action_sale_design_tree2" model="ir.actions.act_window">
+            <field name="name">Sale Order Sent Design</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('state','in',['sent design'])]</field>
             <field name="context">{'default_type':'design'}</field>
             <field name="search_view_id" ref="view_sale_order_design_filter"/>
         </record>
@@ -102,6 +114,13 @@
             <field name="act_window_id" ref="action_sale_design_tree"/>
         </record>
 
+        <record id="sale_order_design_tree_view2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_order_design_tree"/>
+            <field name="act_window_id" ref="action_sale_design_tree2"/>
+        </record>
+
         <record id="sale_order_design_form_view" model="ir.actions.act_window.view">
             <field eval="2" name="sequence"/>
             <field name="view_mode">form</field>
@@ -109,10 +128,11 @@
             <field name="act_window_id" ref="action_sale_design_tree"/>
         </record>
 
-        <!-- <menuitem id="menu_action_design_sale_order" name="Design" parent="sale.sale_menu_root" sequence="50"/> -->
-        <menuitem id="menu_action_design_sale_order" name="Design" sequence="50"/>
+        <menuitem id="menu_action_design_sale_order" name="Design" sequence="50" groups="sale_order_workflow.sale_order_designs_responsible_group" web_icon="sale_order_workflow,static/menu_icon/icon.png"/>
+
         <menuitem id="design_sale_order_menu" name="Design" parent="menu_action_design_sale_order" sequence="10"/>
         <menuitem action="action_sale_design_tree" id="action_sale_order_design_tree" parent="design_sale_order_menu" sequence="10"/>
+        <menuitem action="action_sale_design_tree2" id="action_sale_order_design_tree2" parent="design_sale_order_menu" sequence="15"/>
 
         <menuitem id="mrp_sale_design" name="Fabrication" parent="menu_action_design_sale_order" sequence="50"/>
         <menuitem action="mrp.mrp_bom_form_action" id="action_design_bom" parent="mrp_sale_design" sequence="11"/>
