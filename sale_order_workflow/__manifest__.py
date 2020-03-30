@@ -22,6 +22,7 @@
         "web_notify",
     ],
     "data": [
+        "security/security.xml",
         "views/sale_order_view.xml",
         "views/mrp_production_view.xml",
         "views/stock_picking_view.xml",

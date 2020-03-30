@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="sale_order_custom_report_button" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="name">Sale Button Custom Report</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//header" position="inside"> -->
+                <xpath expr="//button[@name='print_quotation']" position="replace">
+                    <button name="print_custom_sale_report" type="object" states="sent,sale" string="Print" class="o_sale_print"/>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="replace"/>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_view_design" model="ir.ui.view">
+            <field name="name">mrp.routing.workcenter.form.design</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="attachments_page" string="Attachments">
+                        <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2" readonly="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

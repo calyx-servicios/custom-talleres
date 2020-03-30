@@ -8,10 +8,22 @@
       <form string="Sale Product Selector">
 
         <notebook>
+          <field name="design_view" invisible="True"/>
           <page name="selector_page" string="Lines">
             <field name="template_id" />
             <field name="to_design" invisible="True"/>
-            <field name="line_ids">
+            <field name="line_ids" attrs="{'readonly': [('design_view', '=', True)]}">
+              <form string="Sales Order Lines">
+                <group>
+                  <group>
+                    <field name="attribute_id" readonly="1" />
+                    <field name="attribute_value_id" readonly="1"/>
+                  </group>
+                </group>
+                <footer>
+                  <!-- <button string="Close" class="btn-default" special="cancel"/> -->
+                </footer>
+              </form>
               <tree editable="bottom" create="false" delete="false">
                 <field name="attribute_id" readonly="1"/>
                 <field name="product_ids" invisible="True"/>
@@ -24,11 +36,11 @@
                 <!-- <field name="height"/>
                             <field name="width"/>
                             <field name="length"/> -->
-                <field name="note"/>
+                <field name="note" attrs="{'readonly': [('design_view', '=', True)]}"/>
               </group>
             </group>
           </page>
-          <page name="variant_page" string="New Variant" attrs="{'invisible': [('to_design', '=', False)]}">
+          <page name="variant_page" string="New Variant" attrs="{'invisible': ['|', ('to_design', '=', False), ('design_view', '=', True)]}">
             <field name="line_create_ids">
               <tree editable="bottom">
                 <field name="attribute_id"/>
@@ -41,7 +53,7 @@
           </page>
           <page name="files_page" string="Files">
 
-            <field name="attachment_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
+            <field name="attachment_ids" widget="many2many_binary" string="Attach a file" colspan="2" attrs="{'readonly': [('design_view', '=', True)]}"/>
 
 
           </page>
@@ -53,7 +65,7 @@
           </page> -->
         </notebook>
         <footer>
-          <button name='set_product' string='Set' class='oe_highlight' type='object'/>
+          <button name='set_product' string='Set' class='oe_highlight' type='object' attrs="{'invisible': [('design_view', '=', True)]}"/>
 
         </footer>
       </form>

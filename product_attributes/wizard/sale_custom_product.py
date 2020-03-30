@@ -156,6 +156,13 @@ class SaleProductWizard(models.TransientModel):
             line = line_obj.browse(self._context.get("res_id"))
             return line.to_design
 
+    @api.model
+    def _default_design_view(self):
+        if self._context.get("design"):
+            return True
+        else:
+            return False
+
     line_ids = fields.One2many(
         "sale.product.wizard.line",
         "wizard_id",
@@ -193,6 +200,10 @@ class SaleProductWizard(models.TransientModel):
         "sale.product.wizard.create", "wizard_id", string="Lines",
     )
 
+    design_view = fields.Boolean(
+        string="Design View", default=_default_design_view
+    )
+
     @api.multi
     def set_product(self):
         product_obj = self.env["product.product"]
@@ -211,6 +222,7 @@ class SaleProductWizard(models.TransientModel):
                 )
                 if check:
                     self.line_id.product_id = product.id
+                    self.line_id.price_unit = product.lst_price
                     name = product.name_get()[0][1]
                     if product.description_sale:
                         name += "\n" + product.description_sale
