@@ -9,6 +9,7 @@
                 <xpath expr="//button[@name='print_quotation']" position="replace">
                     <button name="print_custom_sale_report" type="object" states="sent,sale" string="Print" class="o_sale_print"/>
                 </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="replace"/>
             </field>
         </record>
 
