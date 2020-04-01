@@ -1,15 +1,30 @@
 <odoo>
     <data>
-        <record id="sale_order_custom_report_button" model="ir.ui.view">
+        <!-- <record id="sale_order_custom_report_button" model="ir.ui.view">
             <field name="model">sale.order</field>
             <field name="name">Sale Button Custom Report</field>
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
-                <!-- <xpath expr="//header" position="inside"> -->
                 <xpath expr="//button[@name='print_quotation']" position="replace">
                     <button name="print_custom_sale_report" type="object" states="sent,sale" string="Print" class="o_sale_print"/>
                 </xpath>
                 <xpath expr="//button[@name='print_quotation']" position="replace"/>
+            </field>
+        </record> -->
+
+        <record id="sale_order_mrp_custom_report_button" model="ir.ui.view">
+            <field name="model">mrp.production</field>
+            <field name="name">Sale MRP Button Custom Report</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="print_custom_sale_report" type="object" string="Print" class="o_sale_print"/>
+                </xpath>
+
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="sale_id" invisible="1"/>
+                </xpath>
+
             </field>
         </record>
 

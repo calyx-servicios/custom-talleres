@@ -545,7 +545,9 @@ class SaleOrder(models.Model):
                                 "%s don't have BOM." % (line.template_id.name)
                             )
                         )
-            return order.write({"state": "sent design"})
+            return order.write(
+                {"state": "sent design", "design_status": "ready"}
+            )
 
 
 class SaleOrderLine(models.Model):

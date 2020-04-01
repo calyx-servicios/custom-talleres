@@ -102,7 +102,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','in',['sent design'])]</field>
+            <field name="domain">[('design_status','in',['ready'])]</field>
             <field name="context">{'default_type':'design'}</field>
             <field name="search_view_id" ref="view_sale_order_design_filter"/>
         </record>
@@ -126,6 +126,23 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="sale_order_design_form"/>
             <field name="act_window_id" ref="action_sale_design_tree"/>
+        </record>
+
+        <!-- FILTER MRP -->
+        <record id="mrp_production_filters_orders" model="ir.ui.view">
+            <field name="model">mrp.production</field>
+            <field name="name">Sale MRP Filters</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="origin" string="Orden de Venta" filter_domain="['|',('sale_id.name','ilike',self),('origin','ilike',self)]"/>
+                </field>
+
+                <xpath expr="/search/group" position="inside">
+                    <filter name="sale_orders" string="Orden de Venta" context="{'group_by':'sale_id'}"/>
+                </xpath>
+            </field>
         </record>
 
         <menuitem id="menu_action_design_sale_order" name="Design" sequence="50" groups="sale_order_workflow.sale_order_designs_responsible_group" web_icon="sale_order_workflow,static/menu_icon/icon.png"/>
