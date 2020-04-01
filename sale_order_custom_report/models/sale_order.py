@@ -1,15 +1,11 @@
-from odoo import api, models, fields, _
+from odoo import api, models, fields
 import base64
-from pdf2image import convert_from_path, convert_from_bytes
-from pdf2image.exceptions import (
-    PDFInfoNotInstalledError,
-    PDFPageCountError,
-    PDFSyntaxError,
-)
-from PIL import Image
+from pdf2image import convert_from_path
+
 from io import BytesIO
 import logging
-
+from datetime import timedelta
+import dateutil.parser
 
 _logger = logging.getLogger(__name__)
 
@@ -22,6 +18,26 @@ class MroRoutingWorkcenter(models.Model):
         string="Files",
         help="Get you bank statements in electronic format from your bank and select them here.",
     )
+
+
+class MrpProduction(models.Model):
+    _inherit = "mrp.production"
+
+    @api.multi
+    def print_custom_sale_report(self):
+        self.ensure_one()
+        if self.sale_id:
+            self.sale_id.print_custom_sale_report()
+            action = self.env.ref(
+                "sale_order_custom_report.action_sale_order_custom_report"
+            )
+            vals = action.read()[0]
+            context = vals.get("context", {})
+            context["active_id"] = self.sale_id.id
+            context["active_ids"] = [self.sale_id.id]
+            vals["context"] = context
+
+            return vals
 
 
 class SaleOrder(models.Model):
@@ -69,6 +85,14 @@ class SaleOrder(models.Model):
                                     ]
                                 }
                             )
-        return self.env.ref(
-            "sale_order_custom_report.action_sale_order_custom_report"
-        ).report_action(self)
+        # return self.env.ref(
+        #     "sale_order_custom_report.action_sale_order_custom_report"
+        # ).report_action(self)
+
+    def get_limit_date_produced(self):
+        for order in self:
+            date = order.date_order
+            date = dateutil.parser.parse(date).date()
+            new_date = date + timedelta(days=30)
+            new_date = new_date.strftime("%d/%m/%Y")
+            return new_date
