@@ -102,7 +102,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','in',['sent design'])]</field>
+            <field name="domain">[('design_status','in',['ready'])]</field>
             <field name="context">{'default_type':'design'}</field>
             <field name="search_view_id" ref="view_sale_order_design_filter"/>
         </record>

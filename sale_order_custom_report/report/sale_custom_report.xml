@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="paperformat_sale_custom_report" model="report.paperformat">
-        <field name="name">Sale Custom Report</field>
+        <field name="name">Mrp Custom Report Format</field>
         <field name="default" eval="True"/>
         <field name="format">custom</field>
         <field name="page_height">297</field>
         <field name="page_width">210</field>
         <field name="orientation">Landscape</field>
         <field name="margin_top">20</field>
-        <field name="margin_bottom">20</field>
+        <field name="margin_bottom">10</field>
         <field name="margin_left">20</field>
         <field name="margin_right">10</field>
         <field name="header_line" eval="False"/>
@@ -18,14 +18,14 @@
     
     <report 
         id="action_sale_order_custom_report"
-        string="Sale Custom Report"
+        string="Mrp Custom Report"
         model="sale.order" 
         report_type="qweb-pdf"
         file="sale_order_custom_report.report_sale_order_custom" 
         name="sale_order_custom_report.report_sale_order_custom"
         paperformat="sale_order_custom_report.paperformat_sale_custom_report"
         menu="False"
-        print_report_name="'Orden de Presupuesto - %s' % (object.name)"
+        print_report_name="'Orden de Producción - %s' % (object.name)"
     />
 
 </odoo>
