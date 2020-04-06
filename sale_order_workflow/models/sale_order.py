@@ -541,13 +541,31 @@ class SaleOrder(models.Model):
                     if not bom_s:
                         raise ValidationError(
                             _(
-                                "You cannot sent to design because the product "
-                                "%s don't have BOM." % (line.template_id.name)
+                                "You cannot sent to design because the product"
+                                " %s don't have BOM." % (line.template_id.name)
                             )
                         )
             return order.write(
                 {"state": "sent design", "design_status": "ready"}
             )
+
+    @api.model
+    def create(self, vals):
+        if vals.get("name", _("New")) == _("New"):
+            domain = [("id", "=", vals["team_id"])]
+            code_obj = self.env["crm.team"].search(domain, limit=1)
+            code = str(code_obj.name) + " - "
+            if "company_id" in vals:
+                vals["name"] = code + self.env["ir.sequence"].with_context(
+                    force_company=vals["company_id"]
+                ).next_by_code("sale.order") or _("New")
+            else:
+                vals["name"] = code + self.env["ir.sequence"].next_by_code(
+                    "sale.order"
+                ) or _("New")
+
+        res = super(SaleOrder, self).create(vals)
+        return res
 
 
 class SaleOrderLine(models.Model):

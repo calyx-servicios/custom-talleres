@@ -143,10 +143,10 @@
                             <td style="text-align:center;border: solid 1px black;"><span t-esc="line.product_uom_qty" /></td>
                             <td style="text-align:left;border: solid 1px black;padding-left: 5px"><span t-esc="line.template_id.name" /></td>
                             <t t-if="not line.to_design">
-                                <td style="text-align:center;border: solid 1px black;">NST</td>
+                                <td style="text-align:center;border: solid 1px black;">STD</td>
                             </t>    
                             <t t-if="line.to_design">
-                                <td style="text-align:center;border: solid 1px black;">STD</td>
+                                <td style="text-align:center;border: solid 1px black;">NST</td>
                             </t>
                             <td style="border-bottom: solid 1px;border-right: solid 1px;">
                                 <table style="width: 100%;">

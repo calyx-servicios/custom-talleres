@@ -128,6 +128,13 @@
             <field name="act_window_id" ref="action_sale_design_tree"/>
         </record>
 
+        <record id="sale_order_design_form_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_order_design_form"/>
+            <field name="act_window_id" ref="action_sale_design_tree2"/>
+        </record>
+
         <!-- FILTER MRP -->
         <record id="mrp_production_filters_orders" model="ir.ui.view">
             <field name="model">mrp.production</field>
