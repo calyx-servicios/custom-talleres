@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 13:09+0000\n"
-"PO-Revision-Date: 2020-03-30 13:09+0000\n"
+"POT-Creation-Date: 2020-04-09 14:36+0000\n"
+"PO-Revision-Date: 2020-04-09 14:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,11 @@ msgid "Design Attachments"
 msgstr "Adjuntos de Diseño"
 
 #. module: product_attributes
+#: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
+msgid "Design Files"
+msgstr "Archivos de Diseño"
+
+#. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_design_view
 msgid "Design View"
 msgstr "Vista Diseño"
@@ -70,19 +75,14 @@ msgstr "Vista Diseño"
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_display_name
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_display_name
 msgid "Display Name"
-msgstr "Nombre a Mostrar"
-
-#. module: product_attributes
-#: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
-msgid "Files"
-msgstr "Archivos"
+msgstr "Nombre mostrado"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_create_id
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_id
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard_line_id
 msgid "ID"
-msgstr "ID"
+msgstr "ID (identificación)"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_product_wizard___last_update
@@ -140,7 +140,7 @@ msgstr "Producto"
 
 #. module: product_attributes
 #: code:addons/product_attributes/models/sale_order.py:129
-#: code:addons/product_attributes/wizard/sale_custom_product.py:329
+#: code:addons/product_attributes/wizard/sale_custom_product.py:330
 #, python-format
 msgid "Product Selector"
 msgstr "Selector de Productos"
@@ -183,7 +183,7 @@ msgstr "Linea de Asistente de Productos"
 #. module: product_attributes
 #: model:ir.model,name:product_attributes.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de orden de ventas"
 
 #. module: product_attributes
 #: model:ir.ui.view,arch_db:product_attributes.view_sale_viatic_wizard_form
