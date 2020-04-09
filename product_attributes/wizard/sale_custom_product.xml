@@ -51,18 +51,18 @@
             <button name='set_new_variant' string='Set to product' class='oe_highlight' type='object'/>
 
           </page>
-          <page name="files_page" string="Files">
+          <!-- <page name="files_page" string="Files">
 
             <field name="attachment_ids" widget="many2many_binary" string="Attach a file" colspan="2" attrs="{'readonly': [('design_view', '=', True)]}"/>
 
 
-          </page>
-          <!-- <page name="design_page" string="Design Files">
+          </page> -->
+          <page name="design_page" string="Design Files">
 
             <field name="design_ids" widget="many2many_binary" string="Attach a file" colspan="2"/>
 
 
-          </page> -->
+          </page>
         </notebook>
         <footer>
           <button name='set_product' string='Set' class='oe_highlight' type='object' attrs="{'invisible': [('design_view', '=', True)]}"/>

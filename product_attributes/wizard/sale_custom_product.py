@@ -222,7 +222,8 @@ class SaleProductWizard(models.TransientModel):
                 )
                 if check:
                     self.line_id.product_id = product.id
-                    self.line_id.price_unit = product.lst_price
+                    if not self.line_id.to_quote:
+                        self.line_id.price_unit = product.lst_price
                     name = product.name_get()[0][1]
                     if product.description_sale:
                         name += "\n" + product.description_sale
