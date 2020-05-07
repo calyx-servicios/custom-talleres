@@ -207,12 +207,15 @@ class SaleProductWizard(models.TransientModel):
     @api.multi
     def set_product(self):
         product_obj = self.env["product.product"]
+        variants = True
         for wiz in self:
             domain = [("product_tmpl_id", "=", wiz.template_id.id)]
 
             attribute_vals = []
 
             for attribute in wiz.line_ids:
+                if attribute.attribute_value_id.name.lower() == "a definir":
+                    variants = False
                 attribute_vals.append(attribute.attribute_value_id.id)
             product_ids = product_obj.search(domain)
             for product in product_ids:
@@ -222,6 +225,7 @@ class SaleProductWizard(models.TransientModel):
                 )
                 if check:
                     self.line_id.product_id = product.id
+                    self.line_id.product_uom_qty = 0
                     if not self.line_id.to_quote:
                         self.line_id.price_unit = product.lst_price
                     name = product.name_get()[0][1]
@@ -244,6 +248,7 @@ class SaleProductWizard(models.TransientModel):
             # self.line_id.height = wiz.height
             # self.line_id.width = wiz.width
             self.line_id.note = wiz.note
+            self.line_id.variants_status_ok = variants
             # if wiz.attachment_ids:
             #     new_attachment_ids = []
 
@@ -266,6 +271,7 @@ class SaleProductWizard(models.TransientModel):
                 self.line_id.write({"design_ids": [(6, 0, [])]})
 
         return {}
+        # return self.line_id.onchange_product_id_availability()
 
     @api.multi
     def set_new_variant(self):

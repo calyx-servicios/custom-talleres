@@ -46,6 +46,8 @@ class SaleOrderLine(models.Model):
         default="no",
     )
 
+    variants_status_ok = fields.Boolean(string="Variants", default=False)
+
     # @api.multi
     # @api.onchange('length','height','width','note')
     # def change_product(self):
@@ -63,6 +65,9 @@ class SaleOrderLine(models.Model):
     #         name += '\n' + self.product_id.description_sale
     #     name += '\n' +message
     #     self.name=name
+
+    # def onchange_product_id_availability(self):
+    #     self._onchange_product_id_uom_check_availability()
 
     @api.multi
     @api.onchange("note")
@@ -91,6 +96,9 @@ class SaleOrderLine(models.Model):
         if self.to_quote:
             self.price_unit = 0.0
             self.quote_status = "to quote"
+        if not self.to_quote:
+            if self.price_unit == 0.0:
+                self.price_unit = self.product_id.list_price
 
     @api.multi
     @api.onchange("template_id")
