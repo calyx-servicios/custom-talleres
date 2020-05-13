@@ -7,13 +7,41 @@
             <field name="name">Sale Order Email Parner</field>
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_quotation_send']" position="after">
-                    <button name="action_custom_email_send" string="Send by Email2" type="object" states="draft,sent design" class="btn-primary"/>
+
+                <xpath expr="//button[@name='action_quotation_send']" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sent design,sale,done" class="btn-primary"/>
+                </xpath>
+
+                <xpath expr="//button[@name='print_quotation']" position="before">
+                    <button name="action_custom_email_send" string="Send by Email" type="object" states="draft" class="btn-primary"/>
                 </xpath>
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="email_partner" widget="email"/>
                 </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_custom_mail_tree" model="ir.ui.view">
+            <field name="name">sale.order.custom.mail.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">2</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="email_partner"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_order_custom_mail_search">
+            <field name="name">sale.order.custom.mail.search</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="email_partner" string="Email" filter_domain="[('email_partner','ilike',self)]"/>
+                </field>
             </field>
         </record>
     </data>

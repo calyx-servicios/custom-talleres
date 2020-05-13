@@ -1,4 +1,4 @@
-from odoo import models, api, fields, _
+from odoo import models, api, fields
 import base64
 
 import logging
@@ -55,18 +55,12 @@ class SaleOrderMailWizard(models.TransientModel):
         return attachments_record.ids
 
     attachment_ids = fields.Many2many(
-        "ir.attachment",
-        default=_action_generate_email_attachment,
-        help="Get you bank statements in electronic format from your bank and select them here.",
+        "ir.attachment", default=_action_generate_email_attachment
     )
 
     @api.multi
     def send_mail_action(self):
         # CREAR CORREO Y ENVIAR
-        # template_id = self.env["ir.model.data"].xmlid_to_res_id(
-        #     "sale_order_mail.email_template_sale_custom_partner",
-        #     raise_if_not_found=False,
-        # )
         template = self.env.ref(
             "sale_order_mail.email_template_sale_custom_partner"
         )
@@ -77,6 +71,7 @@ class SaleOrderMailWizard(models.TransientModel):
             self.env["mail.template"].browse(template.id).send_mail(self.id)
         )
         mail = self.env["mail.mail"].sudo().browse(mail_id)
+        mail.write({"body_html": self.body_email})
         mail.send()
         for attachment in self.attachment_ids:
             template.attachment_ids = [(3, attachment.id)]

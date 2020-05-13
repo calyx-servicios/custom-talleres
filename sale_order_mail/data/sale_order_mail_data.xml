@@ -11,11 +11,7 @@
             <field name="auto_delete" eval="True"/>
             <field name="model_id" ref="sale_order_mail.model_sale_order_mail_wizard"/>
             <field name="lang">${object.sale_id.partner_id.lang}</field>
-            <field name="body_html">
-                <![CDATA[
-                    ${object.body_email}
-                ]]>
-            </field>
+            <!-- <field name="body_html">${object.body_email}</field> -->
         </record>
 
     </data>
