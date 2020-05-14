@@ -3,6 +3,7 @@
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare
 import datetime
 import dateutil.parser
 import logging
@@ -265,6 +266,21 @@ class SaleOrder(models.Model):
                                 " products to design."
                             )
                         )
+                    if not line.variants_status_ok:
+                        raise ValidationError(
+                            _("You have to assign variants to %s")
+                            % (line.template_id.name)
+                        )
+                    if line.product_uom_qty == 0.0:
+                        raise ValidationError(
+                            _("You have to assign at least one qty to %s")
+                            % (line.template_id.name)
+                        )
+                advancement = len(order.advancement_line_ids)
+                if advancement <= 0:
+                    raise ValidationError(
+                        _("You have to assign a leats one advacement")
+                    )
                 order.action_confirm()
             else:
                 order.action_confirm()
@@ -503,8 +519,24 @@ class SaleOrder(models.Model):
                 )
 
             for line in rec.order_line:
+                if not line.variants_status_ok:
+                    raise ValidationError(
+                        _("You have to assign variants to %s")
+                        % (line.template_id.name)
+                    )
+                if line.product_uom_qty == 0.0:
+                    raise ValidationError(
+                        _("You have to assign at least one qty to %s")
+                        % (line.template_id.name)
+                    )
                 if line.to_design:
                     design_cont += 1
+
+            advancement = len(rec.advancement_line_ids)
+            if advancement <= 0:
+                raise ValidationError(
+                    _("You have to assign a leats one advacement")
+                )
 
             if rec.quote_status != "quoted":
                 raise ValidationError(
@@ -588,6 +620,90 @@ class SaleOrderLine(models.Model):
         ondelete="restrict",
         # default=_get_route,
     )
+
+    @api.onchange("product_uom_qty", "product_uom", "route_id")
+    def _onchange_product_id_check_availability(self):
+
+        # _logger.debug("*=======================*")
+        # _logger.debug("*===================*")
+
+        attribute_vals = []
+
+        for attribute in self.product_id.attribute_value_ids:
+            if attribute.name.lower() == "a definir":
+                # _logger.debug("*=======================*")
+                # _logger.debug("*=======A DEFINIR=======*")
+                # _logger.debug("*===================*")
+                attribute_vals.append(attribute.id)
+
+        # _logger.debug("======ONCHANGE==== %r", attribute_vals)
+
+        if len(attribute_vals) <= 0:
+            # _logger.debug("*=======SIN A DEFINIR=======*")
+            if (
+                not self.product_id
+                or not self.product_uom_qty
+                or not self.product_uom
+            ):
+                self.product_packaging = False
+                return {}
+            if self.product_id.type == "product":
+                # _logger.debug("*=======Entro 1ra!!=======*")
+                precision = self.env["decimal.precision"].precision_get(
+                    "Product Unit of Measure"
+                )
+                product = self.product_id.with_context(
+                    warehouse=self.order_id.warehouse_id.id,
+                    lang=self.order_id.partner_id.lang
+                    or self.env.user.lang
+                    or "en_US",
+                )
+                product_qty = self.product_uom._compute_quantity(
+                    self.product_uom_qty, self.product_id.uom_id
+                )
+                if (
+                    float_compare(
+                        product.virtual_available,
+                        product_qty,
+                        precision_digits=precision,
+                    )
+                    == -1
+                ):
+                    # _logger.debug("*=======Entro 2da!!=======*")
+                    is_available = self._check_routing()
+                    if not is_available:
+                        # _logger.debug("*=======Entro 3ra!!=======*")
+                        message = _(
+                            "You plan to sell %s %s but you only have %s %s available in %s warehouse."
+                        ) % (
+                            self.product_uom_qty,
+                            self.product_uom.name,
+                            product.virtual_available,
+                            product.uom_id.name,
+                            self.order_id.warehouse_id.name,
+                        )
+                        # We check if some products are available in other warehouses.
+                        if (
+                            float_compare(
+                                product.virtual_available,
+                                self.product_id.virtual_available,
+                                precision_digits=precision,
+                            )
+                            == -1
+                        ):
+                            message += _(
+                                "\nThere are %s %s available accross all warehouses."
+                            ) % (
+                                self.product_id.virtual_available,
+                                product.uom_id.name,
+                            )
+
+                        warning_mess = {
+                            "title": _("Not enough inventory!"),
+                            "message": message,
+                        }
+                        return {"warning": warning_mess}
+            return {}
 
     @api.multi
     def create_new_design(self):

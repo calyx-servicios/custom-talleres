@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- GROUPS -->
+
+        <record id="product_stock_price_restriction" model="ir.module.category">
+            <field name="name">Product Stock &amp; Price</field>
+            <field name="sequence">15</field>
+            <field name="description">Product Stock &amp; Price</field>
+        </record>
+
+        <record id="product_stock_price_responsible_group" model="res.groups">
+            <field name="name">Product Stock &amp; Price</field>
+            <field name="category_id" ref="product_stock_price_restriction"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <!-- MENUS -->
+        <record id="stock.menu_action_inventory_form" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4,ref('product_attributes.product_stock_price_responsible_group'))]"/>
+            <field name="groups_id" eval="[(4,ref('stock.group_stock_manager'))]"/>
+        </record>
+
+        <record id="stock.menu_stock_scrap" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4,ref('product_attributes.product_stock_price_responsible_group'))]"/>
+        </record>
+
+    </data>
+</odoo>

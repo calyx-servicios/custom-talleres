@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--Email template -->
+        <record id="email_template_sale_custom_partner" model="mail.template">
+            <field name="name">Sales Order - Send by Email</field>
+            <field name="email_from">${(object.sale_id.user_id.email and '%s &lt;%s&gt;' % (object.sale_id.user_id.name, object.sale_id.user_id.email) or '')|safe}</field>
+            <field name="subject">${object.subject}</field>
+            <field name="email_to">${object.email_to}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="model_id" ref="sale_order_mail.model_sale_order_mail_wizard"/>
+            <field name="lang">${object.sale_id.partner_id.lang}</field>
+            <!-- <field name="body_html">${object.body_email}</field> -->
+        </record>
+
+    </data>
+</odoo>

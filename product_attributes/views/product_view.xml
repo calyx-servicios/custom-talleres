@@ -1,19 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-    <record id="product_template_form_view_inherit" model="ir.ui.view">
-        <field name="model">product.template</field>
-        <field name="name">Product Template Container</field>
-        <field name="inherit_id" ref="product.product_template_only_form_view" />
-        <field name="arch" type="xml">
-        <xpath expr="//page[@name='variants']" position="after">
-          <page name="attachments" string="Attachments">
-              <group string="Attached files">
-                  <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2" />
-              </group>
-          </page>
-        </xpath>
-        </field>
-    </record>
+        <record id="product_template_form_stock_price_restr" model="ir.ui.view">
+            <field name="model">product.template</field>
+            <field name="name">Product_Template - Stock &amp; Price</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//button[@name='298']" position="attributes">
+                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='106']" position="attributes">
+                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+
+                <!-- <xpath expr="//page[@name='variants']" position="after">
+                    <page name="attachments" string="Attachments">
+                        <group string="Attached files">
+                            <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2" />
+                        </group>
+                    </page>
+                </xpath> -->
+            </field>
+        </record>
+
+        <record id="group_form_stock_price_restr" model="ir.ui.view">
+            <field name="name">Stock &amp; Price by Group</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('product_attributes.product_stock_price_responsible_group') ])]" />
+            <field name="arch" type="xml">
+                <field name="list_price" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_product_form_stock_price_restr" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="name">Product_Product - Stock &amp; Price</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='298']" position="attributes">
+                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='106']" position="attributes">
+                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='lst_price']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_group_form_stock_price_restr" model="ir.ui.view">
+            <field name="name">Stock &amp; Price by Group</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('product_attributes.product_stock_price_responsible_group') ])]" />
+            <field name="arch" type="xml">
+                <field name="lst_price" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>

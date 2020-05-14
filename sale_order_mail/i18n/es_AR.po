@@ -1,0 +1,148 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_order_mail
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20191106\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-13 19:54+0000\n"
+"PO-Revision-Date: 2020-05-13 19:54+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_order_mail
+#: model:mail.template,body_html:sale_order_mail.email_template_sale_custom_partner
+msgid "${object.body_email}"
+msgstr "${object.body_email}"
+
+#. module: sale_order_mail
+#: model:mail.template,subject:sale_order_mail.email_template_sale_custom_partner
+msgid "${object.subject}"
+msgstr "${object.subject}"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Add contacts to notify..."
+msgstr "Añadir contactos a notificar..."
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Attach a file"
+msgstr "Adjuntar un archivo"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_attachment_ids
+msgid "Attachment"
+msgstr "Attachment"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_body_email
+msgid "Body"
+msgstr "Contenido"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Compose Email"
+msgstr "Componer correo electrónico"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_email_partner
+#: model:ir.ui.view,arch_db:sale_order_mail.sale_order_custom_mail_search
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_email_to
+msgid "Email to"
+msgstr "Para"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,help:sale_order_mail.field_sale_order_mail_wizard_attachment_ids
+msgid "Get you bank statements in electronic format from your bank and select them here."
+msgstr "Obtenga sus extractos bancarios en formato electrónico de su banco y selecciónelos aquí."
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación en"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: sale_order_mail
+#: model:ir.model,name:sale_order_mail.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Recipients"
+msgstr "Destinatarios"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_sale_id
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_order_mail
+#: model:ir.model,name:sale_order_mail.model_sale_order_mail_wizard
+msgid "Sale Order Wizard Email"
+msgstr "Sale Order Wizard Email"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Send"
+msgstr "Enviar"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.sale_order_email_partner
+msgid "Send by Email"
+msgstr "Enviar por Correo"
+
+#. module: sale_order_mail
+#: model:ir.model.fields,field_description:sale_order_mail.field_sale_order_mail_wizard_subject
+msgid "Subject"
+msgstr "Asunto"
+
+#. module: sale_order_mail
+#: model:ir.ui.view,arch_db:sale_order_mail.view_sale_order_email_wizard
+msgid "Subject..."
+msgstr "Asunto..."
+

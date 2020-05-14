@@ -8,10 +8,6 @@
       <field eval="100" name="priority"/>
       <field name="arch" type="xml">
 
-        <xpath expr="//button[@name='action_quotation_send']" position="replace">
-          <button name="action_quotation_send" string="Send by Email" type="object" states="draft,sent design" class="btn-primary"/>
-        </xpath>
-
         <xpath expr="//button[@name='action_confirm']" position="replace">
           <button name="action_confirm_new" string="Confirm Sale" type="object" attrs="{'invisible': [('state', 'not in', ['draft', 'sent design'])]}"/>
         </xpath>

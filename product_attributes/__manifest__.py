@@ -10,11 +10,12 @@
     "website": "http://www.calyxservicios.com.ar",
     "category": "Sales",
     "version": "11.0.1.0.0",
-    "depends": ["sale", "base_fontawesome", "product",],
+    "depends": ["sale", "base_fontawesome", "product"],
     "data": [
+        "security/security.xml",
         "security/ir.model.access.csv",
         "views/sale_order_view.xml",
-        # 'views/product_view.xml',
+        "views/product_view.xml",
         "wizard/sale_custom_product.xml",
     ],
 }

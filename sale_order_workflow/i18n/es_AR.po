@@ -6,14 +6,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 14:09+0000\n"
-"PO-Revision-Date: 2020-03-30 14:09+0000\n"
+"POT-Creation-Date: 2020-05-13 20:50+0000\n"
+"PO-Revision-Date: 2020-05-13 20:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:694
+#, python-format
+msgid "\n"
+"There are %s %s available accross all warehouses."
+msgstr "\n"
+"There are %s %s available accross all warehouses."
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_count
@@ -72,7 +80,6 @@ msgid "Create Extra Invoice"
 msgstr "Crear factura extra"
 
 #. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
 #: model:ir.ui.view,arch_db:sale_order_workflow.stock_picking_form_placementn_freight
 msgid "Create Invoice"
 msgstr "Crear Factura"
@@ -160,11 +167,6 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."
-msgstr "Si la venta está bloqueada, no puede modificarla. Sin embargo, todavía podrá facturarla o entregarla."
-
-#. module: sale_order_workflow
 #: selection:sale.order,design_status:0
 msgid "In Design"
 msgstr "En Diseño"
@@ -201,11 +203,6 @@ msgid "Invoiced"
 msgstr "Facturado"
 
 #. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "Lock"
-msgstr "Bloquear"
-
-#. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_mrp_production
 msgid "Manufacturing Order"
 msgstr "Orden de Producción"
@@ -216,9 +213,19 @@ msgid "Manufacturing Orders"
 msgstr "Órdenes de producción"
 
 #. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:586
+#: code:addons/sale_order_workflow/models/sale_order.py:593
+#: code:addons/sale_order_workflow/models/sale_order.py:597
 #: selection:sale.order,picking_status:0
+#, python-format
 msgid "New"
 msgstr "Nuevo"
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:702
+#, python-format
+msgid "Not enough inventory!"
+msgstr "¡No posee suficiente inventario!"
 
 #. module: sale_order_workflow
 #: selection:stock.picking,extra_freigt_placement_status:0
@@ -247,6 +254,11 @@ msgid "Nothing to Quote"
 msgstr "Nada para Cotizar"
 
 #. module: sale_order_workflow
+#: model:ir.ui.view,arch_db:sale_order_workflow.mrp_production_filters_orders
+msgid "Orden de Venta"
+msgstr "Orden de Venta"
+
+#. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
 msgid "Partially Available"
 msgstr "Disponible para entrega"
@@ -272,11 +284,6 @@ msgstr "Colocación"
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_placement_defined
 msgid "Placement Defined?"
 msgstr "Definir Colocación?"
-
-#. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "Print"
-msgstr "Imprimir"
 
 #. module: sale_order_workflow
 #: selection:sale.order,production_status:0
@@ -310,7 +317,7 @@ msgid "Production Status"
 msgstr "Estado de Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:280
+#: code:addons/sale_order_workflow/models/sale_order.py:296
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_ids
 #, python-format
 msgid "Productions"
@@ -362,7 +369,7 @@ msgstr "Ordenes a Diseñar"
 #. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de orden de ventas"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_design_form
@@ -375,25 +382,10 @@ msgid "Search Design"
 msgstr "Buscar Diseño"
 
 #. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "Send PRO-FORMA Invoice"
-msgstr "Enviar Factura PROFORMA"
-
-#. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "Send by Email"
-msgstr "Enviar por Correo"
-
-#. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_design_form
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sale_order_design_filter
 msgid "Sent Design"
 msgstr "Diseño Confirmado"
-
-#. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "Set to Quotation"
-msgstr "Convertir a presupuesto"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_view_search_wf_quotation
@@ -421,11 +413,6 @@ msgstr "A Cotizar"
 #: model:ir.model,name:sale_order_workflow.model_stock_picking
 msgid "Transfer"
 msgstr "Transferir"
-
-#. module: sale_order_workflow
-#: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_form_design
-msgid "Unlock"
-msgstr "Desbloquear"
 
 #. module: sale_order_workflow
 #: model:ir.module.category,description:sale_order_workflow.sale_order_designs
@@ -458,19 +445,19 @@ msgid "With Quotation"
 msgstr "Con Cotización"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:647
+#: code:addons/sale_order_workflow/models/sale_order.py:783
 #, python-format
 msgid "You can't save design bom without routing"
 msgstr "No puede guardar la lista de materiales sin enrutamiento."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:515
+#: code:addons/sale_order_workflow/models/sale_order.py:547
 #, python-format
 msgid "You cannot change sales without products to design."
 msgstr "No puede enviar a diseñar sin productos a diseñar."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:511
+#: code:addons/sale_order_workflow/models/sale_order.py:543
 #, python-format
 msgid "You cannot change sales without quoted."
 msgstr "Debe cotizar la orden primero."
@@ -482,40 +469,67 @@ msgid "You cannot change this values because invoice already create for freight 
 msgstr "No puede modificar estos valores porque ya existe una factura relacionada para flete y colocación."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:332
+#: code:addons/sale_order_workflow/models/sale_order.py:348
 #, python-format
 msgid "You cannot confirm sales with make_to_order procurement rules on this warehouse."
 msgstr "No puede confirmar ventas con reglas de producción en este almacén."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:342
+#: code:addons/sale_order_workflow/models/sale_order.py:358
 #, python-format
 msgid "You cannot confirm sales with make_to_stock procurement rules for custom products."
 msgstr "No puede confirmar ventas con reglas de stock para productos custom."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:263
+#: code:addons/sale_order_workflow/models/sale_order.py:264
 #, python-format
 msgid "You cannot confirm sales with products to design."
 msgstr "No puede confirmar la orden con productos a diseñar."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:308
+#: code:addons/sale_order_workflow/models/sale_order.py:324
 #, python-format
 msgid "You cannot confirm sales with quote task in progress."
 msgstr "No puede confirmar ventas con estado de cotización en curso."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:502
+#: code:addons/sale_order_workflow/models/sale_order.py:518
 #, python-format
 msgid "You cannot design sales without products."
 msgstr "No puede enviar la orden a diseñar porque no existen productos."
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:545
+#: code:addons/sale_order_workflow/models/sale_order.py:577
 #, python-format
 msgid "You cannot sent to design because the product %s don't have BOM."
 msgstr "No puede confirmar el diseño porque el producto %s no tiene lista de materiales."
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:282
+#: code:addons/sale_order_workflow/models/sale_order.py:538
+#, python-format
+msgid "You have to assign a leats one advacement"
+msgstr "Debe asignar al menos un adelanto."
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:276
+#: code:addons/sale_order_workflow/models/sale_order.py:529
+#, python-format
+msgid "You have to assign at least one qty to %s"
+msgstr "Debe asignar al menos 1 a %s"
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:271
+#: code:addons/sale_order_workflow/models/sale_order.py:524
+#, python-format
+msgid "You have to assign variants to %s"
+msgstr "Debe asignar las variantes a %s"
+
+#. module: sale_order_workflow
+#: code:addons/sale_order_workflow/models/sale_order.py:676
+#, python-format
+msgid "You plan to sell %s %s but you only have %s %s available in %s warehouse."
+msgstr "Esta intentando vender %s %s pero solo posee %s %s disponible en %s."
 
 #. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_product_attribute_value
