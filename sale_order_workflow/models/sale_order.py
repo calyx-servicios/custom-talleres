@@ -276,11 +276,12 @@ class SaleOrder(models.Model):
                             _("You have to assign at least one qty to %s")
                             % (line.template_id.name)
                         )
-                advancement = len(order.advancement_line_ids)
-                if advancement <= 0:
-                    raise ValidationError(
-                        _("You have to assign a leats one advacement")
-                    )
+                if order.warehouse_id.manufacture_to_resupply:
+                    advancement = len(order.advancement_line_ids)
+                    if advancement <= 0:
+                        raise ValidationError(
+                            _("You have to assign a leats one advacement")
+                        )
                 order.action_confirm()
             else:
                 order.action_confirm()
