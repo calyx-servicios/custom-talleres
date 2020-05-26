@@ -17,6 +17,6 @@
     ],
     "external_dependencies": {
         "python": ["pdf2image"],
-        # "bin": ["pdftocairo", "pdftoppm"],
+        "bin": ["pdftocairo", "pdftoppm"],
     },
 }
