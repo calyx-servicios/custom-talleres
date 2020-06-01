@@ -1,9 +1,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
 from odoo.osv import expression
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare
+from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 import datetime
 import dateutil.parser
 import logging
@@ -256,32 +256,40 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_confirm_new(self):
+        view = self.env.ref("sh_message.sh_message_wizard")
+        context = dict(self._context or {})
         for order in self:
             if order.state != "sent design":
                 for line in order.order_line:
                     if line.to_design:
-                        raise ValidationError(
-                            _(
-                                "You cannot confirm sales with"
-                                " products to design."
-                            )
+                        title = "¡Productos con diseño!"
+                        context["message"] = (
+                            "No puede confirmar la orden "
+                            "con productos a diseñar."
                         )
+                        return self.alert_message(title, view, context)
                     if not line.variants_status_ok:
-                        raise ValidationError(
-                            _("You have to assign variants to %s")
-                            % (line.template_id.name)
+                        title = "¡Producto sin variantes!"
+                        context["message"] = (
+                            "Debe asignar variantes a %s "
+                            % line.template_id.name
                         )
+                        return self.alert_message(title, view, context)
                     if line.product_uom_qty == 0.0:
-                        raise ValidationError(
-                            _("You have to assign at least one qty to %s")
-                            % (line.template_id.name)
+                        title = "¡Producto sin cantidad!"
+                        context["message"] = (
+                            "Debe asignar una cantidad a %s "
+                            % line.template_id.name
                         )
+                        return self.alert_message(title, view, context)
                 if order.warehouse_id.manufacture_to_resupply:
                     advancement = len(order.advancement_line_ids)
                     if advancement <= 0:
-                        raise ValidationError(
-                            _("You have to assign a leats one advacement")
-                        )
+                        title = "¡Orden sin adelanto!"
+                        context[
+                            "message"
+                        ] = "Debe asignar al menos un adelanto para continuar."
+                        return self.alert_message(title, view, context)
                 order.action_confirm()
             else:
                 order.action_confirm()
@@ -317,17 +325,18 @@ class SaleOrder(models.Model):
     @api.multi
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
+        view = self.env.ref("sh_message.sh_message_wizard")
+        context = dict(self._context or {})
         # production_obj = self.env["mrp.production"]
         if res:
             for order in self:
                 if order.quote_status not in ["no", "quoted"]:
-                    raise ValidationError(
-                        _(
-                            "You cannot confirm sales with quote task "
-                            "in progress."
-                        )
+                    title = "¡Advertencia!"
+                    context["message"] = (
+                        "No puede confirmar ventas con estado"
+                        "de cotización en curso."
                     )
-
+                    return self.alert_message(title, view, context)
                 for pick in order.picking_ids:
                     f = 0
                     g = 0
@@ -345,57 +354,22 @@ class SaleOrder(models.Model):
                             ] and not (
                                 order.warehouse_id.manufacture_to_resupply
                             ):
-                                raise ValidationError(
-                                    _(
-                                        "You cannot confirm sales with "
-                                        "make_to_order procurement "
-                                        "rules on this warehouse."
-                                    )
+                                title = "¡Advertencia!"
+                                context["message"] = (
+                                    "No puede confirmar ventas con reglas "
+                                    "de producción en este almacén."
                                 )
+                                return self.alert_message(title, view, context)
+
                             if procurement.procure_method in [
                                 "make_to_stock"
                             ] and (line.to_quote or line.to_design):
-                                raise ValidationError(
-                                    _(
-                                        "You cannot confirm sales with "
-                                        "make_to_stock procurement "
-                                        "rules for custom products."
-                                    )
+                                title = "¡Advertencia!"
+                                context["message"] = (
+                                    "No puede confirmar ventas con reglas "
+                                    "de producción en este almacén."
                                 )
-
-                # for line in order.order_line:
-                #     production_ids = production_obj.search(
-                #         [
-                #             ("sale_id", "=", order.id),
-                #             ("product_id", "=", line.product_id.id),
-                #         ]
-                #     )
-                #     if line.design_ids:
-                #         new_attachment_ids = []
-                #         for attach in line.design_ids:
-                #             new_attachment_ids.append(attach.id)
-                #         for prod in production_ids:
-                #             prod.write(
-                #                 {
-                #                     "attachment_ids": [
-                #                         (6, 0, new_attachment_ids)
-                #                     ]
-                #                 }
-                #             )
-                #     else:
-                #         if line.template_id:
-                #             if line.template_id.attachment_ids:
-                #                 new_attachment_ids = []
-                #                 for attach in line.template_id.attachment_ids:
-                #                     new_attachment_ids.append(attach.id)
-                #                 for prod in production_ids:
-                #                     prod.write(
-                #                         {
-                #                             "attachment_ids": [
-                #                                 (6, 0, new_attachment_ids,)
-                #                             ]
-                #                         }
-                #                     )
+                                return self.alert_message(title, view, context)
 
             return res
 
@@ -514,39 +488,52 @@ class SaleOrder(models.Model):
     def action_to_design(self):
         for rec in self:
             design_cont = 0
+            view = self.env.ref("sh_message.sh_message_wizard")
+            context = dict(self._context or {})
             if not rec.order_line:
-                raise ValidationError(
-                    _("You cannot design sales without products.")
+                context["message"] = (
+                    "No puede enviar esta orden a diseñar, "
+                    "debe asignar al menos un producto"
                 )
-
+                title = "¡Sin productos!"
+                return self.alert_message(title, view, context)
             for line in rec.order_line:
                 if not line.variants_status_ok:
-                    raise ValidationError(
-                        _("You have to assign variants to %s")
-                        % (line.template_id.name)
+                    title = "¡Sin variantes!"
+                    context["message"] = ("Debe asignar variantes a %s") % (
+                        line.template_id.name
                     )
+                    return self.alert_message(title, view, context)
                 if line.product_uom_qty == 0.0:
-                    raise ValidationError(
-                        _("You have to assign at least one qty to %s")
-                        % (line.template_id.name)
+                    title = "¡Producto sin Cantidad!"
+                    context["message"] = ("Debe asignar una cantidad a %s") % (
+                        line.template_id.name
                     )
+                    return self.alert_message(title, view, context)
                 if line.to_design:
                     design_cont += 1
 
             advancement = len(rec.advancement_line_ids)
             if advancement <= 0:
-                raise ValidationError(
-                    _("You have to assign a leats one advacement")
-                )
+                title = "¡Orden sin adelanto!"
+                context[
+                    "message"
+                ] = "Debe asignar al menos un adelanto para continuar."
+                return self.alert_message(title, view, context)
 
             if rec.quote_status != "quoted":
-                raise ValidationError(
-                    _("You cannot change sales without quoted.")
+                title = "¡Orden sin cotizacion!"
+                context["message"] = (
+                    "No puede enviar a diseñar sin "
+                    "todos los productos cotizados."
                 )
+                return self.alert_message(title, view, context)
             if design_cont == 0:
-                raise ValidationError(
-                    _("You cannot change sales without products to design.")
-                )
+                title = "¡Productos sin diseño!"
+                context[
+                    "message"
+                ] = "No puede cambiar el estado sin productos a diseñar."
+                return self.alert_message(title, view, context)
             else:
                 for line in rec.order_line:
                     if line.to_design:
@@ -560,8 +547,11 @@ class SaleOrder(models.Model):
                                     product_obj.create_variant_ids()
 
                 return self.write({"state": "to design"})
+        # return {}
 
     def action_sent_design(self):
+        view = self.env.ref("sh_message.sh_message_wizard")
+        context = dict(self._context or {})
         for order in self:
             for line in order.order_line:
                 if line.to_design:
@@ -572,12 +562,13 @@ class SaleOrder(models.Model):
                     ]
                     bom_s = mrp_obj.search(domain, limit=1)
                     if not bom_s:
-                        raise ValidationError(
-                            _(
-                                "You cannot sent to design because the product"
-                                " %s don't have BOM." % (line.template_id.name)
-                            )
+                        title = "Producto sin Lista de Materiales"
+                        context["message"] = (
+                            "No puede confirmar el diseño porque el "
+                            "producto %s no tiene lista de materiales"
+                            % (line.template_id.name)
                         )
+                        return self.alert_message(title, view, context)
             return order.write(
                 {"state": "sent design", "design_status": "ready"}
             )
@@ -599,6 +590,19 @@ class SaleOrder(models.Model):
 
         res = super(SaleOrder, self).create(vals)
         return res
+
+    def alert_message(self, title, view, context):
+        return {
+            "name": title,
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "sh.message.wizard",
+            "views": [(view.id, "form")],
+            "view_id": view.id,
+            "target": "new",
+            "context": context,
+        }
 
 
 class SaleOrderLine(models.Model):
@@ -675,7 +679,8 @@ class SaleOrderLine(models.Model):
                     if not is_available:
                         # _logger.debug("*=======Entro 3ra!!=======*")
                         message = _(
-                            "You plan to sell %s %s but you only have %s %s available in %s warehouse."
+                            "You plan to sell %s %s but you "
+                            "only have %s %s available in %s warehouse."
                         ) % (
                             self.product_uom_qty,
                             self.product_uom.name,
@@ -683,7 +688,6 @@ class SaleOrderLine(models.Model):
                             product.uom_id.name,
                             self.order_id.warehouse_id.name,
                         )
-                        # We check if some products are available in other warehouses.
                         if (
                             float_compare(
                                 product.virtual_available,
@@ -693,7 +697,8 @@ class SaleOrderLine(models.Model):
                             == -1
                         ):
                             message += _(
-                                "\nThere are %s %s available accross all warehouses."
+                                "\nThere are %s %s available "
+                                "accross all warehouses."
                             ) % (
                                 self.product_id.virtual_available,
                                 product.uom_id.name,
