@@ -14,6 +14,7 @@
         "sale",
         "account",
         "mrp",
+        "sh_message",
         "sale_mrp",
         "mrp_sale_info",
         "product_attributes",

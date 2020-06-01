@@ -1,7 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
+from odoo import models, api, fields
 import datetime
 import logging
 
@@ -144,14 +143,15 @@ class stockPicking(models.Model):
 
     def _freight_placement_change(self, freight, placement):
         for rec in self:
+            view = self.env.ref("sh_message.sh_message_wizard")
+            context = dict(self._context or {})
             if rec.freigt_placement_status == "invoiced":
-                raise ValidationError(
-                    _(
-                        "You cannot change this values because "
-                        "invoice already create for freight "
-                        "and placement."
-                    )
+                title = "Warning!"
+                context["message"] = (
+                    "No puede modificar estos valores porque ya "
+                    "existe una factura relacionada para flete y colocación."
                 )
+                return self.alert_message(title, view, context)
             else:
                 rec.write({"freight": freight, "placement": placement})
 
@@ -232,6 +232,19 @@ class stockPicking(models.Model):
                 rec.freight_extra = 0
                 rec.placement_extra = 0
                 rec._onchange_fg_extra()
+
+    def alert_message(self, title, view, context):
+        return {
+            "name": title,
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "sh.message.wizard",
+            "views": [(view.id, "form")],
+            "view_id": view.id,
+            "target": "new",
+            "context": context,
+        }
 
 
 class ProductTemplate(models.Model):
