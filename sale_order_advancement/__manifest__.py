@@ -9,7 +9,14 @@
     "website": "http://www.calyxservicios.com.ar",
     "category": "Sale Order",
     "version": "11.0.1.0.0",
-    "depends": ["base", "sale", "account", "sales_team", "sh_message"],
+    "depends": [
+        "base",
+        "sale",
+        "account",
+        "sales_team",
+        "sh_message",
+        "account_payment_group",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "wizard/wizard_impute_payment_to_order_view.xml",
