@@ -17,8 +17,8 @@
                     <group>
                         <field name="payment_id" domain="[('state', '=', 'posted'),
                                      ('partner_id', '=', partner_id),
-                                     ('boolean_total_imputed', '=', False)]" required="1" options="{'no_create': True}"/>
-                        <field name="amount_payment" readonly="1" />
+                                     ('boolean_total_imputed', '=', False)]" required="1" />
+                        <field name="amount_payment" />
                     </group>
                 </group>
                 <footer>
