@@ -6,19 +6,26 @@ class ImputePaymentToOrder(models.TransientModel):
     _name = "impute.payment.to.order"
     _description = "Impute Payment To Order"
 
-    # @api.onchange("payment_id")
-    # def _onchange_payment_id(self):
-    #     # amount = 0.0
-    #     for line in self:
-    #         line.amount_payment = line.payment_id.amount_to_impute
+    @api.onchange("payment_id")
+    def _onchange_payment_id(self):
+        # amount = 0.0
+        for line in self:
+            line.amount_payment = line.payment_id.amount_to_impute
 
     # ## Fields
     name = fields.Char(string="Description")
     payment_id = fields.Many2one("account.payment.group", string="Payment",)
     amount = fields.Float(string="Amount",)
-    amount_payment = fields.Float(string="Amount Payment",)
+    amount_payment = fields.Float(string="Amount Payment")
     partner_id = fields.Many2one("res.partner", string="Partner",)
     # ## ends Field  < >
+
+    # @api.depends("payment_id")
+    # def _compute_amount_payment(self):
+    #     for record in self:
+    #         if record.payment_id:
+    #             amount = record.payment_id.amount_to_impute
+    #             record.write({"amount_payment": amount})
 
     @api.multi
     def impute_payment(self):
