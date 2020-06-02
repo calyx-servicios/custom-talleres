@@ -6,11 +6,11 @@ class ImputePaymentToOrder(models.TransientModel):
     _name = "impute.payment.to.order"
     _description = "Impute Payment To Order"
 
-    @api.onchange("payment_id")
-    def _onchange_payment_id(self):
-        # amount = 0.0
-        for line in self:
-            line.amount_payment = line.payment_id.amount_to_impute
+    # @api.onchange("payment_id")
+    # def _onchange_payment_id(self):
+    #     # amount = 0.0
+    #     for line in self:
+    #         line.amount_payment = line.payment_id.amount_to_impute
 
     # ## Fields
     name = fields.Char(string="Description")
