@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api, fields, _
+from odoo import models, api, fields
 
 
 class SaleOrder(models.Model):
@@ -15,9 +15,7 @@ class SaleOrder(models.Model):
         compute="_compute_amount_residual",
     )
     calcule_amount_imputed = fields.Monetary(
-        string="Payment",
-        readonly=True,
-        compute="_compute_amount_residual",
+        string="Payment", readonly=True, compute="_compute_amount_residual",
     )
 
     @api.depends(
@@ -30,7 +28,7 @@ class SaleOrder(models.Model):
             amount_imputed = 0.0
             amount_residual = order.amount_total
             for line in order.advancement_line_ids:
-                if line.state == "imputed":
+                if line.state == ("imputed" or "draft"):
                     amount_imputed += line.amount_imputed
             amount_residual = amount_residual - amount_imputed
             order.update(

@@ -16,7 +16,10 @@ class MroRoutingWorkcenter(models.Model):
     attachment_ids = fields.Many2many(
         "ir.attachment",
         string="Files",
-        help="Get you bank statements in electronic format from your bank and select them here.",
+        help=(
+            "Get you bank statements in electronic "
+            "format from your bank and select them here."
+        ),
     )
 
 
@@ -25,9 +28,12 @@ class MrpProduction(models.Model):
 
     @api.multi
     def print_custom_sale_report(self):
+        """
+            Print the report based in the workcenter routing BOM
+        """
         self.ensure_one()
         if self.sale_id:
-            self.sale_id.print_custom_sale_report()
+            self.sale_id.create_attach_img()
             action = self.env.ref(
                 "sale_order_custom_report.action_sale_order_custom_report"
             )
@@ -45,13 +51,16 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.multi
-    def print_custom_sale_report(self):
+    def create_attach_img(self):
+        """
+            Create a img and attach it in the operation_ids where attach the
+            principal blueprints
+        """
         for order in self:
             for mrp in order.production_ids:
                 for workcenter in mrp.routing_id.operation_ids:
                     if not workcenter.attachment_ids:
                         new_attachment_ids = []
-                        # for workOrder in mrp.workorder_ids:
                         blueprint = workcenter.worksheet
                         if blueprint:
                             datas = base64.b64decode(blueprint.decode())
@@ -85,9 +94,6 @@ class SaleOrder(models.Model):
                                     ]
                                 }
                             )
-        # return self.env.ref(
-        #     "sale_order_custom_report.action_sale_order_custom_report"
-        # ).report_action(self)
 
     def get_limit_date_produced(self):
         for order in self:

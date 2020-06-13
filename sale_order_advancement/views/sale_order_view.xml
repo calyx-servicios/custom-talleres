@@ -25,7 +25,7 @@
                                 <field name="payment_id" />
                                 <field name="amount_imputed" sum="Total" />
                                 <field name="state" />
-                                <button name="cancel" string="Cancelate" type="object" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                                <button name="cancel" string="Cancelate" type="object" attrs="{'invisible': [('state', '=', 'imputed')]}"/>
                                 <!-- <button name="cancel" string="Cancelate Admin" type="object" attrs="{'invisible': [('state', '==', 'draft')]}" groups="product_stock_price_responsible_group"/> -->
                             </tree>
                         </field>

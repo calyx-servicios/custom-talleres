@@ -24,12 +24,9 @@ class ImputePaymentToOrder(models.TransientModel):
 
     @api.depends("payment_id")
     def _compute_amount_payment(self):
-        print("AQUI ENTRO")
         for record in self:
             if record.payment_id:
                 amount = record.payment_id.amount_to_impute
-                print("EL MONTO " + str(amount))
-                # record.write({"amount_payment": amount})
                 record.amount_payment = amount
 
     @api.multi
@@ -43,9 +40,6 @@ class ImputePaymentToOrder(models.TransientModel):
                     "message"
                 ] = "No puede Imputar mas que lo que el Pago posee."
                 return self.alert_message(title, view, context)
-                # raise ValidationError(
-                #     _("You cant not Impute more of Payment has for impute.")
-                # )
             vals = {
                 "name": self_obj.name,
                 "payment_id": self_obj.payment_id.id,
