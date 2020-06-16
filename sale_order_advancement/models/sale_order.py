@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
             amount_imputed = 0.0
             amount_residual = order.amount_total
             for line in order.advancement_line_ids:
-                if line.state == ("imputed" or "draft"):
+                if line.state in ("imputed", "draft"):
                     amount_imputed += line.amount_imputed
             amount_residual = amount_residual - amount_imputed
             order.update(

@@ -27,7 +27,7 @@ class AccountpPaymentGroup(models.Model):
         amount_to_impute = self.payments_amount
         for group_obj in self:
             for line in group_obj.advancement_line_ids:
-                if line.state == ("imputed" or "draft"):
+                if line.state in ("imputed", "draft"):
                     amount_to_impute -= line.amount_imputed
             group_obj.amount_to_impute = amount_to_impute
             if amount_to_impute > 0.001:
