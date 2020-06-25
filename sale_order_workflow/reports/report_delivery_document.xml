@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_document_frei_plac" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[4]" position="after">
+            <table class="table table-condensed" style="float: right;width: 35%;margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            A Cobrar
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Flete
+                        </td>
+                        <td style="text-align: right;">
+                            <span t-field="o.freight" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Colocacion
+                        </td>
+                        <td style="text-align: right;">
+                            <span t-field="o.placement" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+    </template>
+</odoo>

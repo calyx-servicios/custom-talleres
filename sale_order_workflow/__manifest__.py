@@ -29,6 +29,7 @@
         "views/mrp_production_view.xml",
         "views/stock_picking_view.xml",
         "views/sale_order_design.xml",
+        "reports/report_delivery_document.xml",
         "data/product_template_data.xml",
     ],
 }

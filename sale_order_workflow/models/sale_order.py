@@ -569,6 +569,17 @@ class SaleOrder(models.Model):
                             % (line.template_id.name)
                         )
                         return self.alert_message(title, view, context)
+                    if bom_s:
+                        for bom in bom_s:
+                            if not bom.routing_id:
+                                title = "Producto sin Lista de Materiales"
+                                context["message"] = (
+                                    "No puede confirmar un diseño porque "
+                                    "el producto %s posee una lista de materiales "
+                                    "sin enrutamiento."
+                                    % (line.template_id.name)
+                                )
+                                return self.alert_message(title, view, context)
             return order.write(
                 {"state": "sent design", "design_status": "ready"}
             )
@@ -728,33 +739,54 @@ class SaleOrderLine(models.Model):
                 ("product_id", "=", False),
             ]
             bom = mrp_obj.search(domain, limit=1)
+            default = None
+            default = dict(default or {})
+            default.update(
+                {
+                    # "design": True,
+                    "routing_id": False,
+                    "product_id": self.product_id.id,
+                }
+            )
+            new_bom = bom.copy(default)
             return {
                 "name": "Lista de Materiales",
                 "view_type": "form",
                 "view_mode": "form",
                 "res_model": "mrp.bom",
+                "res_id": new_bom.id,
                 "view_id": view_id,
                 "target": "current",
                 "type": "ir.actions.act_window",
-                "context": {
-                    "default_product_tmpl_id": self.template_id.id,
-                    "default_product_id": self.product_id.id,
-                    # "default_bom_line_ids": bom.bom_line_ids.ids,
-                    "default_bom_line_ids": [
-                        (
-                            0,
-                            0,
-                            {
-                                "product_id": x.product_id.id,
-                                "product_uom_id": x.product_id.uom_id.id,
-                                "product_qty": x.product_qty,
-                            },
-                        )
-                        for x in bom.bom_line_ids
-                    ],
-                    "default_design": True,
-                },
             }
+            # return {
+            #     "name": "Lista de Materiales",
+            #     "view_type": "form",
+            #     "view_mode": "form",
+            #     "res_model": "mrp.bom",
+            #     "view_id": view_id,
+            #     "target": "current",
+            #     "type": "ir.actions.act_window",
+            #     "context": {
+            #         "default_product_tmpl_id": self.template_id.id,
+            #         "default_product_id": self.product_id.id,
+            #         # "default_bom_line_ids": bom.bom_line_ids.ids,
+            #         "default_bom_line_ids": [
+            #             (
+            #                 0,
+            #                 0,
+            #                 {
+            #                     "product_id": x.product_id.id,
+            #                     "product_uom_id": x.product_id.uom_id.id,
+            #                     "product_qty": x.product_qty,
+            #                     "bom_id": x.bom_id,
+            #                 },
+            #             )
+            #             for x in bom.bom_line_ids
+            #         ],
+            #         "default_design": True,
+            #     },
+            # }
         else:
             for b in bom_s:
                 boms.append(b.id)
@@ -779,13 +811,3 @@ class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
     design = fields.Boolean("Design?", default=False)
-
-    @api.model
-    def create(self, values):
-        bom = super(MrpBom, self).create(values)
-        if bom.design:
-            if not bom.routing_id:
-                raise ValidationError(
-                    _("You can't save design bom without routing")
-                )
-        return bom

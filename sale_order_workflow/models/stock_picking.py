@@ -246,6 +246,12 @@ class stockPicking(models.Model):
             "context": context,
         }
 
+    @api.multi
+    def do_print_picking(self):
+        self.write({"printed": True})
+        # return self.env.ref('stock.action_report_picking').report_action(self)
+        return self.env.ref("stock.action_report_delivery").report_action(self)
+
 
 class ProductTemplate(models.Model):
     _inherit = "product.product"
