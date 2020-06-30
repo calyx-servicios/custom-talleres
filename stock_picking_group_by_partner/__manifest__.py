@@ -13,7 +13,6 @@
     "data": [
         "views/stock_picking_type.xml",
         "views/stock_warehouse.xml",
-        "report/report_delivery_slip.xml",
     ],
     "installable": True,
     "license": "AGPL-3",
