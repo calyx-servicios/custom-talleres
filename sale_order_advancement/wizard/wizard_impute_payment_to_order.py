@@ -48,7 +48,7 @@ class ImputePaymentToOrder(models.TransientModel):
             }
             self.env["sale.order.advancement"].create(vals)
 
-            if self_obj.payment_id.amount_to_impute == self_obj.amount:
+            if self_obj.amount_payment == 0:
                 self_obj.payment_id.boolean_total_imputed = True
 
     def alert_message(self, title, view, context):
