@@ -35,20 +35,6 @@ class stockPicking(models.Model):
     )
 
     @api.multi
-    @api.onchange("freight", "placement")
-    def _onchange_freight_placement(self):
-        for rec in self:
-            if rec.sale_id:
-                rec.sale_id.write(
-                    {
-                        "freight": rec.freight,
-                        "placement": rec.placement,
-                        "freight_defined": True,
-                        "placement_defined": True,
-                    }
-                )
-
-    @api.multi
     def create_invoice_fregiht_placement(self):
         for rec in self:
             vals = {}
@@ -211,7 +197,6 @@ class stockPicking(models.Model):
                     rec.placement_extra = 0
                     rec._onchange_fg_extra()
 
-    @api.multi
     @api.onchange("freight_extra", "placement_extra")
     def _onchange_fg_extra(self):
         for rec in self:
@@ -221,8 +206,6 @@ class stockPicking(models.Model):
                 if f and g:
                     f += rec.freight_extra
                     g += rec.placement_extra
-                if rec.sale_id:
-                    rec.sale_id.write({"freight": f, "placement": g})
 
     @api.multi
     @api.onchange("extra")

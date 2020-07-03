@@ -344,7 +344,7 @@ class SaleOrder(models.Model):
                         f = order.freight
                     if order.placement_defined:
                         g = order.placement
-                    pick.write({"freight": f, "placement": g})
+                    pick.write({"freight": pick.freight + f, "placement": pick.placement + g})
 
                 for line in order.order_line:
                     if line.route_id:
@@ -461,15 +461,6 @@ class SaleOrder(models.Model):
             )
             for line in rec.order_line:
                 line.route_id = res.id
-
-    @api.multi
-    @api.onchange("freight", "placement")
-    def _onchange_freight_placement(self):
-        for rec in self:
-            freight = rec.freight
-            placement = rec.placement
-            for pick in rec.picking_ids:
-                pick._freight_placement_change(freight, placement)
 
     @api.multi
     @api.onchange("freight_defined")
