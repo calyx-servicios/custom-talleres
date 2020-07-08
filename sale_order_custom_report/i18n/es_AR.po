@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0-20191106\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-30 13:17+0000\n"
-"PO-Revision-Date: 2020-03-30 13:17+0000\n"
+"POT-Creation-Date: 2020-07-08 20:52+0000\n"
+"PO-Revision-Date: 2020-07-08 20:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,7 @@ msgid "Atributos"
 msgstr "Atributos"
 
 #. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_routing_workcenter_attachment_ids
 #: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_form_view_design
 msgid "Attachments"
 msgstr "Adjuntos"
@@ -84,14 +85,19 @@ msgid "Código"
 msgstr "Código"
 
 #. module: sale_order_custom_report
-#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_routing_workcenter_attachment_ids
-msgid "Files"
-msgstr "Archivos"
+#: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_mrp_custom_report_button
+msgid "Imprimir"
+msgstr "Imprimir"
 
 #. module: sale_order_custom_report
-#: model:ir.model.fields,help:sale_order_custom_report.field_mrp_routing_workcenter_attachment_ids
-msgid "Get you bank statements in electronic format from your bank and select them here."
-msgstr "Obtenga sus extractos bancarios en formato electrónico de su banco y selecciónelos aquí."
+#: model:ir.model,name:sale_order_custom_report.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Orden de Producción"
+
+#. module: sale_order_custom_report
+#: model:ir.actions.report,name:sale_order_custom_report.action_sale_order_custom_report
+msgid "Mrp Custom Report"
+msgstr "Mrp Custom Report"
 
 #. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
@@ -114,11 +120,6 @@ msgid "Pedidos"
 msgstr "Pedidos"
 
 #. module: sale_order_custom_report
-#: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_report_button
-msgid "Print"
-msgstr "Imprimir"
-
-#. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_blueprints
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Producto"
@@ -135,11 +136,6 @@ msgid "STD"
 msgstr "STD"
 
 #. module: sale_order_custom_report
-#: model:ir.actions.report,name:sale_order_custom_report.action_sale_order_custom_report
-msgid "Sale Custom Report"
-msgstr "Presupuesto de Venta Custom"
-
-#. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_header
 msgid "Talleres Sustentables"
 msgstr "Talleres Sustentables"
@@ -148,6 +144,11 @@ msgstr "Talleres Sustentables"
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Tipo"
 msgstr "Tipo"
+
+#. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_routing_workcenter_blueprint_images
+msgid "Upload Images"
+msgstr "Subir imagenes"
 
 #. module: sale_order_custom_report
 #: model:ir.model,name:sale_order_custom_report.model_mrp_routing_workcenter

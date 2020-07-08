@@ -11,10 +11,10 @@ class MroRoutingWorkcenter(models.Model):
         "routing_workcenter_attachments_rel",
         "workcenter_id",
         "attachment_id",
-        string="Files",
+        string="Attachments",
     )
 
-    blueprint_images = fields.Binary(string="Image", attachment=False)
+    blueprint_images = fields.Binary(string="Upload Images", attachment=False)
 
     @api.onchange("blueprint_images")
     def _onchange_blueprint_images(self):

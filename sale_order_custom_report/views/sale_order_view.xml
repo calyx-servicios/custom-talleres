@@ -25,8 +25,8 @@
                 <xpath expr="//notebook" position="inside">
                     <page name="attachments_page" string="Attachments">
                         <group class="attachments_worksheet_page">
-                            <field name="blueprint_images" string="Upload Images" widget="image"/>
-                            <field name="attachment_ids" widget="many2many_binary" string="Attachments"/>
+                            <field name="blueprint_images" widget="image"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
                         </group>
                     </page>
                 </xpath>
