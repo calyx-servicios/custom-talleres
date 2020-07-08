@@ -24,7 +24,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
                     <page name="attachments_page" string="Attachments">
-                        <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2" readonly="1"/>
+                        <group class="attachments_worksheet_page">
+                            <field name="blueprint_images" widget="image"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
                     </page>
                 </xpath>
             </field>

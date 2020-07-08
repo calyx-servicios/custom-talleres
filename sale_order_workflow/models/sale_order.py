@@ -6,9 +6,6 @@ from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
 import datetime
 import dateutil.parser
-import logging
-
-_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -44,6 +41,7 @@ class SaleOrder(models.Model):
         # compute="_get_design",
         track_visibility="onchange",
     )
+
     quote_status = fields.Selection(
         [
             ("to quote", "To Quote"),
@@ -63,9 +61,11 @@ class SaleOrder(models.Model):
         readonly=True,
         copy=False,
     )
+
     production_count = fields.Integer(
         string="# of Productions", compute="_get_produced", readonly=True,
     )
+
     production_status = fields.Selection(
         [
             ("to produce", "To Produce"),
@@ -78,6 +78,7 @@ class SaleOrder(models.Model):
         # store=True,
         readonly=True,
     )
+
     picking_status = fields.Selection(
         [
             ("no", "Nothing to Deliver"),
@@ -94,6 +95,7 @@ class SaleOrder(models.Model):
         # store=True,
         readonly=True,
     )
+
     design_ids = fields.Many2many(
         "ir.attachment",
         "sale_line_ir_design_rel",
@@ -120,7 +122,6 @@ class SaleOrder(models.Model):
 
     @api.depends("state", "production_ids", "production_ids.state")
     def _get_produced_state(self):
-        # _logger.debug("======debug===== get produced")
         for order in self:
             line_production_status = []
             for prod in order.production_ids:
@@ -135,9 +136,6 @@ class SaleOrder(models.Model):
                     for production_status in line_production_status
                 ):
                     production_status = "to produce"
-                    # _logger.info(
-                    #     "======product1ion> %r", line_production_status
-                    # )
                 elif all(
                     production_status in ["progress"]
                     for production_status in line_production_status
@@ -148,18 +146,14 @@ class SaleOrder(models.Model):
                     for production_status in line_production_status
                 ):
                     production_status = "ready"
-                # else:
-                #     production_status = "no"
             order.update({"production_status": production_status})
 
     @api.depends("state", "picking_ids", "picking_ids.state")
     def _get_picking_state(self):
-        _logger.debug("======debug===== get pickings")
         for order in self:
             line_picking_status = []
             for pick in order.picking_ids:
                 line_picking_status.append(pick.state)
-            _logger.debug("======pickings> %r", line_picking_status)
             picking_count = len(line_picking_status)
             picking_status = "no"
             if picking_count > 0:
@@ -186,7 +180,6 @@ class SaleOrder(models.Model):
 
     @api.depends("state")
     def _get_produced(self):
-        # _logger.debug("======debug===== get produced")
         for order in self:
             production_obj = self.env["mrp.production"]
             production_ids = production_obj.search(
@@ -195,7 +188,6 @@ class SaleOrder(models.Model):
             line_production_status = []
             for prod in production_ids:
                 line_production_status.append(prod.state)
-            # _logger.info("======production> %r", line_production_status)
             production_count = len(line_production_status)
             production_status = "no"
             if production_count > 0:
@@ -218,15 +210,9 @@ class SaleOrder(models.Model):
                     production_status = "ready"
                 else:
                     production_status = "no"
-
-            # _logger.debug(
-            #     "=====order data %r %r %r====="
-            #     % (production_ids, production_status, production_count)
-            # )
             order.update(
                 {
                     "production_ids": production_ids.ids or False,
-                    # "production_status": production_status,
                     "production_count": production_count,
                 }
             )
@@ -300,7 +286,6 @@ class SaleOrder(models.Model):
         action = self.env.ref(
             "sale_order_workflow.mrp_production_sale_action"
         ).read()
-        _logger.debug("=====view production? %r " % action)
         action = {
             "name": _("Productions"),
             "view_type": "form",
@@ -327,7 +312,6 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).action_confirm()
         view = self.env.ref("sh_message.sh_message_wizard")
         context = dict(self._context or {})
-        # production_obj = self.env["mrp.production"]
         if res:
             for order in self:
                 if order.quote_status not in ["no", "quoted"]:
@@ -344,7 +328,10 @@ class SaleOrder(models.Model):
                         f = order.freight
                     if order.placement_defined:
                         g = order.placement
-                    pick.write({"freight": pick.freight + f, "placement": pick.placement + g})
+                    pick.write({
+                        "freight": pick.freight + f,
+                        "placement": pick.placement + g
+                    })
 
                 for line in order.order_line:
                     if line.route_id:
@@ -370,7 +357,6 @@ class SaleOrder(models.Model):
                                     "de producción en este almacén."
                                 )
                                 return self.alert_message(title, view, context)
-
             return res
 
     @api.multi
@@ -381,7 +367,6 @@ class SaleOrder(models.Model):
             order="sequence desc",
             limit=1,
         )
-        _logger.debug("=====production rute___%r" % res.name)
         return res
 
     @api.multi
@@ -538,7 +523,6 @@ class SaleOrder(models.Model):
                                     product_obj.create_variant_ids()
 
                 return self.write({"state": "to design"})
-        # return {}
 
     def action_sent_design(self):
         view = self.env.ref("sh_message.sh_message_wizard")
@@ -625,28 +609,15 @@ class SaleOrderLine(models.Model):
         string="Route",
         domain=[("sale_selectable", "=", True)],
         ondelete="restrict",
-        # default=_get_route,
     )
 
     @api.onchange("product_uom_qty", "product_uom", "route_id")
     def _onchange_product_id_check_availability(self):
-
-        # _logger.debug("*=======================*")
-        # _logger.debug("*===================*")
-
         attribute_vals = []
-
         for attribute in self.product_id.attribute_value_ids:
             if attribute.name.lower() == "a definir":
-                # _logger.debug("*=======================*")
-                # _logger.debug("*=======A DEFINIR=======*")
-                # _logger.debug("*===================*")
                 attribute_vals.append(attribute.id)
-
-        # _logger.debug("======ONCHANGE==== %r", attribute_vals)
-
         if len(attribute_vals) <= 0:
-            # _logger.debug("*=======SIN A DEFINIR=======*")
             if (
                 not self.product_id
                 or not self.product_uom_qty
@@ -655,7 +626,6 @@ class SaleOrderLine(models.Model):
                 self.product_packaging = False
                 return {}
             if self.product_id.type == "product":
-                # _logger.debug("*=======Entro 1ra!!=======*")
                 precision = self.env["decimal.precision"].precision_get(
                     "Product Unit of Measure"
                 )
@@ -676,10 +646,8 @@ class SaleOrderLine(models.Model):
                     )
                     == -1
                 ):
-                    # _logger.debug("*=======Entro 2da!!=======*")
                     is_available = self._check_routing()
                     if not is_available:
-                        # _logger.debug("*=======Entro 3ra!!=======*")
                         message = _(
                             "You plan to sell %s %s but you "
                             "only have %s %s available in %s warehouse."
@@ -734,7 +702,6 @@ class SaleOrderLine(models.Model):
             default = dict(default or {})
             default.update(
                 {
-                    # "design": True,
                     "routing_id": False,
                     "product_id": self.product_id.id,
                 }
@@ -750,34 +717,6 @@ class SaleOrderLine(models.Model):
                 "target": "current",
                 "type": "ir.actions.act_window",
             }
-            # return {
-            #     "name": "Lista de Materiales",
-            #     "view_type": "form",
-            #     "view_mode": "form",
-            #     "res_model": "mrp.bom",
-            #     "view_id": view_id,
-            #     "target": "current",
-            #     "type": "ir.actions.act_window",
-            #     "context": {
-            #         "default_product_tmpl_id": self.template_id.id,
-            #         "default_product_id": self.product_id.id,
-            #         # "default_bom_line_ids": bom.bom_line_ids.ids,
-            #         "default_bom_line_ids": [
-            #             (
-            #                 0,
-            #                 0,
-            #                 {
-            #                     "product_id": x.product_id.id,
-            #                     "product_uom_id": x.product_id.uom_id.id,
-            #                     "product_qty": x.product_qty,
-            #                     "bom_id": x.bom_id,
-            #                 },
-            #             )
-            #             for x in bom.bom_line_ids
-            #         ],
-            #         "default_design": True,
-            #     },
-            # }
         else:
             for b in bom_s:
                 boms.append(b.id)

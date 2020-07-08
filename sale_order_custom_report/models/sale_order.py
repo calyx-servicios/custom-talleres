@@ -1,49 +1,10 @@
-from odoo import api, models, fields
+from odoo import api, models
 import base64
 from pdf2image import convert_from_path
 
 from io import BytesIO
-import logging
 from datetime import timedelta
 import dateutil.parser
-
-_logger = logging.getLogger(__name__)
-
-
-class MroRoutingWorkcenter(models.Model):
-    _inherit = "mrp.routing.workcenter"
-
-    attachment_ids = fields.Many2many(
-        "ir.attachment",
-        string="Files",
-        help=(
-            "Get you bank statements in electronic "
-            "format from your bank and select them here."
-        ),
-    )
-
-
-class MrpProduction(models.Model):
-    _inherit = "mrp.production"
-
-    @api.multi
-    def print_custom_sale_report(self):
-        """
-            Print the report based in the workcenter routing BOM
-        """
-        self.ensure_one()
-        if self.sale_id:
-            self.sale_id.create_attach_img()
-            action = self.env.ref(
-                "sale_order_custom_report.action_sale_order_custom_report"
-            )
-            vals = action.read()[0]
-            context = vals.get("context", {})
-            context["active_id"] = self.sale_id.id
-            context["active_ids"] = [self.sale_id.id]
-            vals["context"] = context
-
-            return vals
 
 
 class SaleOrder(models.Model):
