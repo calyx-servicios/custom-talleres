@@ -23,33 +23,34 @@ class MroRoutingWorkcenter(models.Model):
             the image that the user upload in blueprint_image field
         """
         for record in self:
-            mimetype = guess_mimetype(
-                base64.b64decode(record.blueprint_images)
-            )
-            if mimetype == "image/png" or mimetype == "image/jpeg":
-                iname = str(self.name)
-                new_attach = self.env["ir.attachment"].create(
-                    {
-                        "name": iname,
-                        "type": "binary",
-                        "datas": record.blueprint_images,
-                        "mimetype": mimetype,
-                        "datas_fname": iname,
-                    }
+            if record.blueprint_images:
+                mimetype = guess_mimetype(
+                    base64.b64decode(record.blueprint_images)
                 )
-                if new_attach:
-                    record.attachment_ids = [(4, new_attach.id)]
-                    self.env.user.notify_info(
-                        "La imagen fue adjuntada con exito.", "Información"
+                if mimetype == "image/png" or mimetype == "image/jpeg":
+                    iname = str(self.name)
+                    new_attach = self.env["ir.attachment"].create(
+                        {
+                            "name": iname,
+                            "type": "binary",
+                            "datas": record.blueprint_images,
+                            "mimetype": mimetype,
+                            "datas_fname": iname,
+                        }
                     )
-                    record.blueprint_images = False
+                    if new_attach:
+                        record.attachment_ids = [(4, new_attach.id)]
+                        self.env.user.notify_info(
+                            "La imagen fue adjuntada con exito.", "Información"
+                        )
+                        record.blueprint_images = False
+                    else:
+                        self.env.user.notify_warning(
+                            "No se pudo adjuntar la imagen.", "Error", 1
+                        )
                 else:
                     self.env.user.notify_warning(
                         "No se pudo adjuntar la imagen.", "Error", 1
                     )
-            else:
-                self.env.user.notify_warning(
-                    "No se pudo adjuntar la imagen.", "Error", 1
-                )
-                record.blueprint_images = False
+                    record.blueprint_images = False
 
