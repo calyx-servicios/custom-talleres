@@ -17,6 +17,7 @@
                     <page name="advancement_ids_page" string="Advancement Lines">
                         <group col="4">
                             <field name="calcule_amount_residual" readonly="1"/>
+                            <button name='create_payment' string='Create Payment' class='oe_highlight' type='object' context="{'default_partner_id':partner_id,'default_partner_type':'customer'}"/>
                             <button name="%(action_impute_payment_to_order)d" string="Impute Payment" type="action" class="oe_highlight" context="{'default_partner_id':partner_id,'default_amount':calcule_amount_residual}" />
                         </group>
                         <field name="advancement_line_ids" readonly="1">

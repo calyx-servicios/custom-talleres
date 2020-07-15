@@ -23,6 +23,19 @@ class SaleOrder(models.Model):
         "advancement_line_ids.order_id",
         "advancement_line_ids.amount_imputed",
     )
+
+    @api.multi
+    def create_payment(self):
+        return{
+            "name": ("Create Payment"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "account.payment.group",
+            "view_id": False,
+            "target": "new",
+        }
+
     def _compute_amount_residual(self):
         for order in self:
             amount_imputed = 0.0
