@@ -52,6 +52,7 @@ class SaleOrder(models.Model):
         default="no",
         compute="_get_quote_state",
         track_visibility="onchange",
+        store=True
     )
 
     production_ids = fields.Many2many(
@@ -77,6 +78,7 @@ class SaleOrder(models.Model):
         compute="_get_produced_state",
         # store=True,
         readonly=True,
+        store=True
     )
 
     picking_status = fields.Selection(
@@ -119,6 +121,10 @@ class SaleOrder(models.Model):
     freight_defined = fields.Boolean(string="Freight Defined?")
 
     placement_defined = fields.Boolean(string="Placement Defined?")
+
+    has_custom_design = fields.Boolean(string="Has Custom Product Design",
+                                       compute="_compute_line_to_design_change",
+                                       store=True)
 
     @api.depends("state", "production_ids", "production_ids.state")
     def _get_produced_state(self):
@@ -386,6 +392,16 @@ class SaleOrder(models.Model):
                 if line.to_quote or line.to_design:
                     line.update({"route_id": route_id})
             order.update({"quote_status": quote_status})
+
+    @api.depends("order_line", "order_line.to_design")
+    def _compute_line_to_design_change(self):
+        for order in self:
+            for line in order.order_line:
+                if line.to_design:
+                    order.has_custom_design = True
+                    break
+                else:
+                    order.has_custom_design = False
 
     @api.multi
     def production_countdown(self):
