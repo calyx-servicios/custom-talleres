@@ -146,12 +146,12 @@
       <field name="inherit_id" ref="sale.view_sales_order_filter"/>
       <field name="arch" type="xml">
         <filter name="activities_my" position="after">
-          <filter string="With Design" name="design_tasks" domain="[('state', 'in', ['to design','sent design'])]"/>
-          <filter string="With Production" name="production_tasks" domain="[('production_status', '!=', 'no')]"/>
+          <filter string="With Design" name="design_tasks" domain="[('has_custom_design', '=', True)]"/>
+          <filter string="With Production" name="production_tasks" domain="[('production_status','!=', 'no')]"/>
           <filter string="With Quotation" name="quotation_tasks" domain="[('quote_status', '!=', 'no')]"/>
         </filter>
         <filter name="customer" position="after">
-          <filter name="design_status" string="Design" domain="[('state', 'in', ['to design','sent design'])]" context="{'group_by':'state'}"/>
+          <filter name="design_status" string="Design" domain="[('has_custom_design', '=', True)]" context="{'group_by':'state'}"/>
           <filter name="production_status" string="Production" domain="[]" context="{'group_by':'production_status'}"/>
           <filter name="picking_status" string="Picking" domain="[]" context="{'group_by':'picking_status'}"/>
         </filter>
