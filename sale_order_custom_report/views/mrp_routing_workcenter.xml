@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="mrp_production_form_view_design" model="ir.ui.view">
+            <field name="name">mrp.routing.workcenter.form.design</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="attachments_page" string="Attachments">
+                        <group class="attachments_worksheet_page">
+                            <field name="blueprint_images" style="margin-bottom:15px" filename="blueprint_name"/>
+                            <field name="blueprint_name" invisible="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
         <template id="assets_backend" name="mrp_routing_workcenter assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link href="/sale_order_custom_report/static/src/css/sale_order_report.css" rel="stylesheet" type="text/css"/>
