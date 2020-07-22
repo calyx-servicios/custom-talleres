@@ -27,7 +27,12 @@ class MroRoutingWorkcenter(models.Model):
                 mimetype = guess_mimetype(
                     base64.b64decode(record.blueprint_images)
                 )
-                if mimetype == "image/png" or mimetype == "image/jpeg":
+
+                if (
+                    mimetype == "image/png"
+                    or mimetype == "image/jpeg"
+                    or mimetype == "application/octet-stream"
+                ):
                     iname = str(self.name)
                     new_attach = self.env["ir.attachment"].create(
                         {
@@ -41,16 +46,16 @@ class MroRoutingWorkcenter(models.Model):
                     if new_attach:
                         record.attachment_ids = [(4, new_attach.id)]
                         self.env.user.notify_info(
-                            "La imagen fue adjuntada con exito.", "Información"
+                            "La imagen fue cargada con éxito.", "Information"
                         )
                         record.blueprint_images = False
                     else:
                         self.env.user.notify_warning(
-                            "No se pudo adjuntar la imagen.", "Error", 1
+                            "No se pudo subir el archivo.", "Error"
                         )
                 else:
                     self.env.user.notify_warning(
-                        "No se pudo adjuntar la imagen.", "Error", 1
+                        "No se pudo subir el archivo.", "Error"
                     )
                     record.blueprint_images = False
 
