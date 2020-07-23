@@ -13,13 +13,6 @@
             <t t-raw="0" />
         </div>
 
-        <!-- <div class="footer">
-            <div class="row">
-                <div class="col-xs-12" style="width:95%;">
-                    <t t-call="sale_order_custom_report.sale_order_custom_footer"/>
-                </div>
-            </div>
-        </div> -->
     </template>
 
     <template id="external_layout">
@@ -81,10 +74,10 @@
                                                 <span t-esc="doc.name" style="font-size:28px;font-weight: bold;"/>
                                                 <br/>
                                                 <span style="font-size:20px !important">FIN PRODUCCION: </span>
-                                                <t t-foreach="doc.get_limit_date_produced()" t-as="data">                                        
-                                                    <span t-esc="data[0]" style="font-size:28px;font-weight: bold;"/>                               
+                                                <t t-foreach="doc.get_limit_date_produced()" t-as="data">
+                                                    <span t-esc="data[0]" style="font-size:28px;font-weight: bold;"/>
                                                 </t>
-                                                <!-- <span t-field="doc.date_produced_state"  style="font-size:28px;font-weight: bold;"/> -->
+                                                <!-- <span t-field="doc.date_produced_state" style="font-size:28px;font-weight: bold;"/> -->
                                             </div>
                                         </div>
                                     </div>
@@ -101,25 +94,43 @@
         <hr/>
         <div class="row" style="font-size:16px">
             <div class="col-xs-4 text-left">
-                <span>Alta del pedido:</span><br/>
-                <span>Confirmación del Plano por CLIENTE:</span><br/>
-                <span>Fecha Entrega:</span><br/>
-                <span>Cliente:</span><br/>
-                <span>Celular:</span><br/>
-                <span>Teléfono:</span><br/>
-                <span>Mail</span><br/>
-                <span>Dirección</span><br/>
-                <span>Generalidades:</span><br/>
+                <span>Alta del pedido:</span>
+                <br/>
+                <span>Confirmación del Plano por CLIENTE:</span>
+                <br/>
+                <span>Fecha Entrega:</span>
+                <br/>
+                <span>Cliente:</span>
+                <br/>
+                <span>Celular:</span>
+                <br/>
+                <span>Teléfono:</span>
+                <br/>
+                <span>Mail</span>
+                <br/>
+                <span>Dirección</span>
+                <br/>
+                <span>Generalidades:</span>
+                <br/>
             </div>
             <div class="col-xs-8 text-left">
-                <span t-field="doc.date_order" t-options='{"format": "d/MM/Y"}'/><br/>
-                <span t-field="doc.confirmation_date" t-options='{"format": "d/MM/Y"}'/><br/>
+                <span t-field="doc.date_order" t-options='{"format": "d/MM/Y"}'/>
                 <br/>
-                <span t-field="doc.partner_id.name"/><br/>
-                <span t-field="doc.partner_id.mobile"/><br/>
-                <span t-field="doc.partner_id.phone"/><br/>
-                <span t-field="doc.partner_id.email"/><br/>
-                <span t-field="doc.partner_id.street"/> (<span t-field="doc.partner_id.state_id.name"/> - <span t-field="doc.partner_id.city"/>) <br/>
+                <span t-field="doc.confirmation_date" t-options='{"format": "d/MM/Y"}'/>
+                <br/>
+                <br/>
+                <span t-field="doc.partner_id.name"/>
+                <br/>
+                <span t-field="doc.partner_id.mobile"/>
+                <br/>
+                <span t-field="doc.partner_id.phone"/>
+                <br/>
+                <span t-field="doc.partner_id.email"/>
+                <br/>
+                <span t-field="doc.partner_id.street"/>
+ (                <span t-field="doc.partner_id.state_id.name"/>
+ -                <span t-field="doc.partner_id.city"/>
+)                <br/>
                 <br/>
             </div>
         </div>
@@ -139,12 +150,18 @@
                 <tbody>
                     <t t-foreach="doc.order_line" t-as="line">
                         <tr>
-                            <td style="text-align:center;border: solid 1px black;"><span t-esc="line.product_id.default_code" /></td>
-                            <td style="text-align:center;border: solid 1px black;"><span t-esc="line.product_uom_qty" /></td>
-                            <td style="text-align:left;border: solid 1px black;padding-left: 5px"><span t-esc="line.template_id.name" /></td>
+                            <td style="text-align:center;border: solid 1px black;">
+                                <span t-esc="line.product_id.default_code" />
+                            </td>
+                            <td style="text-align:center;border: solid 1px black;">
+                                <span t-esc="line.product_uom_qty" />
+                            </td>
+                            <td style="text-align:left;border: solid 1px black;padding-left: 5px">
+                                <span t-esc="line.template_id.name" />
+                            </td>
                             <t t-if="not line.to_design">
                                 <td style="text-align:center;border: solid 1px black;">STD</td>
-                            </t>    
+                            </t>
                             <t t-if="line.to_design">
                                 <td style="text-align:center;border: solid 1px black;">NST</td>
                             </t>
@@ -152,23 +169,28 @@
                                 <table style="width: 100%;">
                                     <tr>
                                         <t t-foreach="line.product_id.attribute_value_ids" t-as="attribute">
-                                           <td style="border-right:solid 1px black">
+                                            <td style="border-right:solid 1px black">
                                                 <table style="width: 100%;">
                                                     <tr>
-                                                        <td style="text-align:center;border-bottom: solid 1px black;"><span t-esc="attribute.attribute_id.name"/></td>
-                                                    </tr> 
+                                                        <td style="text-align:center;border-bottom: solid 1px black;">
+                                                            <span t-esc="attribute.attribute_id.name"/>
+                                                        </td>
+                                                    </tr>
                                                     <tr>
-                                                        <td style="text-align:center;"><span t-esc="attribute.name"/></td>
+                                                        <td style="text-align:center;">
+                                                            <span t-esc="attribute.name"/>
+                                                        </td>
                                                     </tr>
                                                 </table>
-                                           </td>
+                                            </td>
                                         </t>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5" style="text-align:left">Obs: <span t-esc="line.note"/></td>
+                            <td colspan="5" style="text-align:left">Obs: <span t-esc="line.note"/>
+                            </td>
                         </tr>
                     </t>
                 </tbody>
@@ -176,12 +198,6 @@
         </div>
     </template>
 
-    <!-- <template id="sale_order_custom_footer">
-
-        <div class="row" style="width:105%;">
-        </div>
-
-    </template> -->
     <template id="sale_order_custom_blueprints">
         <div class="row">
             <div class="col-xs-12 text-center">
@@ -190,7 +206,8 @@
         </div>
         <div class="row">
             <div class="col-xs-5 text-left">
-                <span style="font-size:20px !important;font-weight: bold;">Orden Nro: </span><span t-esc="doc.name" style="font-size:20px !important;font-weight: bold;"/>
+                <span style="font-size:20px !important;font-weight: bold;">Orden Nro: </span>
+                <span t-esc="doc.name" style="font-size:20px !important;font-weight: bold;"/>
             </div>
             <div class="col-xs-7 text-left">
                 <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y  %I:%M %p')" style="font-size:20px !important;font-weight: bold;"/>
@@ -205,9 +222,15 @@
                         <td style="text-align:center;width:40%;border: solid 1px;">Observación</td>
                     </tr>
                     <tr>
-                        <td style="border: solid 1px;padding-left:5px;width:10%;"> <span t-esc="mrp.product_qty"/> </td>
-                        <td style="border: solid 1px;padding-left:5px;width:50%"> <span t-esc="mrp.product_id.name"/> </td>
-                        <td style="border: solid 1px;padding-left:5px;width:40%;"> <span t-esc="workcenter.name"/></td>
+                        <td style="border: solid 1px;padding-left:5px;width:10%;">
+                            <span t-esc="mrp.product_qty"/>
+                        </td>
+                        <td style="border: solid 1px;padding-left:5px;width:50%">
+                            <span t-esc="mrp.product_id.name"/>
+                        </td>
+                        <td style="border: solid 1px;padding-left:5px;width:40%;">
+                            <span t-esc="workcenter.name"/>
+                        </td>
                     </tr>
                     <tr>
                         <td style="border-bottom: solid 1px;border-right: solid 1px;" colspan="3">
@@ -217,10 +240,14 @@
                                         <td style="border-right:solid 1px black">
                                             <table style="width: 100%;">
                                                 <tr>
-                                                    <td style="text-align:center;border-bottom: solid 1px black;font-weight: bold;"><span t-esc="attribute.attribute_id.name"/></td>
-                                                </tr> 
+                                                    <td style="text-align:center;border-bottom: solid 1px black;font-weight: bold;">
+                                                        <span t-esc="attribute.attribute_id.name"/>
+                                                    </td>
+                                                </tr>
                                                 <tr>
-                                                    <td style="text-align:center;"><span t-esc="attribute.name"/></td>
+                                                    <td style="text-align:center;">
+                                                        <span t-esc="attribute.name"/>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
