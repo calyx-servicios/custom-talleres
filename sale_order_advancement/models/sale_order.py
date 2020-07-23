@@ -18,6 +18,18 @@ class SaleOrder(models.Model):
         string="Payment", readonly=True, compute="_compute_amount_residual",
     )
 
+    @api.multi
+    def create_payment(self):
+        return{
+            "name": ("Create Payment"),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "account.payment.group",
+            "view_id": False,
+            "target": "new",
+        }
+
     @api.depends(
         "advancement_line_ids.payment_id",
         "advancement_line_ids.order_id",
