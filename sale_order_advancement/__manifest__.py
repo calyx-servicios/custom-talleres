@@ -20,6 +20,7 @@
     "data": [
         "security/ir.model.access.csv",
         "wizard/wizard_impute_payment_to_order_view.xml",
+        "views/account_payment_group_view.xml",
         "views/sale_order_view.xml",
     ],
 }
