@@ -63,3 +63,4 @@ class SaleOrder(models.Model):
                     "calcule_amount_imputed": amount_imputed,
                 }
             )
+    

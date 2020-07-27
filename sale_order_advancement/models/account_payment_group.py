@@ -8,6 +8,7 @@ class AccountpPaymentGroup(models.Model):
     _inherit = "account.payment.group"
 
     # ## Fields
+    
     advancement_line_ids = fields.One2many(
         "sale.order.advancement", "payment_id", string="Advancement Lines",
     )
@@ -15,6 +16,7 @@ class AccountpPaymentGroup(models.Model):
         string="Total", readonly=True, compute="_compute_amount_to_impute"
     )  #
     boolean_total_imputed = fields.Boolean(string="Total Imputed",)  #
+    boolean_sale_order = fields.Boolean(invisible="1")
     # ## ends Field  < >
 
     @api.multi

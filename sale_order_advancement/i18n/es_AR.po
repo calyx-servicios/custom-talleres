@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_order_advancement
+#	* sale_order_advancement
 #
 msgid ""
 msgstr ""
@@ -16,7 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: es_AR\n"
 "X-Generator: Poedit 2.0.6\n"
-
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_account_payment_group_advancement_line_ids
 #: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_advancement_line_ids
@@ -86,7 +85,7 @@ msgstr "Nombre a Mostrar"
 #. module: sale_order_advancement
 #: selection:sale.order.advancement,state:0
 msgid "Draft"
-msgstr "Draft"
+msgstr "Borrador"
 
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_impute_payment_to_order_id
@@ -126,7 +125,7 @@ msgstr "Última Modificación en"
 #: model:ir.model.fields,field_description:sale_order_advancement.field_impute_payment_to_order_write_uid
 #: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_advancement_write_uid
 msgid "Last Updated by"
-msgstr "Última Actualización por"
+msgstr "Última Actualización Realizada por"
 
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_impute_payment_to_order_write_date
@@ -137,7 +136,7 @@ msgstr "Última Actualización el"
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_impute_payment_to_order_partner_id
 msgid "Partner"
-msgstr "Empresa"
+msgstr "Contacto"
 
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_impute_payment_to_order_payment_id

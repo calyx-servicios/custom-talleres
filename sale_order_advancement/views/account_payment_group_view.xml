@@ -5,8 +5,11 @@
             <field name="name">Create Payment</field>
             <field name="inherit_id" ref="account_payment_group.view_account_payment_group_form" />
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="boolean_sale_order" invisible="1" />
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="attributes">
-	                <attribute name="readonly">[('partner_id', '!=', '')]</attribute>
+                    <attribute name="attrs">{'readonly': ['|',('boolean_sale_order', '!=', False),('state', '!=', 'draft')]}</attribute>
                 </xpath>
             </field>
         </record>
