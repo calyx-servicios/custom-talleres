@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
-
-
         <record model="ir.ui.view" id="sale_attr_sale_order_line">
             <field name="name">sale.order.line.attr.view.form</field>
             <field name="model">sale.order</field>
@@ -15,7 +12,6 @@
                 </xpath>
             </field>
         </record>
-
         <record model="ir.ui.view" id="sale_attr_sale_order_line_form">
             <field name="name">sale.order.line.tree.attr.view.form</field>
             <field name="model">sale.order</field>
@@ -28,13 +24,10 @@
                     <field name="variants_status_ok" invisible="1" />
                     <field name="quote_status" invisible="1" />
                     <button name="action_custom_selection" icon="fa-pencil-alt" type="object" context="{'res_id':id or None}" />
-                    <!-- attrs="{'invisible': [('sale_order_id.state', '=', 'open' )]}" /> -->
                 </xpath>
-
                 <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="replace">
                     <field name="price_unit" attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('to_quote', '=', False)]}" force_save="1"/>
                 </xpath>
-
                 <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">
                     <attribute name="invisible">True</attribute>
 
@@ -47,13 +40,7 @@
                     <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2"/>
                     <field name="design_ids" widget="many2many_binary" string="Design Attachments" colspan="2"/>
                 </xpath>
-
             </field>
         </record>
-
-
-
-
-
     </data>
 </odoo>
