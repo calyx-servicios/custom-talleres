@@ -33,11 +33,7 @@
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="arch" type="xml">
 
-                <xpath expr="//button[@name='298']" position="attributes">
-                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
-                </xpath>
-
-                <xpath expr="//button[@name='106']" position="attributes">
+                <xpath expr="//button[1]" position="attributes">
                     <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
                 </xpath>
 
