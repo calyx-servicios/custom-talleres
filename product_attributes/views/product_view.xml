@@ -6,27 +6,12 @@
             <field name="name">Product_Template - Stock &amp; Price</field>
             <field name="inherit_id" ref="product.product_template_only_form_view" />
             <field name="arch" type="xml">
-
-
-                <xpath expr="//button[@name='298']" position="attributes">
+                <xpath expr="//button[1]" position="attributes">
                     <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
                 </xpath>
-
-                <xpath expr="//button[@name='106']" position="attributes">
-                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
-                </xpath>
-
                 <xpath expr="//field[@name='list_price']" position="attributes">
                     <attribute name="readonly">1</attribute>
                 </xpath>
-
-                <!-- <xpath expr="//page[@name='variants']" position="after">
-                    <page name="attachments" string="Attachments">
-                        <group string="Attached files">
-                            <field name="attachment_ids" widget="many2many_binary" string="Attachments" colspan="2" />
-                        </group>
-                    </page>
-                </xpath> -->
             </field>
         </record>
 
@@ -48,11 +33,7 @@
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="arch" type="xml">
 
-                <xpath expr="//button[@name='298']" position="attributes">
-                    <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
-                </xpath>
-
-                <xpath expr="//button[@name='106']" position="attributes">
+                <xpath expr="//button[1]" position="attributes">
                     <attribute name="groups">product_attributes.product_stock_price_responsible_group</attribute>
                 </xpath>
 
