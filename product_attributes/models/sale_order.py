@@ -101,6 +101,16 @@ class SaleOrderLine(models.Model):
                 self.price_unit = self.product_id.list_price
 
     @api.multi
+    @api.onchange("to_design")
+    def product_to_desing_associate(self):
+        self.to_quote = self.to_design
+
+    @api.multi
+    @api.onchange("to_quote")
+    def product_to_quote_associate(self):
+        self.to_design = self.to_quote
+
+    @api.multi
     @api.onchange("template_id")
     def change_product(self):
         self.ensure_one()
