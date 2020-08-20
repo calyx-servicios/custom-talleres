@@ -23,8 +23,14 @@ class stockPicking(models.Model):
     )
 
     extra = fields.Boolean(string="Extra Invoice?", default=False)
-    freight_extra = fields.Float(string="Extra freight")
-    placement_extra = fields.Float(string="Extra placement")
+    freight_extra = fields.Float(
+        string="Extra freight",
+        track_visibility='onchange'
+    )
+    placement_extra = fields.Float(
+        string="Extra placement",
+        track_visibility='onchange'
+    )
     extra_freigt_placement_status = fields.Selection(
         [("invoiced", "Invoiced"), ("no", "Nothing in invoice")],
         string="Invoice Status Extra",
