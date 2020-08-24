@@ -86,8 +86,8 @@ class SaleOrderLine(models.Model):
     def product_id_change_quote(self):
         if self.to_quote:
             if self.price_unit > 0.0:
-                self.to_quote = False
                 self.quote_status = "quoted"
+                self.to_quote = False
 
     @api.multi
     @api.onchange("to_quote")
@@ -101,14 +101,27 @@ class SaleOrderLine(models.Model):
                 self.price_unit = self.product_id.list_price
 
     @api.multi
-    @api.onchange("to_design")
-    def product_to_desing_associate(self):
-        self.to_quote = self.to_design
-
-    @api.multi
     @api.onchange("to_quote")
     def product_to_quote_associate(self):
-        self.to_design = self.to_quote
+        if self.quote_status == "no":
+            self.to_design = self.to_quote
+        if self.quote_status == "to quote":
+            self.to_design = self.to_quote
+            self.quote_status = "no"
+
+
+    @api.multi
+    @api.onchange("to_design")
+    def product_to_desing_associate(self):
+        if self.quote_status == "no":
+            self.to_quote = self.to_design
+        if self.quote_status == "to quote":
+            self.to_quote = self.to_design
+            self.quote_status = "no"
+        if self.quote_status == "quoted" and self.to_design:
+            self.to_quote = self.to_design
+
+        
 
     @api.multi
     @api.onchange("template_id")
