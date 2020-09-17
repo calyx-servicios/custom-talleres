@@ -60,3 +60,7 @@ msgstr "Escalera"
 msgid "Transfer"
 msgstr "Transferir"
 
+#. module: stock_picking_details
+#: model:ir.model.fields,field_description:stock_picking_details.field_stock_picking_calcule_amount_residual
+msgid "Amount Residual"
+msgstr "Saldo a Pagar"
