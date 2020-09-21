@@ -25,15 +25,7 @@ class StockPicking(models.Model):
         string="Amount Residual",
         compute="_compute_amount_residual"
     )
-    code = fields.Char(
-        string="Amount Residual",
-        compute="_compute_code"
-    )
-
-    @api.one
-    def _compute_code(self):
-        self.code = self.picking_type_id.code
-        
+          
     @api.one
     def _compute_amount_residual(self):
         i = 0
