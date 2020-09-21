@@ -25,7 +25,7 @@ class StockPicking(models.Model):
         string="Amount Residual",
         compute="_compute_amount_residual"
     )
-
+          
     @api.one
     def _compute_amount_residual(self):
         i = 0
@@ -41,13 +41,10 @@ class StockPicking(models.Model):
                     simple_orders.remove(order)
                     simple_orders.remove(origin[i+1])
                 i += 1
-        
+            
+            simple_orders.extend(double_orders)
             for order in simple_orders:
-                record = self.env['sale.order'].search([('name', '=', order)])
-                total_amount_residual += record.calcule_amount_residual
-        
-            for order in double_orders:
-                record = self.env['sale.order'].search([('name', '=', order)])
-                total_amount_residual += record.calcule_amount_residual
-        
+                 record = self.env['sale.order'].search([('name', '=', order)])
+                 total_amount_residual += record.calcule_amount_residual
+
         self.calcule_amount_residual = total_amount_residual
