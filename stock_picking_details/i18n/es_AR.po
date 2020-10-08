@@ -64,3 +64,13 @@ msgstr "Transferir"
 #: model:ir.model.fields,field_description:stock_picking_details.field_stock_picking_calcule_amount_residual
 msgid "Amount Residual"
 msgstr "Saldo a Pagar"
+
+#. module: stock_picking_details
+#: model:ir.ui.view,arch_db:stock_picking_details.view_picking_internal_search
+msgid "Not Settled"
+msgstr "Saldo a pagar"
+
+#. module: stock_picking_details
+#: model:ir.ui.view,arch_db:stock_picking_details.view_picking_internal_search
+msgid "Settled"
+msgstr "Saldado"

@@ -27,7 +27,7 @@
     'license': 'AGPL-3',
     'summary': '''Stock Picking Details''',
     'depends': [
-        'stock',
+        'stock','sale','sale_order_advancement'
     ],
     'external_dependencies': {
     },
