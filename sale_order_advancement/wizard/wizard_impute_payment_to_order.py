@@ -15,7 +15,7 @@ class ImputePaymentToOrder(models.TransientModel):
     # ## Fields
     name = fields.Char(string="Description")
     payment_id = fields.Many2one("account.payment.group", string="Payment",)
-    amount = fields.Float(string="Amount",)
+    amount = fields.Float(string="Amount")
     amount_payment = fields.Float(
         string="Amount Payment", compute="_compute_amount_payment"
     )
@@ -28,6 +28,14 @@ class ImputePaymentToOrder(models.TransientModel):
             if record.payment_id:
                 amount = record.payment_id.amount_to_impute
                 record.amount_payment = amount
+    
+    @api.onchange("payment_id","amount_payment")
+    def onchange_amount(self):
+        for record in self:
+                if record.amount_payment:
+                    amount = record.amount_payment
+                    record.amount = amount
+
 
     @api.multi
     def impute_payment(self):
