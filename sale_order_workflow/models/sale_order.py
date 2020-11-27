@@ -477,6 +477,17 @@ class SaleOrder(models.Model):
             if not rec.placement_defined:
                 rec.write({"placement": 0})
 
+    @api.multi
+    @api.onchange("team_id")
+    def _onchange_team_id(self):
+        order = []
+        if self.state in ["draft"]:
+            if self.name != _("New"):
+                order = self.name.split(" ",1)
+                order[0] = self.team_id.name
+                self.name = order[0] + " " + order[1] 
+            
+
     def action_to_design(self):
         for rec in self:
             design_cont = 0
