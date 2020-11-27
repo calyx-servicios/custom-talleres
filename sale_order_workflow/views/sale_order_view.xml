@@ -26,6 +26,9 @@
           <field name="state" widget="statusbar" statusbar_visible="draft,sent,to design,sent design,sale"/>
         </xpath>
 
+        <xpath expr="//field[@name='name']" position="attributes">
+          <attribute name="force_save">1</attribute>
+        </xpath>
 
         <xpath expr="//button[@name='action_view_invoice']" position="before">
           <field name="production_ids" invisible="1"/>
