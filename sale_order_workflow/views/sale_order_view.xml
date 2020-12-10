@@ -105,8 +105,8 @@
           <field name="picking_status" />
         </field>
         <field name="invoice_status" position="before">
-          <field name="state" options='{"fg_color": "orange:state in (&apos;to design&apos;);green:state in (&apos;sent design&apos;);"}'/>
-          <field name="quote_status" options='{"fg_color": "red:quote_status in (&apos;to quote&apos;);;green:quote_status in (&apos;quoted&apos;);"}'/>
+          <field name="state" options='{"fg_color": "orange:state in (&apos;to design&apos;);green:state in (&apos;sent design&apos;);"}' invisible="1"/>
+          <field name="quote_status" options='{"fg_color": "red:quote_status in (&apos;to quote&apos;);;green:quote_status in (&apos;quoted&apos;);"}' invisible="1"/>
         </field>
       </field>
     </record>
