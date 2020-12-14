@@ -51,3 +51,9 @@ class SaleOrder(models.Model):
                 }
             )
     
+    @api.multi
+    def action_cancel(self):
+        for lines in self.advancement_line_ids:
+            lines.cancel()
+            lines.unlink()
+        return super(SaleOrder, self).action_cancel()
