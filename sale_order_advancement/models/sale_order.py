@@ -35,6 +35,7 @@ class SaleOrder(models.Model):
         "advancement_line_ids.order_id",
         "advancement_line_ids.amount_imputed",
     )
+
     def _compute_amount_residual(self):
         for order in self:
             amount_imputed = 0.0
@@ -50,3 +51,9 @@ class SaleOrder(models.Model):
                 }
             )
     
+    @api.multi
+    def action_cancel(self):
+        for lines in self.advancement_line_ids:
+            lines.cancel()
+            lines.unlink()
+        return super(SaleOrder, self).action_cancel()

@@ -16,7 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: es_AR\n"
 "X-Generator: Poedit 2.0.6\n"
-
 #. module: sale_order_advancement
 #: model:ir.model.fields,field_description:sale_order_advancement.field_account_payment_group_advancement_line_ids
 #: model:ir.model.fields,field_description:sale_order_advancement.field_sale_order_advancement_line_ids
