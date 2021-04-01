@@ -24,6 +24,11 @@ class SaleOrderMailWizard(models.TransientModel):
     body_email = fields.Html(string="Body")
     subject = fields.Char(string="Subject")
 
+    mail_server_id = fields.Many2one(
+        'ir.mail_server',
+        string = 'Mail Server'
+    )
+
     def _action_generate_email_attachment(self):
         if self._context.get("sale_id"):
             sale_id = self._context.get("sale_id")
@@ -72,6 +77,7 @@ class SaleOrderMailWizard(models.TransientModel):
         )
         mail = self.env["mail.mail"].sudo().browse(mail_id)
         mail.write({"body_html": self.body_email})
+        mail.write({"mail_server_id": self.mail_server_id.id})
         mail.send()
         for attachment in self.attachment_ids:
             template.attachment_ids = [(3, attachment.id)]
