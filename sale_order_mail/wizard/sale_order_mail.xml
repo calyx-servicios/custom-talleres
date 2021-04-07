@@ -10,6 +10,10 @@
                     <!-- truly invisible fields for control and options -->
                     <field name="sale_id" invisible="1"/>
                     <!-- visible wizard -->
+                    <label for="mail_server_id" string="Mail Server"/>
+                    <div>
+                        <field name="mail_server_id" placeholder="...@mailserver.com"/>
+                    </div>
                     <label for="email_to" string="Recipients"/>
                     <div>
                         <field name="email_to" placeholder="Add contacts to notify..."/>
