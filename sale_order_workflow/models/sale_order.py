@@ -2,7 +2,6 @@
 
 from odoo import models, api, fields, _
 from odoo.osv import expression
-from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
 import datetime
 import dateutil.parser
@@ -52,7 +51,7 @@ class SaleOrder(models.Model):
         default="no",
         compute="_get_quote_state",
         track_visibility="onchange",
-        store=True
+        store=True,
     )
 
     production_ids = fields.Many2many(
@@ -64,7 +63,9 @@ class SaleOrder(models.Model):
     )
 
     production_count = fields.Integer(
-        string="# of Productions", compute="_get_produced", readonly=True,
+        string="# of Productions",
+        compute="_get_produced",
+        readonly=True,
     )
 
     production_status = fields.Selection(
@@ -78,7 +79,7 @@ class SaleOrder(models.Model):
         compute="_get_produced_state",
         # store=True,
         readonly=True,
-        store=True
+        store=True,
     )
 
     picking_status = fields.Selection(
@@ -107,7 +108,8 @@ class SaleOrder(models.Model):
     )
 
     final_countdown = fields.Char(
-        string="Production Countdown Days", compute="production_countdown",
+        string="Production Countdown Days",
+        compute="production_countdown",
     )
 
     date_produced_state = fields.Date(
@@ -122,9 +124,11 @@ class SaleOrder(models.Model):
 
     placement_defined = fields.Boolean(string="Placement Defined?")
 
-    has_custom_design = fields.Boolean(string="Has Custom Product Design",
-                                       compute="_compute_line_to_design_change",
-                                       store=True)
+    has_custom_design = fields.Boolean(
+        string="Has Custom Product Design",
+        compute="_compute_line_to_design_change",
+        store=True,
+    )
 
     @api.depends("state", "production_ids", "production_ids.state")
     def _get_produced_state(self):
@@ -171,7 +175,8 @@ class SaleOrder(models.Model):
                 ):
                     picking_status = "confirmed"
                 elif all(
-                    picking_status in ["partially_available", "assigned"]
+                    picking_status
+                    in ["partially_available", "assigned"]
                     for picking_status in line_picking_status
                 ):
                     picking_status = "assigned"
@@ -232,9 +237,13 @@ class SaleOrder(models.Model):
             quote_state = "no"
             quote_count = len(line_quote_status)
             if quote_count > 0:
-                if any(q_s in ["to quote"] for q_s in line_quote_status):
+                if any(
+                    q_s in ["to quote"] for q_s in line_quote_status
+                ):
                     quote_state = "to quote"
-                elif all(q_s in ["quoted"] for q_s in line_quote_status):
+                elif all(
+                    q_s in ["quoted"] for q_s in line_quote_status
+                ):
                     quote_state = "quoted"
                 elif any(
                     q_s in ["quoted"] for q_s in line_quote_status
@@ -306,7 +315,9 @@ class SaleOrder(models.Model):
         if len(productions) > 1:
             action["domain"] = [("id", "in", productions.ids)]
         elif len(productions) == 1:
-            action["view_id"] = self.env.ref("mrp.mrp_production_form_view").id
+            action["view_id"] = self.env.ref(
+                "mrp.mrp_production_form_view"
+            ).id
             action["res_id"] = productions.ids[0]
             action["view_mode"] = "form"
         else:
@@ -334,10 +345,12 @@ class SaleOrder(models.Model):
                         f = order.freight
                     if order.placement_defined:
                         g = order.placement
-                    pick.write({
-                        "freight": pick.freight + f,
-                        "placement": pick.placement + g
-                    })
+                    pick.write(
+                        {
+                            "freight": pick.freight + f,
+                            "placement": pick.placement + g,
+                        }
+                    )
 
                 for line in order.order_line:
                     if line.route_id:
@@ -352,7 +365,9 @@ class SaleOrder(models.Model):
                                     "No puede confirmar ventas con reglas "
                                     "de producción en este almacén."
                                 )
-                                return self.alert_message(title, view, context)
+                                return self.alert_message(
+                                    title, view, context
+                                )
 
                             if procurement.procure_method in [
                                 "make_to_stock"
@@ -362,7 +377,9 @@ class SaleOrder(models.Model):
                                     "No puede confirmar ventas con reglas "
                                     "de producción en este almacén."
                                 )
-                                return self.alert_message(title, view, context)
+                                return self.alert_message(
+                                    title, view, context
+                                )
             return res
 
     @api.multi
@@ -377,7 +394,10 @@ class SaleOrder(models.Model):
 
     @api.multi
     @api.onchange(
-        "state", "order_line", "order_line.to_design", "order_line.to_quote",
+        "state",
+        "order_line",
+        "order_line.to_design",
+        "order_line.to_quote",
     )
     def line_design_change(self):
         route_id = self._get_production_route()
@@ -417,8 +437,12 @@ class SaleOrder(models.Model):
                 ).date()
                 days_countdown = actual_date - date_confirmation
                 days_countdown = days_countdown.days
-                production_countdown_days = days_default - days_countdown
-                rec.update({"final_countdown": production_countdown_days})
+                production_countdown_days = (
+                    days_default - days_countdown
+                )
+                rec.update(
+                    {"final_countdown": production_countdown_days}
+                )
             if rec.production_status == "ready":
                 date_confirmation = dateutil.parser.parse(
                     rec.confirmation_date
@@ -433,7 +457,9 @@ class SaleOrder(models.Model):
                         days_default - days_countdown
                     )
                     rec.update(
-                        {"final_countdown": production_countdown_days_stop}
+                        {
+                            "final_countdown": production_countdown_days_stop
+                        }
                     )
 
     @api.depends("production_status")
@@ -455,7 +481,11 @@ class SaleOrder(models.Model):
             res = Pull.search(
                 [
                     ("sale_selectable", "=", True),
-                    ("warehouse_ids", "in", (rec.warehouse_id.ids),),
+                    (
+                        "warehouse_ids",
+                        "in",
+                        (rec.warehouse_id.ids),
+                    ),
                 ],
                 order="sequence",
                 limit=1,
@@ -483,10 +513,9 @@ class SaleOrder(models.Model):
         order = []
         if self.state in ["draft"]:
             if self.name != _("New"):
-                order = self.name.split(" ",1)
+                order = self.name.split(" ", 1)
                 order[0] = self.team_id.name
-                self.name = order[0] + " " + order[1] 
-            
+                self.name = order[0] + " " + order[1]
 
     def action_to_design(self):
         for rec in self:
@@ -503,15 +532,15 @@ class SaleOrder(models.Model):
             for line in rec.order_line:
                 if not line.variants_status_ok:
                     title = "¡Sin variantes!"
-                    context["message"] = ("Debe asignar variantes a %s") % (
-                        line.template_id.name
-                    )
+                    context["message"] = (
+                        "Debe asignar variantes a %s"
+                    ) % (line.template_id.name)
                     return self.alert_message(title, view, context)
                 if line.product_uom_qty == 0.0:
                     title = "¡Producto sin Cantidad!"
-                    context["message"] = ("Debe asignar una cantidad a %s") % (
-                        line.template_id.name
-                    )
+                    context["message"] = (
+                        "Debe asignar una cantidad a %s"
+                    ) % (line.template_id.name)
                     return self.alert_message(title, view, context)
                 if line.to_design:
                     design_cont += 1
@@ -574,14 +603,18 @@ class SaleOrder(models.Model):
                     if bom_s:
                         for bom in bom_s:
                             if not bom.routing_id:
-                                title = "Producto sin Lista de Materiales"
+                                title = (
+                                    "Producto sin Lista de Materiales"
+                                )
                                 context["message"] = (
                                     "No puede confirmar un diseño porque "
                                     "el producto %s posee una lista de materiales "
                                     "sin enrutamiento."
                                     % (line.template_id.name)
                                 )
-                                return self.alert_message(title, view, context)
+                                return self.alert_message(
+                                    title, view, context
+                                )
             return order.write(
                 {"state": "sent design", "design_status": "ready"}
             )
@@ -593,13 +626,19 @@ class SaleOrder(models.Model):
             code_obj = self.env["crm.team"].search(domain, limit=1)
             code = str(code_obj.name) + " - "
             if "company_id" in vals:
-                vals["name"] = code + self.env["ir.sequence"].with_context(
+                vals["name"] = code + self.env[
+                    "ir.sequence"
+                ].with_context(
                     force_company=vals["company_id"]
-                ).next_by_code("sale.order") or _("New")
-            else:
-                vals["name"] = code + self.env["ir.sequence"].next_by_code(
+                ).next_by_code(
                     "sale.order"
-                ) or _("New")
+                ) or _(
+                    "New"
+                )
+            else:
+                vals["name"] = code + self.env[
+                    "ir.sequence"
+                ].next_by_code("sale.order") or _("New")
 
         res = super(SaleOrder, self).create(vals)
         return res
@@ -710,6 +749,8 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def create_new_design(self):
+        view = self.env.ref("sh_message.sh_message_wizard")
+        context = dict(self._context or {})
         view_id = self.env.ref("mrp.mrp_bom_form_view").id
         view_tree = self.env.ref("mrp.mrp_bom_tree_view").id
         mrp_obj = self.env["mrp.bom"]
@@ -733,17 +774,27 @@ class SaleOrderLine(models.Model):
                     "product_id": self.product_id.id,
                 }
             )
-            new_bom = bom.copy(default)
-            return {
-                "name": "Lista de Materiales",
-                "view_type": "form",
-                "view_mode": "form",
-                "res_model": "mrp.bom",
-                "res_id": new_bom.id,
-                "view_id": view_id,
-                "target": "current",
-                "type": "ir.actions.act_window",
-            }
+            if not bom:
+                title = "Producto sin Lista de Materiales"
+                context["message"] = (
+                    "No puede continuar con el diseño "
+                    "producto %s no tiene lista de materiales"
+                    % (self.template_id.name)
+                )
+                return self.alert_message(title, view, context)
+
+            else:
+                new_bom = bom.copy(default)
+                return {
+                    "name": "Lista de Materiales",
+                    "view_type": "form",
+                    "view_mode": "form",
+                    "res_model": "mrp.bom",
+                    "res_id": new_bom.id,
+                    "view_id": view_id,
+                    "target": "current",
+                    "type": "ir.actions.act_window",
+                }
         else:
             for b in bom_s:
                 boms.append(b.id)
@@ -755,6 +806,19 @@ class SaleOrderLine(models.Model):
                 "domain": [("id", "in", boms)],
                 "target": "current",
             }
+
+    def alert_message(self, title, view, context):
+        return {
+            "name": title,
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "sh.message.wizard",
+            "views": [(view.id, "form")],
+            "view_id": view.id,
+            "target": "new",
+            "context": context,
+        }
 
 
 class ProductAttributeValue(models.Model):
