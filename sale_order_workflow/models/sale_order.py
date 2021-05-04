@@ -5,9 +5,6 @@ from odoo.osv import expression
 from odoo.tools import float_compare
 import datetime
 import dateutil.parser
-import logging
-
-_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
