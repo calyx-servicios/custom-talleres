@@ -1,6 +1,8 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* sale_order_workflow
+#   * stock
+#   * sale_order_advancement
 #
 msgid ""
 msgstr ""
@@ -400,6 +402,16 @@ msgid "To Design"
 msgstr "A Diseñar"
 
 #. module: sale_order_workflow
+#: selection:sale.order,state:0
+msgid "To Design"
+msgstr "A Diseñar"
+
+#. module: sale_order_workflow
+#: selection:sale.order,state:0
+msgid "Quotation Design"
+msgstr "Diseño confirmado"
+
+#. module: sale_order_workflow
 #: selection:sale.order,production_status:0
 msgid "To Produce"
 msgstr "A Producir"
@@ -541,3 +553,8 @@ msgstr "product.attribute.value"
 msgid "report.production_order_report"
 msgstr "report.production_order_report"
 
+#. module: stock
+#: code:addons/stock/models/stock_picking.py:709
+#, python-format
+msgid "You cannot validate a transfer if you have not processed any quantity. You should rather cancel the transfer."
+msgstr "No puede Validar una transferencia si aún no procesó ninguna cantidad. Debería cancelar la transferencia"

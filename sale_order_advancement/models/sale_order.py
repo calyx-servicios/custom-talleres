@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
     @api.multi
     def create_payment(self):
         return{
-            "name": ("Create Payment"),
+            "name": "Crear Recibo",
             "type": "ir.actions.act_window",
             "view_type": "form",
             "view_mode": "form",
