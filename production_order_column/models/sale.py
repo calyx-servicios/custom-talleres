@@ -11,4 +11,4 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    production_order = fields.char(string="Production Order")
+    production_order = fields.Char(string="Production Order")
