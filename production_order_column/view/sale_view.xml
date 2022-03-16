@@ -7,7 +7,7 @@
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='team_id']" position="after">
-                <field name="production_order" />.
+                <field name="production_order" />
                 <field name="production_order_name" />
             </xpath>
         </field>
