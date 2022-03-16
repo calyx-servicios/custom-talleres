@@ -12,3 +12,4 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     production_order = fields.Char(string="Production Order")
+    production_order_name = fields.Char(string="Production Order Name")

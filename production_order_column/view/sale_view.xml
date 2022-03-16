@@ -7,7 +7,20 @@
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='team_id']" position="after">
-                <field name="production_order" />
+                <field name="production_order" />.
+                <field name="production_order_name" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_inetih" model="ir.ui.view">
+        <field name="name">sale.order.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="production_order_name" />
             </xpath>
         </field>
     </record>
