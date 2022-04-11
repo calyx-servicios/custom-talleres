@@ -8,4 +8,4 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    production_order = fields.Many2one('mrp.production', string="Production Order")
+    production_order = fields.Many2one('mrp.production')
