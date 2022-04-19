@@ -13,7 +13,6 @@
     'external_dependencies': {
     },
     'data': [
-        'view/sale_view.xml',
         'view/res_partner_view.xml',
     ],
     'demo': [
