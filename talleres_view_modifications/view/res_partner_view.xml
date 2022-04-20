@@ -5,13 +5,16 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="replace">
+            <!-- <xpath expr="//notebook" position="replace">
                 <page string="Contacts &amp; Addresses" invisible="1">
                 </page>
-            </xpath>
-            <xpath expr="//notebook" position="replace">
+            </xpath> -->
+            <xpath expr="//notebook/page[@name='sales_purchases']" position="replace">
                 <page name="sales_purchases" invisible="1">
                 </page>
+            </xpath>
+            <xpath expr="//field[@name='meeting_count']" position="replace">
+                <field name="meeting_count" invisible="1"/>
             </xpath>
             <!-- <xpath expr="//notebook" position="inside">
                 <page string='meeting_count' invisible="1">
