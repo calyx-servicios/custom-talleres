@@ -14,6 +14,7 @@
     },
     'data': [
         'view/res_partner_view.xml',
+        'view/sale_order_view.xml',
     ],
     'demo': [
     ],
