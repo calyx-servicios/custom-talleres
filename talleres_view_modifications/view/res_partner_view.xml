@@ -3,15 +3,10 @@
     <record id="res_partner_form_view_inherit" model="ir.ui.view">
         <field name="name">res.partner.form.view</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="crm.view_partners_form_crm1" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='schedule_meeting']" position="replace">
-                <button class="oe_stat_button" type="object"
-                    name="schedule_meeting"
-                    icon="fa-calendar"
-                    context="{'partner_id': active_id, 'partner_name': name}">
-                    <field string="Meetings" name="meeting_count" widget="statinfo" invisible="1"/>
-                </button>
+            <xpath expr="//button[@name='schedule_meeting']" position="attributes">
+                <attribute name="invisible">True</attribute>
             </xpath>
         </field>
     </record>
