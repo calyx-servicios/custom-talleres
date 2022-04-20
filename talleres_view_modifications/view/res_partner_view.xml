@@ -5,8 +5,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='meeting_count']" position="attributes">
-                <attribute name="invisible">True</attribute>
+            <xpath expr="//notebook" position="inside">
+                <page string='meeting_count' invisible="1">
+                </page>
             </xpath>
             <!-- <xpath expr="//page[@name='sales_purchases']" position="attributes">
                 <attribute name="invisible">True</attribute>
