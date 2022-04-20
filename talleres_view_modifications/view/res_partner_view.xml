@@ -18,7 +18,7 @@
             <xpath expr="//page[@name='sales_purchases']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <xpath expr="//page[0]" position="attributes">
+            <xpath expr="//notebook/page[2]" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
         </field>
