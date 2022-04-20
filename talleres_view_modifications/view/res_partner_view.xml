@@ -5,14 +5,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='toggle_active']" position="replace">
-                <button class="oe_stat_button o_res_partner_tip_opp" type="action"
-                    attrs="{'invisible': [('customer', '=', False)]}"
-                    name="%(crm.crm_lead_opportunities)d"
-                    icon="fa-star"
-                    context="{'search_default_partner_id': active_id}">
-                    <field string="Opportunities" name="opportunity_count" widget="statinfo"/>
-                </button>
+            <xpath expr="//button[@name='schedule_meeting']" position="replace">
                 <button class="oe_stat_button" type="object"
                     name="schedule_meeting"
                     icon="fa-calendar"
