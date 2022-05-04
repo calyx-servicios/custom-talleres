@@ -4,10 +4,12 @@
 
     <template id="report_delivery_document_details" inherit_id="stock.report_delivery_document">
 
-        <xpath expr="//table[3]" position="after">
-            <p t-field="o.note"/>
+        <xpath expr="//h2" position="replace">
+            <h2>
+                <span t-field="o.origin"/>
+            </h2>
         </xpath>
-
+        
         <xpath expr="//table[2]" position="replace">
 
             <table class="table table-condensed">
