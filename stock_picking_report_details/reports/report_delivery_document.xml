@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="report_delivery_document_details" inherit_id="stock.report_delivery_document">
+
+        <xpath expr="//h2" position="replace">
+            <h2>
+                <span t-field="o.origin"/>
+            </h2>
+        </xpath>
+
+        <xpath expr="//table[2]" position="replace">
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th t-if="o.name"><strong></strong></th>
+                        <th name="td_sched_date_h">
+                            <strong>Date</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td t-if="o.name">
+                            <span t-field="o.name"/>
+                        </td>
+                        <td name="td_sched_date">
+                            <t t-if="o.state == 'done'">
+                                <span t-field="o.date_done"/>
+                            </t>
+                            <t t-if="o.state != 'done'">
+                                <span t-field="o.scheduled_date"/>
+                            </t>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </xpath>
+
+    </template>
+
+
+</odoo>
