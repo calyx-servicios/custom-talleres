@@ -1,11 +1,10 @@
-=============
-Sale Order MRP Custom Report
-=============
+===========================
+Stock Picking Custom Report
+===========================
 
-.. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   !! This file is intended to be in every module    !!
-   !! to explain why and how it works.               !!
-   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+.. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   !! Changes in delivery order report !!
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 .. User https://shields.io for badge creation.
@@ -36,22 +35,15 @@ with the sale Order and all this blueprints in mrp.routing from order design.
 Install
 =======
 
-You have to install some dependeces:
- * pdf2image.
- * poppler-utils.
-
- 1.- sudo apt-get update -y
- 2.- sudo apt-get install -y poppler-utils
- 3.- pip install pdf2image
-
-After install the dependeces:
 Go to app menu and install.
- 1.- [sale_order_custom_report] by Calyx.
+ 1.- [stock_picking_custom_report] by Calyx.
 
 Usage
 =====
 
-1. Go to mrp, print the report.
+1. Go to Inventory
+2. Delivery orders
+3. Print the report
 
 Known issues / Roadmap
 ======================
@@ -75,14 +67,11 @@ Contributors
 ~~~~~~~~~~~~
 
 * `Calyx Servicios S.A. <http://www.calyxservicios.com.ar/>`_
-  
-  * Lucas Soto
-  * Jhone Mendez
-  * Federico Gregori
-  * Cris Paradiso
 
 Maintainers
 ~~~~~~~~~~~
+
+* Andres Andrade
 
 This module is maintained by the Calyx Servicios S.A.
 
