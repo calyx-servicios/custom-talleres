@@ -21,6 +21,7 @@
         "sale_order_advancement",
         "web_tree_dynamic_colored_field",
         "web_notify",
+        "production_order_column",
     ],
     "data": [
         "security/security.xml",
