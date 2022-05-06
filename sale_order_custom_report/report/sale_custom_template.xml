@@ -154,7 +154,7 @@
                                 <span t-esc="line.product_id.default_code" />
                             </td>
                             <td style="text-align:center;border: solid 1px black;">
-                                <span t-esc="line.product_uom_qty" />
+                                <span t-esc="line.product_uom_qty" t-options="{'widget':'integer'}"/>
                             </td>
                             <td style="text-align:left;border: solid 1px black;padding-left: 5px">
                                 <span t-esc="line.template_id.name" />
@@ -223,7 +223,7 @@
                     </tr>
                     <tr>
                         <td style="border: solid 1px;padding-left:5px;width:10%;">
-                            <span t-esc="mrp.product_qty"/>
+                            <span t-esc="mrp.product_qty" t-options="{'widget':'integer'}"/>
                         </td>
                         <td style="border: solid 1px;padding-left:5px;width:50%">
                             <span t-esc="mrp.product_id.name"/>

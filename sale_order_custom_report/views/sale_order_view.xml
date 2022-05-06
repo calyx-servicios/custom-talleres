@@ -13,7 +13,10 @@
                 <xpath expr="//field[@name='origin']" position="after">
                     <field name="sale_id" invisible="1"/>
                 </xpath>
-
+				
+				<xpath expr="//field[@name='product_qty']" position="attributes">
+	                <attribute name='widget'>integer</attribute>
+	            </xpath>
             </field>
         </record>
 
