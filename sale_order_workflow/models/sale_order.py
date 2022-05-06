@@ -294,6 +294,10 @@ class SaleOrder(models.Model):
                 order.action_confirm()
             else:
                 order.action_confirm()
+            
+            if order.production_count != 0:
+                order.production_order = order.production_ids[0].id
+            
 
     @api.multi
     def action_view_productions(self):
