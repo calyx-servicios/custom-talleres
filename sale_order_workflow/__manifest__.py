@@ -8,7 +8,7 @@
     "author": "Calyx",
     "website": "http://www.calyxservicios.com.ar",
     "category": "Sale",
-    "version": "11.0.2.3.0",
+    "version": "11.0.3.3.1",
     "depends": [
         "base",
         "sale",
@@ -22,6 +22,7 @@
         "web_tree_dynamic_colored_field",
         "web_notify",
         "production_order_column",
+        "sale_pickup_store",
     ],
     "data": [
         "security/security.xml",
