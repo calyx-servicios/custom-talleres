@@ -1,9 +1,7 @@
 from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
-
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
@@ -11,9 +9,6 @@ class SaleOrderLine(models.Model):
     template_id = fields.Many2one(
         "product.template", string="Product", domain=[("sale_ok", "=", True)]
     )
-    # length = fields.Float("Length")
-    # height = fields.Float("Height")
-    # width = fields.Float("Width")
     note = fields.Text("Note")
     to_quote = fields.Boolean(
         string="To Quote",
@@ -35,7 +30,6 @@ class SaleOrderLine(models.Model):
         "attachment_id",
         "Design",
     )
-
     quote_status = fields.Selection(
         [
             ("to quote", "To Quote"),
@@ -45,30 +39,9 @@ class SaleOrderLine(models.Model):
         string="Quote Status",
         default="no",
     )
-
     variants_status_ok = fields.Boolean(string="Variants", default=False)
-
-    # @api.multi
-    # @api.onchange('length','height','width','note')
-    # def change_product(self):
-    #     message=''
-    #     if self.length>0:
-    #         message+='Length:'+str(self.length)+'mm '
-    #     if self.width>0:
-    #         message+='Width'+str(self.width)+'mm '
-    #     if self.height>0:
-    #         message+='Width'+str(self.height)+'mm '
-    #     if self.note:
-    #         message+=self.note
-    #     name = self.product_id.name_get()[0][1]
-    #     if self.product_id.description_sale:
-    #         name += '\n' + self.product_id.description_sale
-    #     name += '\n' +message
-    #     self.name=name
-
-    # def onchange_product_id_availability(self):
-    #     self._onchange_product_id_uom_check_availability()
-
+    product_service = fields.Boolean(string="Product is service", default=False)
+   
     @api.multi
     @api.onchange("note")
     def change_product(self):
@@ -109,7 +82,6 @@ class SaleOrderLine(models.Model):
             self.to_design = self.to_quote
             self.quote_status = "no"
 
-
     @api.multi
     @api.onchange("to_design")
     def product_to_desing_associate(self):
@@ -119,9 +91,7 @@ class SaleOrderLine(models.Model):
             self.to_quote = self.to_design
             self.quote_status = "no"
         if self.quote_status == "quoted" and self.to_design:
-            self.to_quote = self.to_design
-
-        
+            self.to_quote = self.to_design     
 
     @api.multi
     @api.onchange("template_id")
@@ -130,6 +100,8 @@ class SaleOrderLine(models.Model):
         product_obj = self.env["product.product"]
         _logger.debug("===onchange===")
         attribute_vals = []
+        if self.template_id.type == 'service':
+            self.product_service = True
         for attribute in self.template_id.attribute_line_ids:
             for value in attribute.value_ids:
                 if value.name.lower() == "a definir":
@@ -189,3 +161,4 @@ class SaleOrderLine(models.Model):
                     self.tax_id,
                     self.company_id,
                 )
+

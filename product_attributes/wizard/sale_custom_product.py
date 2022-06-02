@@ -1,15 +1,4 @@
 from odoo import models, api, fields, _
-from ast import literal_eval
-from odoo.exceptions import (
-    AccessError,
-    UserError,
-    RedirectWarning,
-    ValidationError,
-    Warning,
-)
-import logging
-
-_logger = logging.getLogger(__name__)
 
 
 class SaleProductWizardLine(models.TransientModel):
@@ -41,7 +30,6 @@ class SaleProductWizardCreate(models.TransientModel):
 
 
 class SaleProductWizard(models.TransientModel):
-
     _name = "sale.product.wizard"
     _description = "Sale Product Wizard"
 
@@ -58,28 +46,7 @@ class SaleProductWizard(models.TransientModel):
             line_obj = self.env["sale.order.line"]
             line = line_obj.browse(self._context.get("res_id"))
             return line.note
-
-    # @api.model
-    # def _default_width(self):
-    #     if self._context.get("res_id"):
-    #         line_obj = self.env["sale.order.line"]
-    #         line = line_obj.browse(self._context.get("res_id"))
-    #         return line.width
-
-    # @api.model
-    # def _default_length(self):
-    #     if self._context.get("res_id"):
-    #         line_obj = self.env["sale.order.line"]
-    #         line = line_obj.browse(self._context.get("res_id"))
-    #         return line.length
-
-    # @api.model
-    # def _default_height(self):
-    #     if self._context.get("res_id"):
-    #         line_obj = self.env["sale.order.line"]
-    #         line = line_obj.browse(self._context.get("res_id"))
-    #         return line.height
-
+    
     @api.model
     def _default_to_quote(self):
         if self._context.get("res_id"):
@@ -87,9 +54,7 @@ class SaleProductWizard(models.TransientModel):
             line = line_obj.browse(self._context.get("res_id"))
             return line.to_quote
 
-    # length = fields.Float("Length (Cm)", default=_default_length)
-    # height = fields.Float("Height (Cm)", default=_default_height)
-    # width = fields.Float("Width (Cm)", default=_default_width)
+
     note = fields.Text("Note", default=_default_note)
 
     @api.model
@@ -121,10 +86,7 @@ class SaleProductWizard(models.TransientModel):
 
     @api.model
     def _default_attachments(self):
-        # sale_obj = self.env["sale.order"]
-        # product_obj = self.env["product.product"]
         lines = []
-
         if self._context.get("res_id"):
             line_obj = self.env["sale.order.line"]
             line = line_obj.browse(self._context.get("res_id"))
@@ -136,10 +98,7 @@ class SaleProductWizard(models.TransientModel):
 
     @api.model
     def _default_design_attachments(self):
-        # sale_obj = self.env["sale.order"]
-        # product_obj = self.env["product.product"]
         lines = []
-
         if self._context.get("res_id"):
             line_obj = self.env["sale.order.line"]
             line = line_obj.browse(self._context.get("res_id"))
@@ -199,7 +158,6 @@ class SaleProductWizard(models.TransientModel):
     line_create_ids = fields.One2many(
         "sale.product.wizard.create", "wizard_id", string="Lines",
     )
-
     design_view = fields.Boolean(
         string="Design View", default=_default_design_view
     )
@@ -210,9 +168,7 @@ class SaleProductWizard(models.TransientModel):
         variants = True
         for wiz in self:
             domain = [("product_tmpl_id", "=", wiz.template_id.id)]
-
             attribute_vals = []
-
             for attribute in wiz.line_ids:
                 if attribute.attribute_value_id.name.lower() == "a definir":
                     variants = False
@@ -232,33 +188,14 @@ class SaleProductWizard(models.TransientModel):
                     if product.description_sale:
                         name += "\n" + product.description_sale
                     message = ""
-                    # if wiz.length > 0:
-                    #     message += "Length:" + str(wiz.length) + " "
-                    # if wiz.width > 0:
-                    #     message += "Width:" + str(wiz.width) + " "
-                    # if wiz.height > 0:
-                    #     message += "Height:" + str(wiz.height) + " "
                     if wiz.note:
                         message += wiz.note
                     if message and len(message) > 0:
                         name += "\n Custom:" + message
                     self.line_id.name = name
 
-            # self.line_id.length = wiz.length
-            # self.line_id.height = wiz.height
-            # self.line_id.width = wiz.width
             self.line_id.note = wiz.note
             self.line_id.variants_status_ok = variants
-            # if wiz.attachment_ids:
-            #     new_attachment_ids = []
-
-            #     for attachment in wiz.attachment_ids:
-            #         new_attachment_ids.append(attachment.id)
-            #     self.line_id.write(
-            #         {"attachment_ids": [(6, 0, new_attachment_ids)]}
-            #     )
-            # else:
-            #     self.line_id.write({"attachment_ids": [(6, 0, [])]})
             if wiz.design_ids:
                 new_attachment_ids = []
 
@@ -271,7 +208,6 @@ class SaleProductWizard(models.TransientModel):
                 self.line_id.write({"design_ids": [(6, 0, [])]})
 
         return {}
-        # return self.line_id.onchange_product_id_availability()
 
     @api.multi
     def set_new_variant(self):
@@ -296,23 +232,6 @@ class SaleProductWizard(models.TransientModel):
                             product_obj.create_variant_ids()
 
                 else:
-                    # attribute_value = self.env["product.attribute.value"]
-                    # domain_att = [("attribute_id", "=", rec.attribute_id.id)]
-                    # attribute_vals = []
-                    # values = attribute_value.search(domain_att)
-
-                    # for value in values:
-                    #     if value.name.lower() == ("a definir" or "nulo"):
-                    #         attribute_vals.append(value.id)
-
-                    # if not attribute_vals and len(attribute_vals) == 0:
-                    #     vals = {
-                    #         "name": "Nulo",
-                    #         "attribute_id": rec.attribute_id.id,
-                    #         "sequence": 10,
-                    #     }
-                    #     attribute_value.create(vals)
-
                     product_obj.write(
                         {
                             "attribute_line_ids": [
@@ -323,14 +242,12 @@ class SaleProductWizard(models.TransientModel):
                                         "attribute_id": rec.attribute_id.id,
                                         "value_ids": [
                                             (4, rec.attribute_value_id.id),
-                                            # (4, attribute_value.id),
                                         ],
                                     },
                                 )
                             ]
                         }
                     )
-                # product_obj.create_variant_ids()
 
         return {
             "name": _("Product Selector"),
@@ -340,3 +257,4 @@ class SaleProductWizard(models.TransientModel):
             "res_model": "sale.product.wizard",
             "target": "new",
         }
+

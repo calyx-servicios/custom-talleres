@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0-20191106\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 20:48+0000\n"
-"PO-Revision-Date: 2020-05-13 20:48+0000\n"
+"POT-Creation-Date: 2022-06-02 17:16+0000\n"
+"PO-Revision-Date: 2022-06-02 17:16+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -156,6 +156,11 @@ msgstr "Stock & Precio de Producto"
 #: model:ir.model,name:product_attributes.model_product_template
 msgid "Product Template"
 msgstr "Plantilla de producto"
+
+#. module: product_attributes
+#: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_product_service
+msgid "Product is service"
+msgstr "Producto tipo servicio"
 
 #. module: product_attributes
 #: model:ir.model.fields,field_description:product_attributes.field_sale_order_line_quote_status
