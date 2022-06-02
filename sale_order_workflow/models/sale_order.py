@@ -297,6 +297,7 @@ class SaleOrder(models.Model):
             
             if order.production_count != 0:
                 order.production_order = order.production_ids[0].id
+            
 
     @api.multi
     def action_view_productions(self):
@@ -344,14 +345,18 @@ class SaleOrder(models.Model):
                 for pick in order.picking_ids:
                     f = 0
                     g = 0
+                    store = False
                     if order.freight_defined:
                         f = order.freight
                     if order.placement_defined:
                         g = order.placement
+                    if order.pickup_store:
+                        store = order.pickup_store.id
                     pick.write(
                         {
                             "freight": pick.freight + f,
                             "placement": pick.placement + g,
+                            "pickup_store": store
                         }
                     )
 

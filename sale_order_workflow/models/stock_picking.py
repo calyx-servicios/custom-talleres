@@ -39,6 +39,8 @@ class stockPicking(models.Model):
     invoice_freight_placement_id_extra = fields.Many2one(
         "account.invoice", string="Invoice Extra"
     )
+    
+    pickup_store = fields.Many2one('sale.store', string='Pick Up by Store')
 
     @api.multi
     def create_invoice_fregiht_placement(self):
