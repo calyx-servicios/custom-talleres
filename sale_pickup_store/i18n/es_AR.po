@@ -1,0 +1,117 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_pickup_store
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-01 14:21+0000\n"
+"PO-Revision-Date: 2022-06-01 14:21+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_active
+msgid "Active"
+msgstr "Activo"
+
+#. module: sale_pickup_store
+#: model:ir.ui.view,arch_db:sale_pickup_store.view_sale_store_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: sale_pickup_store
+#: model:ir.actions.act_window,help:sale_pickup_store.action_sale_store_form
+msgid "Click to define a new store."
+msgstr "Haga clic para definir una nueva tienda."
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_pickup_store
+#: model:ir.actions.act_window,help:sale_pickup_store.action_sale_store_form
+msgid "Each store(e.g. UPS Express) can used in a sale order \n"
+"                like a pick up store."
+msgstr "Cada tienda (por ejemplo, UPS Express) se puede utilizar en una orden de venta \n"
+"               como una tienda de recogida."
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: sale_pickup_store
+#: model:ir.ui.view,arch_db:sale_pickup_store.view_sale_store_form
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_store_name
+msgid "Name store"
+msgstr "Tienda"
+
+#. module: sale_pickup_store
+#: model:ir.model.fields,field_description:sale_pickup_store.field_sale_order_pickup_store
+msgid "Pick Up by Store"
+msgstr "Retiro por tienda"
+
+#. module: sale_pickup_store
+#: model:ir.model,name:sale_pickup_store.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: sale_pickup_store
+#: model:ir.ui.view,arch_db:sale_pickup_store.view_sale_store_form
+#: model:ir.ui.view,arch_db:sale_pickup_store.view_sale_store_search
+#: model:ir.ui.view,arch_db:sale_pickup_store.view_sale_store_tree
+msgid "Store"
+msgstr "Tienda"
+
+#. module: sale_pickup_store
+#: model:ir.actions.act_window,name:sale_pickup_store.action_sale_store_form
+#: model:ir.ui.menu,name:sale_pickup_store.sale_menu_action_sale_store_form
+msgid "Stores"
+msgstr "Tiendas"
+
+#. module: sale_pickup_store
+#: model:ir.model,name:sale_pickup_store.model_sale_store
+msgid "Stores for pick up"
+msgstr "Tiendas para retiro"
+
+#. module: sale_pickup_store
+#: model:ir.ui.view,arch_db:sale_pickup_store.view_sale_store_form
+msgid "e.g. UPS Express"
+msgstr "e.j., UPS Express"
+
