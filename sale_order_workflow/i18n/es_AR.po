@@ -1,15 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* sale_order_workflow
-#   * stock
-#   * sale_order_advancement
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0-20191106\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 20:50+0000\n"
-"PO-Revision-Date: 2020-05-13 20:50+0000\n"
+"POT-Creation-Date: 2022-06-01 16:12+0000\n"
+"PO-Revision-Date: 2022-06-01 16:12+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,17 +16,22 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:694
+#: code:addons/sale_order_workflow/models/sale_order.py:743
 #, python-format
 msgid "\n"
 "There are %s %s available accross all warehouses."
 msgstr "\n"
-"There are %s %s available accross all warehouses."
+"Hay en existencias %s %s disponible en todos los Almacenes."
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_count
 msgid "# of Productions"
 msgstr "# de Producciones"
+
+#. module: sale_order_workflow
+#: model:ir.ui.view,arch_db:sale_order_workflow.report_delivery_document_frei_plac
+msgid "A Cobrar"
+msgstr "A Cobrar"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_mrp_production_attachment_ids
@@ -64,6 +67,11 @@ msgstr "Cancelar/Desvincular Facturas"
 #: selection:sale.order,picking_status:0
 msgid "Cancelled"
 msgstr "Cancelado"
+
+#. module: sale_order_workflow
+#: model:ir.ui.view,arch_db:sale_order_workflow.report_delivery_document_frei_plac
+msgid "Colocacion"
+msgstr "Colocacion"
 
 #. module: sale_order_workflow
 #: model:product.product,name:sale_order_workflow.placement_product
@@ -123,7 +131,7 @@ msgstr "Diseñado"
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
 msgid "Done"
-msgstr "Hecho"
+msgstr "Entregado"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_stock_picking_extra
@@ -146,6 +154,7 @@ msgid "Fabrication"
 msgstr "Fabricación"
 
 #. module: sale_order_workflow
+#: model:ir.ui.view,arch_db:sale_order_workflow.report_delivery_document_frei_plac
 #: model:product.product,name:sale_order_workflow.freight_product
 #: model:product.template,name:sale_order_workflow.freight_product_product_template
 msgid "Flete"
@@ -167,6 +176,11 @@ msgstr "Definir Flete?"
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sale_order_design_filter
 msgid "Group By"
 msgstr "Agrupar por"
+
+#. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_has_custom_design
+msgid "Has Custom Product Design"
+msgstr "Has Custom Product Design"
 
 #. module: sale_order_workflow
 #: selection:sale.order,design_status:0
@@ -191,7 +205,7 @@ msgstr "Factura extra"
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_stock_picking_freigt_placement_status
 msgid "Invoice Status"
-msgstr "Estado de la factura"
+msgstr "Estado factura"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_stock_picking_extra_freigt_placement_status
@@ -215,16 +229,17 @@ msgid "Manufacturing Orders"
 msgstr "Órdenes de producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:586
-#: code:addons/sale_order_workflow/models/sale_order.py:593
-#: code:addons/sale_order_workflow/models/sale_order.py:597
+#: code:addons/sale_order_workflow/models/sale_order.py:523
+#: code:addons/sale_order_workflow/models/sale_order.py:632
+#: code:addons/sale_order_workflow/models/sale_order.py:643
+#: code:addons/sale_order_workflow/models/sale_order.py:649
 #: selection:sale.order,picking_status:0
 #, python-format
 msgid "New"
 msgstr "Nuevo"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:702
+#: code:addons/sale_order_workflow/models/sale_order.py:752
 #, python-format
 msgid "Not enough inventory!"
 msgstr "¡No posee suficiente inventario!"
@@ -238,7 +253,7 @@ msgstr "Nada para facturar."
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
 msgid "Nothing to Deliver"
-msgstr "Nada para Entregar"
+msgstr "A coordinar"
 
 #. module: sale_order_workflow
 #: selection:sale.order,design_status:0
@@ -248,7 +263,7 @@ msgstr "Nada para Diseñar"
 #. module: sale_order_workflow
 #: selection:sale.order,production_status:0
 msgid "Nothing to Produce"
-msgstr "Nada para Producir"
+msgstr "Stock"
 
 #. module: sale_order_workflow
 #: selection:sale.order,quote_status:0
@@ -266,9 +281,14 @@ msgid "Partially Available"
 msgstr "Disponible para entrega"
 
 #. module: sale_order_workflow
+#: model:ir.model.fields,field_description:sale_order_workflow.field_stock_picking_pickup_store
+msgid "Pick Up by Store"
+msgstr "Retiro por tienda"
+
+#. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sales_order_filter_wf
 msgid "Picking"
-msgstr "Entrega"
+msgstr "Albarán"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_picking_status
@@ -290,7 +310,7 @@ msgstr "Definir Colocación?"
 #. module: sale_order_workflow
 #: selection:sale.order,production_status:0
 msgid "Produced"
-msgstr "Producido"
+msgstr "Terminado"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_date_produced_state
@@ -319,7 +339,7 @@ msgid "Production Status"
 msgstr "Estado de Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:296
+#: code:addons/sale_order_workflow/models/sale_order.py:309
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_ids
 #, python-format
 msgid "Productions"
@@ -376,7 +396,7 @@ msgstr "Línea de orden de ventas"
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_design_form
 msgid "Sales Order Lines"
-msgstr "Líneas de pedidos de venta"
+msgstr "Líneas pedido de ventas"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sale_order_design_filter
@@ -402,19 +422,9 @@ msgid "To Design"
 msgstr "A Diseñar"
 
 #. module: sale_order_workflow
-#: selection:sale.order,state:0
-msgid "To Design"
-msgstr "A Diseñar"
-
-#. module: sale_order_workflow
-#: selection:sale.order,state:0
-msgid "Quotation Design"
-msgstr "Diseño confirmado"
-
-#. module: sale_order_workflow
 #: selection:sale.order,production_status:0
 msgid "To Produce"
-msgstr "A Producir"
+msgstr "En Producción"
 
 #. module: sale_order_workflow
 #: selection:sale.order,quote_status:0
@@ -439,7 +449,7 @@ msgstr "En espera"
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
 msgid "Waiting Availability"
-msgstr "Esperando Disponibilidad"
+msgstr "A coordinar"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.view_sales_order_filter_wf
@@ -457,88 +467,7 @@ msgid "With Quotation"
 msgstr "Con Cotización"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:783
-#, python-format
-msgid "You can't save design bom without routing"
-msgstr "No puede guardar la lista de materiales sin enrutamiento."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:547
-#, python-format
-msgid "You cannot change sales without products to design."
-msgstr "No puede enviar a diseñar sin productos a diseñar."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:543
-#, python-format
-msgid "You cannot change sales without quoted."
-msgstr "Debe cotizar la orden primero."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/stock_picking.py:149
-#, python-format
-msgid "You cannot change this values because invoice already create for freight and placement."
-msgstr "No puede modificar estos valores porque ya existe una factura relacionada para flete y colocación."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:348
-#, python-format
-msgid "You cannot confirm sales with make_to_order procurement rules on this warehouse."
-msgstr "No puede confirmar ventas con reglas de producción en este almacén."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:358
-#, python-format
-msgid "You cannot confirm sales with make_to_stock procurement rules for custom products."
-msgstr "No puede confirmar ventas con reglas de stock para productos custom."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:264
-#, python-format
-msgid "You cannot confirm sales with products to design."
-msgstr "No puede confirmar la orden con productos a diseñar."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:324
-#, python-format
-msgid "You cannot confirm sales with quote task in progress."
-msgstr "No puede confirmar ventas con estado de cotización en curso."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:518
-#, python-format
-msgid "You cannot design sales without products."
-msgstr "No puede enviar la orden a diseñar porque no existen productos."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:577
-#, python-format
-msgid "You cannot sent to design because the product %s don't have BOM."
-msgstr "No puede confirmar el diseño porque el producto %s no tiene lista de materiales."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:282
-#: code:addons/sale_order_workflow/models/sale_order.py:538
-#, python-format
-msgid "You have to assign a leats one advacement"
-msgstr "Debe asignar al menos un adelanto."
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:276
-#: code:addons/sale_order_workflow/models/sale_order.py:529
-#, python-format
-msgid "You have to assign at least one qty to %s"
-msgstr "Debe asignar al menos 1 a %s"
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:271
-#: code:addons/sale_order_workflow/models/sale_order.py:524
-#, python-format
-msgid "You have to assign variants to %s"
-msgstr "Debe asignar las variantes a %s"
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:676
+#: code:addons/sale_order_workflow/models/sale_order.py:725
 #, python-format
 msgid "You plan to sell %s %s but you only have %s %s available in %s warehouse."
 msgstr "Esta intentando vender %s %s pero solo posee %s %s disponible en %s."
@@ -548,13 +477,3 @@ msgstr "Esta intentando vender %s %s pero solo posee %s %s disponible en %s."
 msgid "product.attribute.value"
 msgstr "product.attribute.value"
 
-#. module: sale_order_workflow
-#: model:ir.model,name:sale_order_workflow.model_report_production_order_report
-msgid "report.production_order_report"
-msgstr "report.production_order_report"
-
-#. module: stock
-#: code:addons/stock/models/stock_picking.py:709
-#, python-format
-msgid "You cannot validate a transfer if you have not processed any quantity. You should rather cancel the transfer."
-msgstr "No puede Validar una transferencia si aún no procesó ninguna cantidad. Debería cancelar la transferencia"
