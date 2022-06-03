@@ -13,7 +13,10 @@
     'installable': True,
     'application': False,
     'depends': [
-        'stock','sale','sale_order_advancement'
+        'stock',
+        'sale',
+        'sale_order_advancement',
+        'sale_order_workflow'
     ],
     'data': [
         'views/stock_view.xml',
