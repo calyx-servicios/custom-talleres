@@ -6,10 +6,14 @@
     "description": """
         Another Way to handle products attributes
     """,
-    "author": "Calyx",
-    "website": "http://www.calyxservicios.com.ar",
-    "category": "Sales",
-    "version": "11.0.1.1.0",
+    "author": "Calyx Servicios S.A.",
+    "maintainers": ["CristianParadiso", "PerezGabriela"],
+    "website": "http://odoo.calyx-cloud.com.ar/",
+    "license": "AGPL-3",
+    "category": "Sale",
+    "version": "11.0.2.1.0",
+    "installable": True,
+    "application": False,
     "depends": ["sale", "base_fontawesome", "product"],
     "data": [
         "security/security.xml",
