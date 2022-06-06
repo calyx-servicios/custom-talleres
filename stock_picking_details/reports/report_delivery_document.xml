@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-
     <template id="report_delivery_document_details" inherit_id="stock.report_delivery_document">
-
         <xpath expr="//table[3]" position="after">
             <p t-field="o.note"/>
         </xpath>
-
         <xpath expr="//table[1]" position="before">
-
             <table class="table table-condensed" name ="details">
                 <thead>
                     <tr>
@@ -47,10 +42,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </xpath>
-
     </template>
-
-
 </odoo>
