@@ -14,12 +14,12 @@
     'installable': True,
     'application': False,
     "depends": [
-        "base",
         "sale",
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/sale_views.xml',
         'views/sale_store_views.xml',
+        'reports/sale_report_templates.xml'
     ],
 }
