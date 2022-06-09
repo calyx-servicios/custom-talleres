@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_delivery_document_frei_plac" inherit_id="stock.report_delivery_document">
-        <xpath expr="//table[4]" position="after">
+        <xpath expr="//table[3]" position="after">
             <table class="table table-condensed" style="float: right;width: 35%;margin-top: 20px;">
                 <thead>
                     <tr>
