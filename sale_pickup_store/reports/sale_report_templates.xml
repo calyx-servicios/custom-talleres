@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_saleorder_document_pickup_store" name="report_pickup_store" inherit_id="sale.report_saleorder_document">
+		<xpath expr="//div[hasclass('oe_structure')][2]" position="before">
+			<p t-if="doc.pickup_store">
+				<strong>Store Pickup: </strong>
+				<span t-field="doc.pickup_store.name"/>
+			</p>
+		</xpath>
+	</template>
+</odoo>
