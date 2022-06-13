@@ -1,26 +1,30 @@
 {
     'name': 'Talleres View Modifications',
-    'summary': '''Hide fields in the contacts and sales module''',
-    'version': '11.0.1',
-    'category': 'Tools',
-    'author': "Calyx",
-    'maintainers': ["DarwinAndrade"],
-    'website': 'www.calyxservicios.com.ar',
+    'summary': '''
+        Hide fields in the contacts and sales module.
+        Modifications in various fields.
+    ''',
+    'author': "Calyx Servicios S.A.",
+    'maintainers': ["DarwinAndrade", "PerezGabriela"],
+    'website': 'http://odoo.calyx-cloud.com.ar/',
     'license': 'AGPL-3',
-    'depends': [
-        'sale', 'crm', 'base', 'sale_order_workflow'
-    ],
-    'external_dependencies': {
-    },
-    'data': [
-        'view/res_partner_view.xml',
-        'view/sale_order_view.xml',
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
+    'category': 'Tools',
+    'version': '11.0.1.0.0',
     'installable': True,
-    'auto_install': False,
     'application': False,
+    'depends': [
+        'crm',
+        'base',
+        'mrp',
+        'sale_stock',
+        'sale_order_dates'
+    ],
+    'data': [
+        'views/res_partner_view.xml',
+        'views/sale_order_view.xml',
+        'views/mrp_bom_views.xml',
+        'views/mrp_production_views.xml',
+        'views/mrp_workorder.xml',
+        'wizard/change_production_qty_views.xml',
+    ],
 }
