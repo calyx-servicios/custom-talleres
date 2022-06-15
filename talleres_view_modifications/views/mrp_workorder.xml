@@ -22,6 +22,9 @@
             <xpath expr="//field[@name='qty_production']" position="attributes">
         		<attribute name="widget">integer</attribute>
         	</xpath>
+        	<xpath expr="//field[@name='qty_producing']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
         </field>
     </record>
 
