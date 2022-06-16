@@ -16,7 +16,6 @@
         'crm',
         'base',
         'mrp',
-        'sale_stock',
         'sale_order_dates'
     ],
     'data': [
@@ -24,7 +23,10 @@
         'views/sale_order_view.xml',
         'views/mrp_bom_views.xml',
         'views/mrp_production_views.xml',
+        'views/mrp_unbuild_views.xml',
         'views/mrp_workorder.xml',
+        'views/stock_move_views.xml',
+        'views/stock_scrap_views.xml',
         'wizard/change_production_qty_views.xml',
     ],
 }

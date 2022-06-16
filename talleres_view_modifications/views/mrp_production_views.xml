@@ -10,4 +10,17 @@
         	</xpath>
 	    </field>
 	</record>
+	<record id="mrp_production_kanban_view" model="ir.ui.view">
+	    <field name="name">mrp.production.kanban.inherit</field>
+	    <field name="model">mrp.production</field>
+	    <field name="inherit_id" ref="mrp.mrp_production_kanban_view"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//field[@name='product_qty']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+	    	<xpath expr="//t[@t-esc='record.product_qty.value']" position="replace">
+        		<t t-esc="record.product_qty.value.split(',')[0]"/>
+        	</xpath>
+	    </field>
+	</record>
 </odoo>
