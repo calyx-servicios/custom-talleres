@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_unbuild_form_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.unbuild.form.inherit</field>
+        <field name="model">mrp.unbuild</field>
+        <field name="inherit_id" ref="mrp.mrp_unbuild_form_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='product_qty']" position="attributes">
+            	<attribute name='widget'>integer</attribute>
+           	</xpath>
+        </field>
+    </record>
+    <record id="mrp_unbuild_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.unbuild.kanban.inherit</field>
+        <field name="model">mrp.unbuild</field>
+        <field name="inherit_id" ref="mrp.mrp_unbuild_kanban_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='product_qty']" position="attributes">
+            	<attribute name='widget'>integer</attribute>
+           	</xpath>
+        	<xpath expr="//t[@t-esc='record.product_qty.value']" position="replace">
+        		<t t-esc="record.product_qty.value.split(',')[0]"/>
+        	</xpath>
+        </field>
+    </record>
+    <record id="mrp_unbuild_tree_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.unbuild.tree.inherit</field>
+        <field name="model">mrp.unbuild</field>
+        <field name="inherit_id" ref="mrp.mrp_unbuild_tree_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='product_qty']" position="attributes">
+            	<attribute name='widget'>integer</attribute>
+           	</xpath>
+        </field>
+    </record>
+</odoo>

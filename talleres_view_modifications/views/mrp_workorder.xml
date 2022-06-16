@@ -27,5 +27,18 @@
         	</xpath>
         </field>
     </record>
-
+	
+	<record id="workcenter_line_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.kanban.inherit</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.workcenter_line_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_production']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+        	<xpath expr="//t[@t-esc='record.qty_production.value']" position="replace">
+        		<t t-esc="record.qty_production.value.split(',')[0]"/>
+        	</xpath>
+        </field>
+    </record>
 </odoo>

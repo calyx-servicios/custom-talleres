@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<record id="mrp_bom_tree_view" model="ir.ui.view">
+	<record id="mrp_bom_tree_view_inherit" model="ir.ui.view">
         <field name="name">mrp.bom.tree.inherit</field>
         <field name="model">mrp.bom</field>
         <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
@@ -10,7 +10,7 @@
         	</xpath>
         </field>
     </record>
-    <record id="mrp_bom_form_view" model="ir.ui.view">
+    <record id="mrp_bom_form_view_inherit" model="ir.ui.view">
         <field name="name">mrp.bom.form.inherit</field>
         <field name="model">mrp.bom</field>
         <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
@@ -20,6 +20,19 @@
         	</xpath>
         	<xpath expr="//field[@name='bom_line_ids']//field[@name='product_qty']" position="attributes">
         		<attribute name="widget">integer</attribute>
+        	</xpath>
+        </field>
+    </record>
+    <record id="mrp_bom_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.bom.kanban.inherit</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_kanban_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='product_qty']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+        	<xpath expr="//t[@t-esc='record.product_qty.value']" position="replace">
+        		<t t-esc="record.product_qty.value.split(',')[0]"/>
         	</xpath>
         </field>
     </record>
