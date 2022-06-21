@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_workcenter_tree_view_inherit" model="ir.ui.view">
+        <field name="name">MRP Work Order Tree with Sale Order - Inherit</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_production']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+        </field>
+    </record>
+
+    <record id="mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
+        <field name="name">MRP Work Order Form with Sale Order - Inherit</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='qty_produced']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+            <xpath expr="//field[@name='qty_production']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+        	<xpath expr="//field[@name='qty_producing']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+        </field>
+    </record>
+	
+	<record id="workcenter_line_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.kanban.inherit</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.workcenter_line_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_production']" position="attributes">
+        		<attribute name="widget">integer</attribute>
+        	</xpath>
+        	<xpath expr="//t[@t-esc='record.qty_production.value']" position="replace">
+        		<t t-esc="record.qty_production.value.split(',')[0]"/>
+        	</xpath>
+        </field>
+    </record>
+</odoo>

@@ -9,12 +9,22 @@
                 <xpath expr="//button[@name='action_cancel']" position="after">
                     <button name="print_custom_sale_report" type="object" string="Imprimir" class="o_sale_print"/>
                 </xpath>
-
                 <xpath expr="//field[@name='origin']" position="after">
                     <field name="sale_id" invisible="1"/>
                 </xpath>
-
 				<xpath expr="//field[@name='product_qty']" position="attributes">
+	                <attribute name='widget'>integer</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='move_raw_ids']//field[@name='product_uom_qty']" position="attributes">
+	                <attribute name='widget'>integer</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='move_raw_ids']//field[@name='reserved_availability']" position="attributes">
+	                <attribute name='widget'>integer</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='move_raw_ids']//field[@name='quantity_done']" position="attributes">
+	                <attribute name='widget'>integer</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='finished_move_line_ids']//field[@name='qty_done']" position="attributes">
 	                <attribute name='widget'>integer</attribute>
 	            </xpath>
             </field>
