@@ -5,20 +5,22 @@ class AccountPaymentGroup(models.Model):
 
     def post(self):
         res = super(AccountPaymentGroup, self).post()
-        self.imputed_payments()
+        if self.partner_type != "supplier":
+            self.imputed_payments()
         return res
     
     def imputed_payments(self):
         if len(self.matched_move_line_ids) != 0:
             for line in self.matched_move_line_ids:
-                if line.invoice_id.origin != '':
+                if line.invoice_id and line.invoice_id.origin != '':
                     so = self.env['sale.order'].search([('name', '=', line.invoice_id.origin)], limit=1)
-                    vals = {
-                        "name": _("Payment"),
-                        "payment_id": self.id,
-                        "amount_imputed": self.amount_to_impute,
-                        "order_id": so.id,
-                        "state": "imputed"
-                    }
-                    self.env["sale.order.advancement"].create(vals)
+                    if so:
+                        vals = {
+                            "name": _("Payment"),
+                            "payment_id": self.id,
+                            "amount_imputed": self.amount_to_impute,
+                            "order_id": so.id,
+                            "state": "imputed"
+                        }
+                        self.env["sale.order.advancement"].create(vals)
 
