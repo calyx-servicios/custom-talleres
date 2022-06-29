@@ -1,4 +1,5 @@
 from odoo import models, api, fields, _
+from odoo.exceptions import UserError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -106,23 +107,34 @@ class SaleOrderLine(models.Model):
             for value in attribute.value_ids:
                 if value.name.lower() == "a definir":
                     attribute_vals.append(value.id)
-
-        if attribute_vals and len(attribute_vals) > 0:
-            _logger.debug("===>%r", attribute_vals)
-            product_ids = product_obj.search(
-                [("product_tmpl_id", "=", self.template_id.id)]
-            )
-            for product in product_ids:
-                check = all(
-                    item in attribute_vals
-                    for item in product.attribute_value_ids.ids
+        if self.template_id:
+            if attribute_vals and len(attribute_vals) > 0:
+                _logger.debug("===>%r", attribute_vals)
+                product_ids = product_obj.search(
+                    [("product_tmpl_id", "=", self.template_id.id)]
                 )
-                if check:
-                    _logger.debug(
-                        "Product %r in?===>%r"
-                        % (attribute_vals, product.attribute_value_ids.ids)
+                for product in product_ids:
+                    check = all(
+                        item in attribute_vals
+                        for item in product.attribute_value_ids.ids
                     )
-                    self.product_id = product.id
+                    if check:
+                        _logger.debug(
+                            "Product %r in?===>%r"
+                            % (attribute_vals, product.attribute_value_ids.ids)
+                        )
+                        self.product_id = product.id                    
+            else:
+                product_id = product_obj.search(
+                    [("product_tmpl_id", "=", self.template_id.id)], limit=1
+                )
+                if product_id:
+                    self.product_id = product_id.id
+                else:
+                    if self.product_service == True:
+                        raise UserError(_("A service type product must have at least one variant configured!"))
+                    else:
+                        raise UserError(_("A product must have at least one variant configured!"))
 
     @api.multi
     def action_custom_selection(self):
