@@ -269,7 +269,7 @@ class SaleOrder(models.Model):
                             "con productos a diseñar."
                         )
                         return self.alert_message(title, view, context)
-                    if not line.variants_status_ok:
+                    if not line.variants_status_ok and line.template_id.type != 'service':
                         title = "¡Producto sin variantes!"
                         context["message"] = (
                             "Debe asignar variantes a %s "
@@ -538,7 +538,7 @@ class SaleOrder(models.Model):
                 title = "¡Sin productos!"
                 return self.alert_message(title, view, context)
             for line in rec.order_line:
-                if not line.variants_status_ok:
+                if not line.variants_status_ok and line.template_id.type != 'service':
                     title = "¡Sin variantes!"
                     context["message"] = (
                         "Debe asignar variantes a %s"
