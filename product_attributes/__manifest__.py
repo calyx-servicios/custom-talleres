@@ -11,7 +11,7 @@
     "website": "http://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
     "category": "Sale",
-    "version": "11.0.2.1.0",
+    "version": "11.0.3.2.0",
     "installable": True,
     "application": False,
     "depends": ["sale", "base_fontawesome", "product"],
