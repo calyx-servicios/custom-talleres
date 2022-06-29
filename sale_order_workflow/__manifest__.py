@@ -8,7 +8,7 @@
     "author": "Calyx",
     "website": "http://www.calyxservicios.com.ar",
     "category": "Sale",
-    "version": "11.0.3.3.1",
+    "version": "11.0.3.3.2",
     "depends": [
         "base",
         "sale",
