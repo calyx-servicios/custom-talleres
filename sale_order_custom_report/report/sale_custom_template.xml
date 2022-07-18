@@ -53,7 +53,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h2>
-                            <strong>ORDEN DE PRODUCCION</strong>
+                            <strong>ORDEN DE PRODUCCION:<span t-esc="doc.production_order.name"/></strong>
                         </h2>
                     </div>
                 </div>
@@ -202,6 +202,11 @@
         <div class="row">
             <div class="col-xs-12 text-center">
                 <img t-att-src="'data:image/png;base64,%s' % to_text(attachemnt.datas)" style="height:580px;width:100%;"/>
+                <t t-foreach="doc.production_order.routing_id.operation_ids" t-as="attachment">
+                    <t t-if="attachment.blueprint_images">
+                        <img t-att-src="'data:image/png;base64,%s' % to_text(attachment.blueprint_images)" style="height:580px;width:100%;"/>
+                    </t>
+                </t>
             </div>
         </div>
         <div class="row">
