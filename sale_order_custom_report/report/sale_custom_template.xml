@@ -74,9 +74,7 @@
                                                 <span t-esc="doc.name" style="font-size:28px;font-weight: bold;"/>
                                                 <br/>
                                                 <span style="font-size:20px !important">FIN PRODUCCION: </span>
-                                                <t t-foreach="doc.get_limit_date_produced()" t-as="data">
-                                                    <span t-esc="data[0]" style="font-size:28px;font-weight: bold;"/>
-                                                </t>
+                                                    <span t-esc="doc.production_order.compromise_date" style="font-size:28px;font-weight: bold;" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
                                                 <!-- <span t-field="doc.date_produced_state" style="font-size:28px;font-weight: bold;"/> -->
                                             </div>
                                         </div>
@@ -86,7 +84,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4 text-right">
-                        <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="height:100px;width:100px;"/>
+                        <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="height:100px;width:100px;" t-options='{"format": "d/MM/Y"}'/>
                     </div>
                 </div>
             </div>

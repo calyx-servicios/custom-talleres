@@ -10,6 +10,7 @@ import dateutil.parser
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    # production_estimated_day = fields.Integer(related="production_ids.estimated_days")
     state = fields.Selection(
         [
             ("draft", "Quotation"),
@@ -434,7 +435,7 @@ class SaleOrder(models.Model):
     @api.multi
     def production_countdown(self):
         for rec in self:
-            days_default = 30
+            days_default = rec.production_order.estimated_days
             actual_date = datetime.datetime.now().date()
             if (
                 rec.production_status == "to produce"

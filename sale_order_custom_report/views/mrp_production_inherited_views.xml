@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.inherited.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='commitment_date']" position="replace">
+                <field name="estimated_days"/>
+                <field name="compromise_date" string="Commitment Date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_production_tree_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.inherited.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='commitment_date']" position="replace">
+                <field name="compromise_date" string="Commitment Date"/>
+                <field name="estimated_days" invisible="1"/>
+                <field name="sale_confirmation_date" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
