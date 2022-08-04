@@ -1,4 +1,4 @@
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 import base64
 from odoo.tools.mimetypes import guess_mimetype
 
@@ -43,7 +43,7 @@ class MroRoutingWorkcenter(models.Model):
                     if new_attach:
                         record.attachment_ids = [(4, new_attach.id)]
                         self.env.user.notify_info(
-                            "La imagen fue cargada con éxito.", "Información"
+                            "La imagen fue cargada con éxito.", "Information"
                         )
                         record.blueprint_images = False
                     else:

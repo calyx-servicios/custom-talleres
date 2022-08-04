@@ -1,8 +1,21 @@
-from odoo import api, models
+from odoo import models, fields, api
+from datetime import timedelta
+import dateutil.parser
 
 
 class MrpProduction(models.Model):
     _inherit = "mrp.production"
+
+
+    sale_confirmation_date = fields.Datetime(related="sale_id.confirmation_date")
+    estimated_days = fields.Integer(default=30)
+
+    compromise_date = fields.Date(string="Commitment Date",
+                                    compute="_get_compromise_date",
+                                    inverse="_inverse_compromise_date",
+                                    readonly=False,
+                                    help="This date is the result of the addition between the sale order confirmation day and the estimated days")
+
 
     @api.multi
     def print_custom_sale_report(self):
@@ -22,3 +35,41 @@ class MrpProduction(models.Model):
             vals["context"] = context
 
             return vals
+
+
+    @api.multi
+    @api.onchange("estimated_days")
+    def _onchange_compromise_date(self):
+        for order in self:
+            date = order.sale_confirmation_date
+            if date:
+                date = dateutil.parser.parse(date).date()
+                new_date = date + timedelta(days=order.estimated_days)
+                new_date = new_date.strftime("%Y-%m-%d")
+                order.update({"compromise_date": new_date})
+            else:
+                order.update({"compromise_date": False})
+
+
+    @api.multi
+    @api.depends("estimated_days")
+    def _get_compromise_date(self):
+        for order in self:
+            date = order.sale_confirmation_date
+            if date:
+                date = dateutil.parser.parse(date).date()
+                new_date = date + timedelta(days=order.estimated_days)
+                new_date = new_date.strftime("%Y-%m-%d")
+                order.update({"compromise_date": new_date})
+            else:
+                order.update({"compromise_date": False})
+
+
+    def _inverse_compromise_date(self):
+        for order in self:
+            date1 = order.sale_confirmation_date
+            date1 = dateutil.parser.parse(date1).date()
+            date2 = order.compromise_date
+            date2 = dateutil.parser.parse(date2).date()
+            total_days = date2 - date1
+            order.update({"estimated_days": int(str(total_days.days))})
