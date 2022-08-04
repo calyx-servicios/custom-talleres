@@ -15,9 +15,6 @@
         "report/sale_custom_template.xml",
         "views/mrp_routing_workcenter.xml",
         "views/sale_order_view.xml",
-    ],
-    "external_dependencies": {
-        "python": ["pdf2image"],
-        "bin": ["pdftocairo", "pdftoppm"],
-    },
+        "views/mrp_production_inherited_views.xml",
+    ]
 }

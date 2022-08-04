@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 20:52+0000\n"
-"PO-Revision-Date: 2020-07-08 20:52+0000\n"
+"POT-Creation-Date: 2022-08-01 18:18+0000\n"
+"PO-Revision-Date: 2022-08-01 18:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,29 +34,42 @@ msgstr "<span style=\"font-size:20px !important;font-weight: bold;\">Orden Nro: 
 
 #. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
-msgid "<span>Alta del pedido:</span><br/>\n"
-"                <span>Confirmación del Plano por CLIENTE:</span><br/>\n"
-"                <span>Fecha Entrega:</span><br/>\n"
-"                <span>Cliente:</span><br/>\n"
-"                <span>Celular:</span><br/>\n"
-"                <span>Teléfono:</span><br/>\n"
-"                <span>Mail</span><br/>\n"
-"                <span>Dirección</span><br/>\n"
-"                <span>Generalidades:</span><br/>"
-msgstr "<span>Alta del pedido:</span><br/>\n"
-"                <span>Confirmación del Plano por CLIENTE:</span><br/>\n"
-"                <span>Fecha Entrega:</span><br/>\n"
-"                <span>Cliente:</span><br/>\n"
-"                <span>Celular:</span><br/>\n"
-"                <span>Teléfono:</span><br/>\n"
-"                <span>Mail</span><br/>\n"
-"                <span>Dirección</span><br/>\n"
-"                <span>Generalidades:</span><br/>"
-
-#. module: sale_order_custom_report
-#: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
-msgid "<strong>ORDEN DE PRODUCCION</strong>"
-msgstr "<strong>ORDEN DE PRODUCCION</strong>"
+msgid "<span>Alta del pedido:</span>\n"
+"                <br/>\n"
+"                <span>Confirmación del Plano por CLIENTE:</span>\n"
+"                <br/>\n"
+"                <span>Fecha Entrega:</span>\n"
+"                <br/>\n"
+"                <span>Cliente:</span>\n"
+"                <br/>\n"
+"                <span>Celular:</span>\n"
+"                <br/>\n"
+"                <span>Teléfono:</span>\n"
+"                <br/>\n"
+"                <span>Mail</span>\n"
+"                <br/>\n"
+"                <span>Dirección</span>\n"
+"                <br/>\n"
+"                <span>Generalidades:</span>\n"
+"                <br/>"
+msgstr "<span>Alta del pedido:</span>\n"
+"                <br/>\n"
+"                <span>Confirmación del Plano por CLIENTE:</span>\n"
+"                <br/>\n"
+"                <span>Fecha Entrega:</span>\n"
+"                <br/>\n"
+"                <span>Cliente:</span>\n"
+"                <br/>\n"
+"                <span>Celular:</span>\n"
+"                <br/>\n"
+"                <span>Teléfono:</span>\n"
+"                <br/>\n"
+"                <span>Mail</span>\n"
+"                <br/>\n"
+"                <span>Dirección</span>\n"
+"                <br/>\n"
+"                <span>Generalidades:</span>\n"
+"                <br/>"
 
 #. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
@@ -70,6 +83,11 @@ msgid "Attachments"
 msgstr "Adjuntos"
 
 #. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_routing_workcenter_blueprint_name
+msgid "BluePrint Name"
+msgstr "BluePrint Name"
+
+#. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_blueprints
 msgid "Can."
 msgstr "Can."
@@ -80,9 +98,30 @@ msgid "Cant."
 msgstr "Cant."
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_inherited
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_tree_inherited
+msgid "Commitment Date"
+msgstr "Fecha de compromiso"
+
+#. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_production_sale_confirmation_date
+msgid "Confirmation Date"
+msgstr "Fecha de confirmación"
+
+#. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Código"
 msgstr "Código"
+
+#. module: sale_order_custom_report
+#: model:ir.model.fields,help:sale_order_custom_report.field_mrp_production_sale_confirmation_date
+msgid "Date on which the sales order is confirmed."
+msgstr "Fecha en que se confirma el pedido de venta."
+
+#. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_production_estimated_days
+msgid "Estimated Days"
+msgstr "Días Estimados"
 
 #. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_mrp_custom_report_button
@@ -103,6 +142,11 @@ msgstr "Mrp Custom Report"
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "NST"
 msgstr "NST"
+
+#. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
+msgid "ORDEN DE PRODUCCION:"
+msgstr "ORDEN DE PRODUCCION:"
 
 #. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
