@@ -41,10 +41,10 @@
           <group>
             <field name="design_status" invisible="1"/>
             <field name="quote_status" />
-            <field name="freight_defined" attrs="{'readonly': [('delivery_count', '!=', 0)]}"/>
-            <field name="freight" widget="monetary" attrs="{'invisible': [('freight_defined', '=', False)], 'readonly': [('delivery_count', '!=', 0)]}" />
-            <field name="placement_defined" attrs="{'readonly': [('delivery_count', '!=', 0)]}"/>
-            <field name="placement" widget="monetary" attrs="{'invisible': [('placement_defined', '=', False)], 'readonly': [('delivery_count', '!=', 0)]}"/>
+            <field name="freight_defined" attrs="{'readonly': [('state', '=', 'cancel')]}"/>
+            <field name="freight" widget="monetary" attrs="{'invisible': [('freight_defined', '=', False)], 'readonly': [('state', '=', 'cancel')]}" />
+            <field name="placement_defined" attrs="{'readonly': [('state', '=', 'cancel')]}"/>
+            <field name="placement" widget="monetary" attrs="{'invisible': [('placement_defined', '=', False)], 'readonly': [('state', '=', 'cancel')]}"/>
           </group>
 
           <group>
