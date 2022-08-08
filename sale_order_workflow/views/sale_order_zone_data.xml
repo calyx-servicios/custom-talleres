@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record model='sale.order.zone' id='zone1'>
+        <field name='name'>Zona 1</field>
+    </record>
+    <record model='sale.order.zone' id='zone2'>
+        <field name='name'>Zona 2</field>
+    </record>
+    <record model='sale.order.zone' id='zone3'>
+        <field name='name'>Zona 3</field>
+    </record>
+</odoo>

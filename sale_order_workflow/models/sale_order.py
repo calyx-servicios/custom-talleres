@@ -10,7 +10,9 @@ import dateutil.parser
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    # production_estimated_day = fields.Integer(related="production_ids.estimated_days")
+    zone_ids = fields.Many2one("sale.order.zone", string="Zone")
+    zone_ids_name = fields.Char(related="zone_ids.name", store=True)
+
     state = fields.Selection(
         [
             ("draft", "Quotation"),
