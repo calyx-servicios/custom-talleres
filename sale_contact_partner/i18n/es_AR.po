@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-10 19:12+0000\n"
-"PO-Revision-Date: 2022-08-10 19:12+0000\n"
+"POT-Creation-Date: 2022-08-11 17:29+0000\n"
+"PO-Revision-Date: 2022-08-11 17:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: sale_contact_partner
+#: code:addons/sale_contact_partner/models/res_partner.py:15
+#, python-format
+msgid "Email cannot have spaces ' '"
+msgstr "El correo no puede tener espacios' '"
+
+#. module: sale_contact_partner
 #: model:ir.model.fields,field_description:sale_contact_partner.field_sale_order_partner_zone
 msgid "Name"
 msgstr "Nombre"
@@ -29,6 +35,12 @@ msgstr "Nombre"
 #: model:ir.ui.view,arch_db:sale_contact_partner.sale_order_contact_form
 msgid "Partner Zone"
 msgstr "Zona"
+
+#. module: sale_contact_partner
+#: code:addons/sale_contact_partner/models/res_partner.py:17
+#, python-format
+msgid "Please introduce a valid email"
+msgstr "Por favor ingrese un correo válido."
 
 #. module: sale_contact_partner
 #: model:ir.model,name:sale_contact_partner.model_sale_order

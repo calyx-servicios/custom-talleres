@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
@@ -12,6 +12,6 @@ class SaleOrder(models.Model):
     def _check_valid_email(self):
         for record in self:
             if " " in record.email:
-                raise UserError("Email cannot have spaces ' '")
+                raise UserError(_("Email cannot have spaces ' '"))
             if "@" not in record.email or ".com" not in record.email:
-                raise UserError("Please introduce a valid email")
+                raise UserError(_("Please introduce a valid email"))
