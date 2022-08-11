@@ -1,4 +1,3 @@
-from itertools import product
 from odoo import models, api
 
 
