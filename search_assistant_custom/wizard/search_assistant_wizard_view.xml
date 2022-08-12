@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_search_assistant_wizard_custom" model="ir.ui.view">
+        <field name="name">view_search_assistant_wizard_custom</field>
+        <field name="model">search.assistant</field>
+        <field name="inherit_id" ref="search_assistant.view_search_assistant_wizard" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stock_date']" position="replace">
+                        <field name="stock_date" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
