@@ -13,12 +13,13 @@ class AccountInvoice(models.Model):
     @api.onchange('company_id')
     def _onchange_company(self):
         if self.journal_id:
-            new_journal = ""
-            if len(self.journal_id.name) > 20 and self.journal_id.name[:20] == "PROFORMA PRESUPUESTO":
+            new_journal = False
+            if len(self.journal_id.name) >= 20 and self.journal_id.name[:20] == "PROFORMA PRESUPUESTO":
                 new_journal = self.env['account.journal'].search([('name', 'like' ,self.journal_id.name[:20]),('company_id', '=' ,self.company_id.id)])
-            elif len(self.journal_id.name) > 12 and self.journal_id.name[:12] == "FACTURA AFIP":
+            elif len(self.journal_id.name) >= 12 and self.journal_id.name[:12] == "FACTURA AFIP":
                 new_journal = self.env['account.journal'].search([('name', 'like' ,self.journal_id.name[:12]),('company_id', '=' ,self.company_id.id)])
-            self.journal_id = new_journal    
+            if new_journal:
+                self.journal_id = new_journal.id
         for line in self.invoice_line_ids:
             if line.product_id:
                 line.account_id = line.product_id.with_context(force_company=line.company_id.id).categ_id.property_account_income_categ_id.id
