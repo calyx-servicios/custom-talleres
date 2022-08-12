@@ -1,6 +1,6 @@
-===========
-Module Name
-===========
+=======================
+Search Assistant Custom
+=======================
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Stable-brightgreen
     :target: https://odoo-community.org/page/development-status
