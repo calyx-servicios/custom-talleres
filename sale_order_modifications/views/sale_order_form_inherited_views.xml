@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_new_fields" model="ir.ui.view">
+        <field name="name">sale.order.form.new.fields</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pickup_store']" position="before">
+                <field name="zone_ids" string="Quotation Zone" readonly="1"/>
+                <field name="company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_form_hide_fields" model="ir.ui.view">
+        <field name="name">sale.order.form.hide.fields</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@name='carrier_selection']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
