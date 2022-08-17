@@ -9,7 +9,7 @@ class AccountInvoice(models.Model):
         invoice = super(AccountInvoice, self).create(vals)
         invoice.account_id = invoice.partner_id.with_context(force_company=invoice.company_id.id).property_account_receivable_id.id
         return invoice
-    
+
     @api.onchange('company_id')
     def _onchange_company(self):
         if self.journal_id:
@@ -30,3 +30,15 @@ class AccountInvoice(models.Model):
                     tax_ids.append(new_tax.id)
                 if len(tax_ids) != 0:
                     line.invoice_line_tax_ids = [(6,0,tax_ids)]
+
+    @api.onchange('invoice_line_ids')
+    def _onchange_tax_ids(self):
+        import wdb
+        wdb.set_trace()
+        for line in self.invoice_line_ids:
+            tax_ids = []
+            for tax in line.invoice_line_tax_ids:
+                new_tax = self.env['account.tax'].search([('name', '=' ,tax.name),('company_id', '=' ,line.company_id.id),('type_tax_use','=',tax.type_tax_use)])
+                tax_ids.append(new_tax.id)
+            if len(tax_ids) != 0:
+                line.invoice_line_tax_ids = [(6,0,tax_ids)]
