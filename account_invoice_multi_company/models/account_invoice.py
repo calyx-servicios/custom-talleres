@@ -33,8 +33,6 @@ class AccountInvoice(models.Model):
 
     @api.onchange('invoice_line_ids')
     def _onchange_tax_ids(self):
-        import wdb
-        wdb.set_trace()
         for line in self.invoice_line_ids:
             tax_ids = []
             for tax in line.invoice_line_tax_ids:
