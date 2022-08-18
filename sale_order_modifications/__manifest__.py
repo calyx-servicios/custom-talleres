@@ -14,7 +14,7 @@
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
-    "depends": ["base","sale","delivery","sale_pickup_store","sale_order_workflow"],
+    "depends": ["base","sale","delivery","sale_pickup_store","sale_order_workflow","sale_contact_partner"],
     'data': [
         "views/sale_order_form_inherited_views.xml"
     ],

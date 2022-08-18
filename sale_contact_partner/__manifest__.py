@@ -16,6 +16,8 @@
     "installable": True,
     "depends": ["base","contacts","sale","sale_order_mail","sale_order_workflow"],
     'data': [
+        "security/ir.model.access.csv",
+        "views/partner_zone_data.xml",
         "views/res_partner_form_inherited_views.xml",
         "views/sale_order_form_inherited_view.xml",
     ],

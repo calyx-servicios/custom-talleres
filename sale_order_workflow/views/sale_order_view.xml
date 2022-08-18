@@ -59,10 +59,6 @@
           <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
         </xpath>
 
-        <xpath expr="//field[@name='analytic_account_id']" position="after">
-            <field name="zone_ids"/>
-        </xpath>
-
       </field>
     </record>
 
@@ -203,17 +199,6 @@
         <field name="commitment_date" position="attributes">
           <attribute name="invisible">True</attribute>
         </field>
-      </field>
-    </record>
-
-    <record id="view_sale_order_zone_filter" model="ir.ui.view">
-      <field name="name">sale.order.zone.filter</field>
-      <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
-      <field name="arch" type="xml">
-        <xpath expr="//group[1]" position="inside">
-          <filter name="groupby_zone_name" string="Zone" context="{'group_by': 'zone_ids'}"/>
-        </xpath>
       </field>
     </record>
 
