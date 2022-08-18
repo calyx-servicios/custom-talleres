@@ -5,8 +5,8 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='pickup_store']" position="before">
-                <field name="zone_ids" string="Quotation Zone" readonly="1"/>
+            <xpath expr="//field[@name='pickup_store']" position="after">
+                <field name="partner_zone" string="Partner Zone" readonly="1"/>
                 <field name="company_id"/>
             </xpath>
         </field>

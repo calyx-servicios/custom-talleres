@@ -12,7 +12,7 @@
                 <attribute name="attrs">{'required':[('customer','=',True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='email']" position="after">
-                <field name="sale_zone_ids" attrs="{'required': [('customer', '=', True)]}"/>
+                <field name="partner_zone_ids" attrs="{'required': [('customer', '=', True)]}"/>
             </xpath>
         </field>
     </record>
