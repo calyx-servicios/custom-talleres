@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="production_design_form_view" model="ir.ui.view">
+        <field name="name">production.design.form.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='availability']" position="before">
+                <field name="design"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_production_design_filter" model="ir.ui.view">
+      <field name="name">production.design.filter</field>
+      <field name="model">mrp.production</field>
+      <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[1]" position="inside">
+          <filter name="groupby_design" string="Design" context="{'group_by': 'design'}"/>
+        </xpath>
+      </field>
+    </record>
+
+</odoo>
