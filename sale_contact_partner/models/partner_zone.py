@@ -6,5 +6,5 @@ class PartnerZone(models.Model):
 
 
     name = fields.Char(required=True)
-    description = fields.Char
+    description = fields.Char()
     
