@@ -2,10 +2,10 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
-class SaleOrder(models.Model):
+class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    sale_zone_ids = fields.Many2one(comodel_name="sale.order.zone")
+    partner_zone_id = fields.Many2one(comodel_name="partner.zone")
 
 
     @api.constrains("email")

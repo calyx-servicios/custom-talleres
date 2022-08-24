@@ -535,8 +535,3 @@ msgstr "Zona"
 msgid "product.attribute.value"
 msgstr "product.attribute.value"
 
-#. module: sale_order_workflow
-#: model:ir.model,name:sale_order_workflow.model_sale_order_zone
-msgid "sale.order.zone"
-msgstr "sale.order.zone"
-
