@@ -5,8 +5,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
 
-    sale_ids = fields.Many2one(comodel_name="sale.order")
-    sale_id_total = fields.Monetary(compute="_get_total")
+    sale_order_total = fields.Monetary(compute="_get_total")
 
     
     @api.multi
@@ -15,7 +14,8 @@ class AccountInvoice(models.Model):
         for record in self:
             total = 0
             for sale in sales:
-                if record.origin == sale.name:
-                    for sale_line in sale.order_line:
-                        total = total + sale_line.price_subtotal
-            record.update({"sale_id_total": total})
+                if sale.state == "sale":
+                    if record.origin == sale.name:
+                        for sale_line in sale.order_line:
+                            total = total + sale_line.price_subtotal
+            record.update({"sale_order_total": total})
