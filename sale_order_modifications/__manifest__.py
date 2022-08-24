@@ -1,24 +1,21 @@
 # pylint: disable=missing-module-docstring,pointless-statement
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    "name": "Sale Contact Partner",
+    "name": "Sale Order Modifications",
     "summary": """
-        This module add the field customer and zone. And also makes the fields Zone and Email required.
+        This module allow modifications in the sale order form view
     """,
     "author": "Calyx Servicios S.A.",
     "maintainers": ["lucianobaleani"],
     "website": "https://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
-    "category": "Technical Settings",
+    "category": "Sale",
     "version": "11.0.1.0.0",
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
-    "depends": ["base","contacts","sale","sale_order_mail","sale_order_workflow"],
+    "depends": ["base","sale","delivery","sale_pickup_store","sale_order_workflow","sale_contact_partner"],
     'data': [
-        "security/ir.model.access.csv",
-        "views/partner_zone_data.xml",
-        "views/res_partner_form_inherited_views.xml",
-        "views/sale_order_form_inherited_view.xml",
+        "views/sale_order_form_inherited_views.xml"
     ],
 }

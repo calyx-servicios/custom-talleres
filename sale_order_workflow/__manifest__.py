@@ -25,7 +25,6 @@
         "sale_pickup_store",
     ],
     "data": [
-        "views/sale_order_zone_data.xml",
         "security/security.xml",
         "security/ir.model.access.csv",
         "views/sale_order_view.xml",

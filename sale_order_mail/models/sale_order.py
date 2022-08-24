@@ -6,7 +6,7 @@ from odoo import models, fields
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    email_partner = fields.Char(string="Email", required=True)
+    email_partner = fields.Char(string="Email")
 
     def action_custom_email_send(self):
         self.ensure_one()
