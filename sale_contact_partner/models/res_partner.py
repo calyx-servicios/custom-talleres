@@ -1,5 +1,9 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+import re
+
+
+EMAIL_CHECKUP = re.compile(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$")
 
 
 class ResPartner(models.Model):
@@ -8,10 +12,16 @@ class ResPartner(models.Model):
     partner_zone_id = fields.Many2one(comodel_name="partner.zone")
 
 
-    @api.constrains("email")
-    def _check_valid_email(self):
-        for record in self:
-            if " " in record.email:
-                raise UserError(_("Email cannot have spaces ' '"))
-            if "@" not in record.email or ".com" not in record.email:
-                raise UserError(_("Please introduce a valid email"))
+    def validity_email(self, email):
+        if email:
+            if not 5 < len(email) < 121 or not re.fullmatch(EMAIL_CHECKUP, email):
+                return True
+            else:
+                return False
+
+
+    @api.onchange("email")
+    def _onchange_valid_email(self):
+        if self.email and self.validity_email(self.email):
+            raise UserError(_("Invalid Email"))
+
