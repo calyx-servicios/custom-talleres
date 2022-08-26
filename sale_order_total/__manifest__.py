@@ -14,12 +14,7 @@
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
-    "external_dependencies": {
-        "python": [],
-        "bin": [],
-    },
     "depends": ["base","account","sale",],
-    ### XML Data files
     'data': [
         'views/account_invoice_inherited_views.xml',
     ],
