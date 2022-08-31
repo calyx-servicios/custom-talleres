@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_date_filter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-30 14:47+0000\n"
+"PO-Revision-Date: 2022-08-30 14:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_date_filter
+#: model:ir.model.fields,field_description:sale_date_filter.field_sale_order_confirmation_date_no_time
+#: model:ir.model.fields,field_description:sale_date_filter.field_sale_report_confirmation_date_no_time
+#: model:ir.ui.view,arch_db:sale_date_filter.sale_order_date_filter
+#: model:ir.ui.view,arch_db:sale_date_filter.view_sale_quotation_filter
+msgid "Confirmation Date No Time"
+msgstr "Fecha de Confirmación"
+
+#. module: sale_date_filter
+#: model:ir.model,name:sale_date_filter.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: sale_date_filter
+#: model:ir.model,name:sale_date_filter.model_sale_report
+msgid "Sales Orders Statistics"
+msgstr "Estadísticas pedidos de ventas"
+
