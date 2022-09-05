@@ -17,5 +17,5 @@
     "depends": ["base","sale","search_assistant"],
     'data': [
         'views/sale_order_inherited_views.xml',
-    ],
+            ],
 }
