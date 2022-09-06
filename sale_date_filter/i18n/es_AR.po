@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-05 15:15+0000\n"
-"PO-Revision-Date: 2022-09-05 15:15+0000\n"
+"POT-Creation-Date: 2022-09-06 14:41+0000\n"
+"PO-Revision-Date: 2022-09-06 14:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_date_filter.field_sale_report_confirmation_date_no_time
 msgid "Confirmation Date No Time"
 msgstr "Fecha de Confirmación"
+
+#. module: sale_date_filter
+#: model:ir.ui.view,arch_db:sale_date_filter.sale_order_filter_quotation_date_view
+msgid "Date Order"
+msgstr "Fecha de Presupuesto"
 
 #. module: sale_date_filter
 #: model:ir.model.fields,field_description:sale_date_filter.field_sale_report_date_order_date
@@ -35,15 +40,15 @@ msgstr "Presupuesto"
 #: model:ir.model.fields,field_description:sale_date_filter.field_sale_order_sale_order_date
 #: model:ir.model.fields,field_description:sale_date_filter.field_sale_report_sale_order_date
 msgid "Request Date"
-msgstr "Fecha de Pedido"
-
-#. module: sale_date_filter
-#: model:ir.model.fields,field_description:sale_date_filter.field_sale_report_sale
-msgid "Sale"
-msgstr "Venta"
+msgstr "Fecha de solicitud"
 
 #. module: sale_date_filter
 #: model:ir.model,name:sale_date_filter.model_sale_report
 msgid "Sales Orders Statistics"
 msgstr "Estadísticas de pedidos de venta"
+
+#. module: sale_date_filter
+#: model:ir.model,name:sale_date_filter.model_search_assistant
+msgid "Search Assistant"
+msgstr "Asistente de búsqueda"
 
