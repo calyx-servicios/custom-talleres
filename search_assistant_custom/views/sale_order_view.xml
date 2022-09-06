@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id="view_quotation_tree_custom" model="ir.ui.view">
-        <field name="model">sale.order</field>
-        <field name="name">view_quotation_tree_custom</field>
-        <field name="inherit_id" ref="sale.view_quotation_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='date_order']" position="replace">
-                <field name="date_order_date"/>
-            </xpath>
-        </field>
-    </record>
-
     <record id="sale_order_view_search_inherit_quotation_custom" model="ir.ui.view">
         <field name="model">sale.order</field>
         <field name="name">sale_order_view_search_inherit_quotation_custom</field>
