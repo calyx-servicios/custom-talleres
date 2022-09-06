@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
             vals["confirmation_date_no_time"] = dateutil.parser.parse(vals.get("confirmation_date", False)).date()
         return super(SaleOrder, self).create(vals)
 
-    @api.model
+    @api.multi
     def write(self, vals):
         if vals.get("date_order",False):
             vals["date_order_date"] = dateutil.parser.parse(vals.get("date_order", False)).date()
