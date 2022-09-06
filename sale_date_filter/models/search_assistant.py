@@ -1,5 +1,6 @@
-from odoo import models,fields, api
+from odoo import models
 from datetime import date
+
 
 class SearchAssistant(models.TransientModel):
     _inherit = "search.assistant"
@@ -32,3 +33,4 @@ class SearchAssistant(models.TransientModel):
                                                                         line.product_uom_qty, sale_order.id,
                                                                         ))
                     return self.action_view_sale_order(sale_order.id)
+                    
