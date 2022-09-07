@@ -6,7 +6,7 @@ class SaleReport(models.Model):
 
 
     confirmation_date_no_time = fields.Date()
-    date_order_date = fields.Date()
+    date_order_date = fields.Date(string="FECHA DE PEDIDO")
     sale_order_date  = fields.Date(string="Request Date")
 
     def _select(self):

@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
 
 
     confirmation_date_no_time = fields.Date()
-    date_order_date = fields.Date()
+    date_order_date = fields.Date(string="Date Order")
     sale_order_date = fields.Date(related="date_order_date", string="Request Date", store=True)
 
 
@@ -17,6 +17,7 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).fields_get()
         for field in hide:
             res[field]['selectable'] = False
+            res[field]['store'] = False
         return res
 
 
