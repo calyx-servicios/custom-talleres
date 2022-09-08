@@ -17,7 +17,7 @@
     },
     "depends": ["base",
                 "search_assistant"],
-    'data': ['views/sale_order_view.xml',
+    'data': [
              'wizard/search_assistant_wizard_view.xml',
      ],
     'installable': True,
