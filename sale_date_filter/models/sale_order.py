@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
 
     @api.model
     def fields_get(self, fields=None, attributes=None):
-        hide = ['confirmation_date',"date_order","date_order_date"]
+        hide = ['confirmation_date',"date_order"]
         res = super(SaleOrder, self).fields_get()
         for field in hide:
             res[field]['selectable'] = False
