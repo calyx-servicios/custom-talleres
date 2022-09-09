@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
 
 
     confirmation_date_no_time = fields.Date()
-    date_order_date = fields.Date(string=_("Date Order date"))
+    date_order_date = fields.Date(string=_("Fecha de Presupuesto"))
     sale_order_date = fields.Date()
 
 
