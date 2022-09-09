@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 import dateutil.parser
 
 
@@ -7,13 +7,13 @@ class SaleOrder(models.Model):
 
 
     confirmation_date_no_time = fields.Date()
-    date_order_date = fields.Date(string="Date Order")
-    sale_order_date = fields.Date(related="date_order_date", string="Request Date", store=True)
+    date_order_date = fields.Date(string=_("Date Order date"))
+    sale_order_date = fields.Date()
 
 
     @api.model
     def fields_get(self, fields=None, attributes=None):
-        hide = ['confirmation_date',"date_order"]
+        hide = ['confirmation_date',"date_order","date_order_date"]
         res = super(SaleOrder, self).fields_get()
         for field in hide:
             res[field]['selectable'] = False
