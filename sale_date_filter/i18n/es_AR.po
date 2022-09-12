@@ -46,7 +46,7 @@ msgstr "Fecha de Pedido"
 #. module: sale_date_filter
 #: model:ir.model.fields,field_description:sale_date_filter.field_sale_order_sale_order_date
 msgid "Sale Order Date"
-msgstr "Fecha de Presupuesto"
+msgstr "Fecha de Pedido"
 
 #. module: sale_date_filter
 #: model:ir.model,name:sale_date_filter.model_sale_report

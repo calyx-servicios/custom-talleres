@@ -7,8 +7,8 @@ class SaleOrder(models.Model):
 
 
     confirmation_date_no_time = fields.Date()
-    date_order_date = fields.Date(string=_("Fecha de Presupuesto"))
-    sale_order_date = fields.Date()
+    date_order_date = fields.Date(string="Fecha de Presupuesto")
+    sale_order_date = fields.Date(string="Fecha de Pedido")
 
 
     @api.model
@@ -25,9 +25,9 @@ class SaleOrder(models.Model):
     def create(self, vals):
         if vals.get("date_order",False):
             vals["date_order_date"] = dateutil.parser.parse(vals.get("date_order", False)).date()
-            vals["sale_order_date"] = dateutil.parser.parse(vals.get("date_order", False)).date()
         if vals.get("confirmation_date",False):
             vals["confirmation_date_no_time"] = dateutil.parser.parse(vals.get("confirmation_date", False)).date()
+            vals["sale_order_date"] = dateutil.parser.parse(vals.get("confirmation_date", False)).date()
         return super(SaleOrder, self).create(vals)
 
     @api.multi

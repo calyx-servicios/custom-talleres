@@ -8,7 +8,7 @@
     'website': 'www.calyxservicios.com.ar',
     'license': 'AGPL-3',
     'depends': [
-        'sale',
+        'sale_order_advancement',
     ],
     'external_dependencies': {
     },
