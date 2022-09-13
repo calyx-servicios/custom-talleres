@@ -27,7 +27,7 @@
     'license': 'AGPL-3',
     'summary': '''Custom Sale''',
     'depends': [
-        'sale',
+        'sale_order_advancement',
     ],
     'external_dependencies': {
     },
