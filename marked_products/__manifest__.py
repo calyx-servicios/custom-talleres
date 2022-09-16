@@ -14,5 +14,5 @@
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
-    "depends": ["sale", "product"],
+    "depends": ["sale"],
 }
