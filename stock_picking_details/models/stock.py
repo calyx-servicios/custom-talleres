@@ -36,7 +36,8 @@ class StockPicking(models.Model):
                 for order in origin:
                     if order == "-":
                         double_orders += [origin[i-1] + " " + order + " " + origin[i+1]]
-                        simple_orders.remove(origin[i-1])
+                        if origin[i-1]:
+                            simple_orders.remove(origin[i-1])
                         simple_orders.remove(order)
                         simple_orders.remove(origin[i+1])
                     i += 1
