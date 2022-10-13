@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="sale_order_with_design" model="ir.ui.view">
+		<field name="model">sale.order</field>
+		<field name="name">Sale Order With Desgin</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='technical']" position="after">
+				<group string="Other information" name="ohter_info">
+					<field name="with_design" readonly="1"/>
+                </group>
+			</xpath>
+		</field>
+	</record>
+</odoo>

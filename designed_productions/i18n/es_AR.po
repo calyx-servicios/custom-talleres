@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-19 12:38+0000\n"
-"PO-Revision-Date: 2022-08-19 12:38+0000\n"
+"POT-Creation-Date: 2022-10-12 14:26+0000\n"
+"PO-Revision-Date: 2022-10-12 14:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,14 @@ msgstr ""
 
 #. module: designed_productions
 #: model:ir.ui.view,arch_db:designed_productions.view_production_design_filter
-msgid "Design"
-msgstr "Diseño"
+msgid "From Design"
+msgstr "Desde diseño"
+
+#. module: designed_productions
+#: model:ir.model.fields,field_description:designed_productions.field_mrp_production_from_design
+#: selection:mrp.production,from_design:0
+msgid "From design"
+msgstr "Desde diseño"
 
 #. module: designed_productions
 #: model:ir.model,name:designed_productions.model_mrp_production
@@ -26,12 +32,22 @@ msgid "Manufacturing Order"
 msgstr "Orden de Producción"
 
 #. module: designed_productions
-#: model:ir.model.fields,field_description:designed_productions.field_mrp_production_sale_order_line_ids
-msgid "Sale Order Line"
-msgstr "Sale Order Line"
+#: model:ir.ui.view,arch_db:designed_productions.sale_order_with_design
+msgid "Other information"
+msgstr "Otra información"
 
 #. module: designed_productions
-#: model:ir.model.fields,field_description:designed_productions.field_mrp_production_design
-msgid "To Design"
-msgstr "A diseñar"
+#: model:ir.model,name:designed_productions.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: designed_productions
+#: model:ir.model.fields,field_description:designed_productions.field_sale_order_with_design
+msgid "With design"
+msgstr "Con diseño"
+
+#. module: designed_productions
+#: selection:mrp.production,from_design:0
+msgid "Without design"
+msgstr "Sin diseño"
 
