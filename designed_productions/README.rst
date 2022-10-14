@@ -3,8 +3,8 @@ Design Production
 =================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   !! This file is intended to be in every module    !!
-   !! to explain why and how it works.               !!
+   !! This module allow to classificate the          !!
+   !! production orders that come from design orders !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -58,6 +58,8 @@ Contributors
 * `Calyx Servicios S.A. <https://odoo.calyx-cloud.com.ar/>`_
   
   * Luciano Baleani
+  
+  * Perez Gabriela
 
 Maintainers
 ~~~~~~~~~~~
