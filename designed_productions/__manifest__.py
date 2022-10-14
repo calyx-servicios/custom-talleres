@@ -6,17 +6,17 @@
         This module allow to classificate the production orders that come from design orders
     """,
     "author": "Calyx Servicios S.A.",
-    "maintainers": ["lucianobaleani"],
+    "maintainers": ["lucianobaleani","PerezGabriela"],
     "website": "https://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
     "category": "MRP",
-    "version": "11.0.1.0.0",
+    "version": "11.0.2.0.3",
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
-    "depends": ["base","mrp","sale_order_workflow"],
-
+    "depends": ["sale_order_workflow"],
     'data': [
         "views/mrp_production_inherited_views.xml",
+        "views/sale_order_view.xml",
     ],
 }
