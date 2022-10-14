@@ -5,7 +5,7 @@
         Modify the records that are in red
     """,
     "author": "Calyx Servicios S.A.",
-    "maintainers": ["<Github Username/s>"],
+    "maintainers": ["alvarezgianella"],
     "website": "https://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
     "category": "Technical Settings",
@@ -13,13 +13,9 @@
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
-    "external_dependencies": {
-        "python": [],
-        "bin": [],
-    },
-    "depends": ["base", "stock"],
+    "depends": ["stock"],
      'data': [
-         'views/stock_view_changes.xml',
+         'views/stock_picking_views.xml',
      ],
 
 }
