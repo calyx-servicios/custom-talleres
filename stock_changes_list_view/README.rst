@@ -3,8 +3,7 @@ Stock Changes List
 ==================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   !! This file is intended to be in every module    !!
-   !! to explain why and how it works.               !!
+   !! Modify the records that are in red             !!
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -15,9 +14,9 @@ Stock Changes List
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-calyx--servicios%2Fcalyx-lightgray.png?logo=github
-    :target: https://github.com/calyx-servicios/calyx.git
-    :alt: calyx-servicios/calyx.git
+.. |badge3| image:: https://img.shields.io/badge/github-calyx--servicios%2Fcustom--talleres-lightgray.png?logo=github
+    :target: https://github.com/calyx-servicios/custom-talleres.git
+    :alt: calyx-servicios/custom-talleres.git
 
 |badge1| |badge2| |badge3|
 
