@@ -15,7 +15,7 @@
     "installable": True,
     "depends": ["stock"],
      'data': [
-         'views/stock_view_changes.xml',
+         'views/stock_picking_view.xml',
      ],
 
 }
