@@ -7,17 +7,10 @@ class AccountInvoice(models.Model):
     @api.model
     def create(self, vals):
         invoice = super(AccountInvoice, self).create(vals)
-        if invoice.type == "out_invoice":
+        if invoice.type in ["out_invoice","out_refund"]:
             invoice.account_id = invoice.partner_id.with_context(force_company=invoice.company_id.id).property_account_receivable_id.id
-        else:
-            if invoice.type == "out_refund":
-                invoice.account_id = invoice.partner_id.with_context(force_company=invoice.company_id.id).property_account_payable_id.id
-            else:
-                if invoice.type == "in_invoice":
-                    invoice.account_id = invoice.partner_id.with_context(force_company=invoice.company_id.id).property_account_payable_id.id
-                else:
-                    if invoice.type == "in_refund":
-                        invoice.account_id = invoice.partner_id.with_context(force_company=invoice.company_id.id).property_account_receivable_id.id
+        if invoice.type in ["in_invoice","in_refund"]:
+            invoice.account_id = invoice.partner_id.with_context(force_company=invoice.company_id.id).property_account_payable_id.id
         return invoice
 
     @api.onchange('company_id')
