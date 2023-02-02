@@ -624,7 +624,7 @@ class SaleOrder(models.Model):
                                     title, view, context
                                 )
             return order.write(
-                {"state": "sent design", "design_status": "ready"}
+                {"state": "sale", "design_status": "ready",}
             )
 
     @api.model
