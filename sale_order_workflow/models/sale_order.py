@@ -623,9 +623,7 @@ class SaleOrder(models.Model):
                                 return self.alert_message(
                                     title, view, context
                                 )
-            return order.write(
-                {"state": "sale", "design_status": "ready",}
-            )
+            return order.write({"design_status": "ready",}),order.action_confirm()
 
     @api.model
     def create(self, vals):
