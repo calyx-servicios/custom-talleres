@@ -8,10 +8,10 @@
         <xpath expr="//group[@name='sale_total']" position="inside">
                 <label for="advance"/>
             <field name="advance" string='Advance' oldname='Calcule Amount Residual' nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                 <label for="calcule_amount_residual"/>
+            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                <field name="calcule_amount_residual" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
             </div>
-            <field name="calcule_amount_residual" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
         </xpath>
     </field>
   </record>
