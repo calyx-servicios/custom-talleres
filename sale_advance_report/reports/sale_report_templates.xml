@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<template id="report_saleorder_document_advance" name="report_advance_sale" inherit_id="sale.report_saleorder_document">
-		<xpath expr="//div[hasclass('oe_structure')][2]" position="before">
-			<p t-if="doc.advance">
-				<strong>Advance: </strong>
-				<span t-field="doc.advance"/>
-			</p>
+		<xpath expr="//div[hasclass('clearfix')]//tr[hasclass('border-black')][2]" position="replace">
+			<tr class="border-black">
+				<td><strong>Total</strong></td>
+				<td class="text-right">
+						<t t-set="total" t-value="sum(doc.amount_untaxed - doc.advance)"/>
+						<span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}"/>
+				</td>
+			</tr>
 		</xpath>
 	</template>
 </odoo>
