@@ -297,8 +297,6 @@ class SaleOrder(models.Model):
             
             if order.production_count != 0:
                 order.production_order = order.production_ids[0].id
-        res = super(SaleOrder, self).action_confirm_new()
-        return res
             
 
     @api.multi
