@@ -26,4 +26,5 @@ class SaleOrder(models.Model):
                     for mrp in order.production_ids:
                         if mrp.product_id.id in products:
                             mrp.write({"from_design": "mrp_from_design"})
+        return res
                             
