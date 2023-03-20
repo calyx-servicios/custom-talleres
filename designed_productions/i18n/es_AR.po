@@ -51,3 +51,7 @@ msgstr "Con diseño"
 msgid "Without design"
 msgstr "Sin diseño"
 
+#. module: designed_productions
+#: selection:mrp.production,from_design:0
+msgid "With design"
+msgstr "Con diseño"
