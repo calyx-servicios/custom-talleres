@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- action report -->
+        <report
+        id="sale_report_NAME_xml"
+        model="sale.order"
+        string="Report Sale Personalized xls Original"
+        report_type="xlsx"
+        menu="True"
+        name="report_sale_personalized_xls_copy.sale_report_xml"
+        file="report_sale_personalized_xls_copy.sale_report_xml"
+        />
+
+</odoo>
