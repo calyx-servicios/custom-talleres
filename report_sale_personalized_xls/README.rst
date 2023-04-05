@@ -57,9 +57,7 @@ Contributors
 
 * `Calyx Servicios S.A. <https://odoo.calyx-cloud.com.ar/>`_
   
-  * Luciano Baleani
-  
-  * Perez Gabriela
+  * Guzman Georgina
 
 Maintainers
 ~~~~~~~~~~~
