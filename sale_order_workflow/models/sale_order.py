@@ -297,8 +297,7 @@ class SaleOrder(models.Model):
             
             if order.production_count != 0:
                 order.production_order = order.production_ids[0].id
-        res = super(SaleOrder, self).action_confirm_new()
-        return res  
+        return True  
             
 
     @api.multi
@@ -332,64 +331,35 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_confirm(self):
-        res = super(SaleOrder, self).action_confirm()
         view = self.env.ref("sh_message.sh_message_wizard")
         context = dict(self._context or {})
-        if res:
-            for order in self:
-                if order.quote_status not in ["no", "quoted"]:
-                    title = "¡Advertencia!"
-                    context["message"] = (
-                        "No puede confirmar ventas con estado"
-                        "de cotización en curso."
-                    )
-                    return self.alert_message(title, view, context)
-                for pick in order.picking_ids:
-                    f = 0
-                    g = 0
-                    store = False
-                    if order.freight_defined:
-                        f = order.freight
-                    if order.placement_defined:
-                        g = order.placement
-                    if order.pickup_store:
-                        store = order.pickup_store.id
-                    pick.write(
-                        {
-                            "freight": pick.freight + f,
-                            "placement": pick.placement + g,
-                            "pickup_store": store
-                        }
-                    )
+        for order in self:
+            if order.quote_status not in ["no", "quoted"]:
+                title = "¡Advertencia!"
+                context["message"] = (
+                    "No puede confirmar ventas con estado"
+                    "de cotización en curso."
+                )
+                return self.alert_message(title, view, context)
+            for pick in order.picking_ids:
+                f = 0
+                g = 0
+                store = False
+                if order.freight_defined:
+                    f = order.freight
+                if order.placement_defined:
+                    g = order.placement
+                if order.pickup_store:
+                    store = order.pickup_store.id
+                pick.write(
+                    {
+                        "freight": pick.freight + f,
+                        "placement": pick.placement + g,
+                        "pickup_store": store
+                    }
+                )
 
-                for line in order.order_line:
-                    if line.route_id:
-                        for procurement in line.route_id.pull_ids:
-                            if procurement.procure_method in [
-                                "make_to_order"
-                            ] and not (
-                                order.warehouse_id.manufacture_to_resupply
-                            ):
-                                title = "¡Advertencia!"
-                                context["message"] = (
-                                    "No puede confirmar ventas con reglas "
-                                    "de producción en este almacén."
-                                )
-                                return self.alert_message(
-                                    title, view, context
-                                )
-
-                            if procurement.procure_method in [
-                                "make_to_stock"
-                            ] and (line.to_quote or line.to_design):
-                                title = "¡Advertencia!"
-                                context["message"] = (
-                                    "No puede confirmar ventas con reglas "
-                                    "de producción en este almacén."
-                                )
-                                return self.alert_message(
-                                    title, view, context
-                                )
+            res = super(SaleOrder, order).action_confirm()
             return res
 
     @api.multi
@@ -588,7 +558,7 @@ class SaleOrder(models.Model):
                                     )
                                     product_obj.create_variant_ids()
 
-                return self.write({"state": "to design"})
+                return rec.write({"state": "to design"})
 
     def action_sent_design(self):
         view = self.env.ref("sh_message.sh_message_wizard")
@@ -625,7 +595,8 @@ class SaleOrder(models.Model):
                                 return self.alert_message(
                                     title, view, context
                                 )
-            return order.write({"design_status": "ready",}),order.action_confirm()
+            order.write({"design_status": "ready", "state": "sent design"})
+            return order.action_confirm_new()
 
     @api.model
     def create(self, vals):
