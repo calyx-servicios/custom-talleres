@@ -18,9 +18,9 @@
             <xpath expr="//page[@name='sales_purchases']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <xpath expr="//notebook/page[1]" position="attributes">
+            <!-- <xpath expr="//notebook/page[1]" position="attributes">
                 <attribute name="invisible">True</attribute>
-            </xpath>
+            </xpath> -->
         </field>
     </record>
 </odoo>
