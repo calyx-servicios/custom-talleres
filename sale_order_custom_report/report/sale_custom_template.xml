@@ -134,7 +134,14 @@
         </div>
         <hr/>
         <div class="row">
-            <h3 style="text-align:center">Pedidos</h3>
+            <div class="row">
+	        	<div class="col-xs-7 text-center">
+		            <h3 style="text-align:center">Pedidos</h3>
+	        	</div>
+	        	<div class="col-xs-5 text-right">
+		            <span t-esc="doc.production_order.compromise_date" style="font-size:28px;font-weight: bold;" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+	        	</div>
+        	</div>
             <table style="width: 100%">
                 <thead>
                     <tr>
