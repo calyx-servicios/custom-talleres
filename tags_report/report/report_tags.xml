@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<template id="small_tag_report_products">
+		<table style="width: 100%;">
+	 		<tr>
+	 			<th style="text-align:center;border:solid 1px black;width:60px;">Qty.</th>
+	 			<th style="text-align:left;border: solid 1px black;">Product:</th>
+	 		</tr>
+			<tr>
+        		<td style="text-align:center;border:solid 1px black;width:60px;">
+            		<t t-esc="product_qty"/>/<span t-esc="line.product_uom_qty" t-options="{'widget':'integer'}"/>
+         		</td>
+         		<td style="text-align:left;border: solid 1px black;padding-left: 5px">
+                	<span t-esc="line.template_id.name"/>
+               	</td>
+        	</tr>
+        	<tr>
+    			<td style="border:solid 1px black"/>
+   				<t t-set="attributes" t-value="line.product_id.attribute_value_ids.filtered(lambda x: x.attribute_id.type_attribute == 'color')"/>
+				<t t-if="attributes">
+					<t t-foreach="attributes" t-as="attribute">
+						<td style="border:solid 1px black">
+							<table style="width: 100%;">
+		                  		<tr>
+		                      		<td style="text-align:left;border-bottom: solid 1px black;font-weight:bold">
+		                          		<span t-attf-esc="attribute.attribute_id.name if attribute else 'Color'">:</span>
+		                         	</td>
+		                     	</tr>
+		                     	<tr>
+		                         	<td style="text-align:left;">
+		                             	<span t-esc="attribute.name"/>
+		                         	</td>
+		                     	</tr>
+		                 	</table>
+						</td>
+       				</t>
+      			</t>
+				<t t-else="">
+	        		<td style="border:solid 1px black">
+		             	<table style="width: 100%;">
+		                 	<tr>
+		                     	<td style="text-align:left;border-bottom: solid 1px black;font-weight:bold">
+		                         	<span>Color:</span>
+	                        	</td>
+	                    	</tr>
+	                    	<tr>
+	                        	<td style="text-align:left;">
+	                            	<span>-</span>
+	                        	</td>
+	                    	</tr>
+	                	</table>
+	            	</td>
+	        	</t>
+			</tr>
+		</table>
+	</template>
+	
+	<template id="large_tag_report_products">
+		<table style="width: 100%;">
+			<tr>
+				<table style="width: 100%;">
+					<tr>
+			 			<th style="text-align:left;border: solid 1px black;">Product:</th>
+			 			<th style="text-align:center;border: solid 1px black;width:60px;">Qty.</th>
+			 		</tr>
+					<tr>
+		         		<td style="text-align:left;border: solid 1px black;padding-left: 5px;height:45px;">
+		                	<span t-esc="line.template_id.name"/>
+		               	</td>
+		        		<td style="text-align:center;border: solid 1px black;width:60px;height:45px;">
+		            		<t t-esc="product_qty"/>/<span t-esc="line.product_uom_qty" t-options="{'widget':'integer'}"/>
+		         		</td>
+		        	</tr>
+				</table>
+			</tr>
+			<t t-set="attributes_color" t-value="line.product_id.attribute_value_ids.filtered(lambda x: x.attribute_id.type_attribute == 'color')"/>
+			<t t-set="attributes_size" t-value="line.product_id.attribute_value_ids.filtered(lambda x: x.attribute_id.type_attribute == 'size')"/>
+			<t t-if="attributes_color">
+				<t t-foreach="attributes_color" t-as="attribute_c">
+					<tr>
+						<table style="width: 100%;">
+							<tr>
+								<td style="text-align:left;border: solid 1px black;font-weight:bold">
+									<span t-attf-esc="attribute_c.attribute_id.name">:</span>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align:left;border: solid 1px black;height:45px;">
+									<span t-esc="attribute_c.name"/>
+								</td>
+							</tr>
+						</table>
+					</tr>
+ 				</t>
+ 			</t>
+			<t t-else="">
+				<tr>
+					<table style="width: 100%;">
+		    			<tr>
+			              	<th style="text-align:left;border:solid 1px black;font-weight:bold">
+								<span>Color:</span>
+							</th>
+						</tr>
+						<tr>
+							<td style="text-align:left;border:solid 1px black;height:45px;">
+								<span>-</span>
+							</td>
+						</tr>
+					</table>
+				</tr>
+			</t>
+			<t t-if="attributes_size">
+				<t t-foreach="attributes_size" t-as="attribute_z">
+					<tr>
+						<table style="width: 100%;">
+							<tr>
+								<td style="text-align:left;border: solid 1px black;font-weight:bold">
+									<span t-attf-esc="attribute_z.attribute_id.name">:</span>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align:left;border: solid 1px black;height:45px;">
+									<span t-esc="attribute_z.name"/>
+								</td>
+							</tr>
+						</table>
+					</tr>
+ 				</t>
+			</t>
+			<t t-else="">
+				<tr>
+					<table style="width: 100%;">
+						<tr>
+			              	<th style="text-align:left;border:solid 1px black;font-weight:bold">
+								<span>Size:</span>
+							</th>
+						</tr>
+						<tr>
+							<td style="text-align:left;border:solid 1px black;height:45px;">
+								<span>-</span>
+							</td>
+						</tr>		
+					</table>
+				</tr>
+			</t>
+		</table>
+	</template>
+
+    <template id="external_layout_tags">
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+    </template>
+    
+    <template id="external_layout">
+        <t t-if="not o and doc">
+            <t t-set="o" t-value="doc"/>
+        </t>
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+        <t t-call="tags_report.external_layout_tags"><t t-raw="0"/></t>
+    </template>
+
+	<template id="small_tag_report">
+    	<t t-call="tags_report.external_layout">
+    		<t t-foreach="o.sale_id.order_line" t-as="line">
+    			<t t-foreach="range(1,int(line.product_uom_qty)+1)" t-as="product_qty">
+    				<div style="page-break-after:always;">
+		    			<div class="row">
+							<div class="col-xs-5 text-center">
+								<span style="font-size:20px !important;font-weight: bold;">Orden Nro: </span>
+								<span t-esc="o.sale_id.name" style="font-size:20px !important;font-weight: bold;"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12" style="width:95%;">
+								<t t-call="tags_report.small_tag_report_products"/>
+							</div>
+						</div>		
+    				</div>
+    			</t>
+    		</t>
+		</t>
+    </template>
+
+    <template id="large_tag_report">
+    	<t t-call="tags_report.external_layout">
+    		<t t-foreach="o.sale_id.order_line" t-as="line">
+    			<t t-foreach="range(1,int(line.product_uom_qty)+1)" t-as="product_qty">
+    				<div style="page-break-after:always;">
+		    			<div class="row">
+							<div class="col-xs-5 text-center">
+								<span style="font-size:20px !important;font-weight: bold;">Orden Nro: </span>
+								<span t-esc="o.sale_id.name" style="font-size:20px !important;font-weight: bold;"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12" style="width:95%;">
+								<t t-call="tags_report.large_tag_report_products"/>
+							</div>
+						</div>		
+    				</div>
+    			</t>
+    		</t>
+		</t>
+    </template>
+    
+    <template id="small_product_tag_report">
+    	<t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="o">
+	        	<t t-set="type_tag" t-value="small"/>
+	            <t t-call="tags_report.small_tag_report" t-lang="o.partner_id.lang"/>
+	        </t>
+	    </t>
+    </template>
+    
+    <template id="large_product_tag_report">
+    	<t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="o">
+	        	<t t-set="type_tag" t-value="large"/>
+	        	<t t-call="tags_report.large_tag_report" t-lang="o.partner_id.lang"/>
+	        </t>
+        </t>
+    </template>
+</odoo>

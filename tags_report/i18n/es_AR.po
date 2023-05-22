@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tags_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-22 21:54+0000\n"
+"PO-Revision-Date: 2023-05-22 21:54+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tags_report
+#: model:ir.ui.view,arch_db:tags_report.large_tag_report
+#: model:ir.ui.view,arch_db:tags_report.small_tag_report
+msgid "<span style=\"font-size:20px !important;font-weight: bold;\">Orden Nro: </span>"
+msgstr "<span style=\"font-size:20px !important;font-weight: bold;\">Orden Nro: </span>"
+
+#. module: tags_report
+#: model:ir.ui.view,arch_db:tags_report.large_tag_report_products
+#: model:ir.ui.view,arch_db:tags_report.small_tag_report_products
+msgid "<span>Color:</span>"
+msgstr "<span>Color:</span>"
+
+#. module: tags_report
+#: model:ir.ui.view,arch_db:tags_report.large_tag_report_products
+msgid "<span>Size:</span>"
+msgstr "<span>Medidas:</span>"
+
+#. module: tags_report
+#: code:addons/tags_report/models/product_attribute.py:7
+#: selection:product.attribute,type_attribute:0
+#, python-format
+msgid "Color"
+msgstr "Color"
+
+#. module: tags_report
+#: model:ir.actions.report,name:tags_report.large_product_tag
+msgid "Large product tag"
+msgstr "Etiqueta 6x10cm"
+
+#. module: tags_report
+#: code:addons/tags_report/models/product_attribute.py:9
+#: selection:product.attribute,type_attribute:0
+#, python-format
+msgid "Material"
+msgstr "Material"
+
+#. module: tags_report
+#: code:addons/tags_report/models/product_attribute.py:10
+#, python-format
+msgid "Other"
+msgstr "Otros"
+
+#. module: tags_report
+#: selection:product.attribute,type_attribute:0
+msgid "Otro"
+msgstr "Otros"
+
+#. module: tags_report
+#: model:ir.model,name:tags_report.model_product_attribute
+msgid "Product Attribute"
+msgstr "Atributo de producto"
+
+#. module: tags_report
+#: model:ir.ui.view,arch_db:tags_report.large_tag_report_products
+#: model:ir.ui.view,arch_db:tags_report.small_tag_report_products
+msgid "Product:"
+msgstr "Producto:"
+
+#. module: tags_report
+#: model:ir.ui.view,arch_db:tags_report.large_tag_report_products
+#: model:ir.ui.view,arch_db:tags_report.small_tag_report_products
+msgid "Qty."
+msgstr "Cant."
+
+#. module: tags_report
+#: code:addons/tags_report/models/product_attribute.py:8
+#, python-format
+msgid "Size"
+msgstr "Medidas"
+
+#. module: tags_report
+#: model:ir.actions.report,name:tags_report.small_product_tag
+msgid "Small product tag"
+msgstr "Etiqueta 3.5x10cm"
+
+#. module: tags_report
+#: selection:product.attribute,type_attribute:0
+msgid "Tamaño"
+msgstr "Medidas"
+
+#. module: tags_report
+#: model:ir.model.fields,field_description:tags_report.field_product_attribute_type_attribute
+msgid "Type Attribute"
+msgstr "Tipo de Atributo"
+
