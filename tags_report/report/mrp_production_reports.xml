@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_small_product_tag" model="report.paperformat">
+        <field name="name">Small product tag - Mrp</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">36</field>
+        <field name="page_width">100</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+    
+    <record id="paperformat_large_product_tag" model="report.paperformat">
+        <field name="name">Large product tag - Mrp</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">60</field>
+        <field name="page_width">100</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+    
+	<record id="small_product_tag" model="ir.actions.report">
+		<field name="name">Small product tag</field>
+		<field name="model">mrp.production</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">tags_report.small_product_tag_report</field>
+		<field name="report_file">tags_report.small_product_tag_report</field>
+		<field name="binding_model_id" ref="mrp.model_mrp_production"/>
+		<field name="binding_type">report</field>
+		<field name="paperformat_id" ref="tags_report.paperformat_small_product_tag"/>
+		<field name="print_report_name">'Small tag - %s' % (object.name)</field>
+		<field name="extras">small</field>
+	</record>
+	
+	<record id="large_product_tag" model="ir.actions.report">
+		<field name="name">Large product tag</field>
+		<field name="model">mrp.production</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">tags_report.large_product_tag_report</field>
+		<field name="report_file">tags_report.large_product_tag_report</field>
+		<field name="binding_model_id" ref="mrp.model_mrp_production"/>
+		<field name="binding_type">report</field>
+		<field name="paperformat_id" ref="tags_report.paperformat_large_product_tag"/>
+		<field name="print_report_name">'Large tag - %s' % (object.name)</field>
+		<field name="extras">large</field>
+	</record>
+</odoo>
