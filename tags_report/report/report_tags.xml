@@ -171,9 +171,8 @@
     			<t t-foreach="range(1,int(line.product_uom_qty)+1)" t-as="product_qty">
     				<div style="page-break-after:always;">
 		    			<div class="row">
-							<div class="col-xs-5 text-center">
-								<span style="font-size:20px !important;font-weight: bold;">Orden Nro: </span>
-								<span t-esc="o.sale_id.name" style="font-size:20px !important;font-weight: bold;"/>
+							<div class="col-xs-12">
+								<span style="font-size:20px !important;font-weight: bold;">Orden Nro: <t t-esc="o.sale_id.name"/></span>
 							</div>
 						</div>
 						<div class="row">
@@ -193,9 +192,8 @@
     			<t t-foreach="range(1,int(line.product_uom_qty)+1)" t-as="product_qty">
     				<div style="page-break-after:always;">
 		    			<div class="row">
-							<div class="col-xs-5 text-center">
-								<span style="font-size:20px !important;font-weight: bold;">Orden Nro: </span>
-								<span t-esc="o.sale_id.name" style="font-size:20px !important;font-weight: bold;"/>
+							<div class="col-xs-12">
+								<span style="font-size:20px !important;font-weight: bold;">Orden Nro: <t t-esc="o.sale_id.name"/></span>
 							</div>
 						</div>
 						<div class="row">
