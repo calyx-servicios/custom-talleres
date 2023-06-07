@@ -23,8 +23,16 @@
 							<table style="width: 100%;">
 		                  		<tr>
 		                      		<td style="text-align:left;border-bottom: solid 1px black;font-weight:bold">
-		                          		<span t-attf-esc="attribute.attribute_id.name if attribute else 'Color'">:</span>
-		                         	</td>
+										<span>
+											<t t-if="attribute">
+												<t t-esc="attribute.attribute_id.name" />
+											</t>
+											<t t-else="">
+												Color
+											</t>
+											:
+										</span>
+									</td>
 		                     	</tr>
 		                     	<tr>
 		                         	<td style="text-align:left;">
@@ -81,7 +89,15 @@
 						<table style="width: 100%;">
 							<tr>
 								<td style="text-align:left;border: solid 1px black;font-weight:bold">
-									<span t-attf-esc="attribute_c.attribute_id.name">:</span>
+									<span>
+										<t t-if="attribute_c">
+											<t t-esc="attribute_c.attribute_id.name" />
+										</t>
+										<t t-else="">
+											Color
+										</t>
+										:
+									</span>
 								</td>
 							</tr>
 							<tr>
@@ -115,7 +131,15 @@
 						<table style="width: 100%;">
 							<tr>
 								<td style="text-align:left;border: solid 1px black;font-weight:bold">
-									<span t-attf-esc="attribute_z.attribute_id.name">:</span>
+									<span>
+										<t t-if="attribute_z">
+											<t t-esc="attribute_z.attribute_id.name" />
+										</t>
+										<t t-else="">
+											Size
+										</t>
+										:
+									</span>
 								</td>
 							</tr>
 							<tr>
