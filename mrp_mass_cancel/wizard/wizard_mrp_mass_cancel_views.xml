@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_mrp_mass_cancel_view_form" model="ir.ui.view">
+        <field name="name">wizard.mrp.mass.cancel.form</field>
+        <field name="model">wizard.mrp.mass.cancel</field>
+        <field name="arch" type="xml">
+            <form string="Mass Cancel">
+                <sheet>
+                    <p>Are you sure you want to cancel this orders?</p>
+                    <group>
+                    <field name="mrp_production_ids" readonly="1" force_save="1" invisible="1"/>
+                    </group>
+	        	</sheet>
+                <footer>
+                    <button name="confirm" string="Confirm" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

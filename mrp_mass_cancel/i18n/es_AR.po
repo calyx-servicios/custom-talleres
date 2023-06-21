@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mrp_mass_cancel
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-21 11:35+0000\n"
+"PO-Revision-Date: 2023-06-21 11:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_mass_cancel
+#: model:ir.ui.view,arch_db:mrp_mass_cancel.wizard_mrp_mass_cancel_view_form
+msgid "Are you sure you want to cancel this orders?"
+msgstr "Are you sure you want to cancel this orders?"
+
+#. module: mrp_mass_cancel
+#: model:ir.ui.view,arch_db:mrp_mass_cancel.wizard_mrp_mass_cancel_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: mrp_mass_cancel
+#: model:ir.ui.view,arch_db:mrp_mass_cancel.wizard_mrp_mass_cancel_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: mrp_mass_cancel
+#: model:ir.model,name:mrp_mass_cancel.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Orden de Producción"
+
+#. module: mrp_mass_cancel
+#: model:ir.model,name:mrp_mass_cancel.model_wizard_mrp_mass_cancel
+#: model:ir.ui.view,arch_db:mrp_mass_cancel.wizard_mrp_mass_cancel_view_form
+msgid "Mass Cancel"
+msgstr "Cancelar Masivo"
+
+#. module: mrp_mass_cancel
+#: model:ir.actions.server,name:mrp_mass_cancel.action_mass_mrp_cancel
+msgid "Mass MRP cancel"
+msgstr "Cancelación masiva"
+
+#. module: mrp_mass_cancel
+#: model:ir.model.fields,field_description:mrp_mass_cancel.field_wizard_mrp_mass_cancel_mrp_production_ids
+msgid "Mrp Production"
+msgstr "Orden de Producción"
