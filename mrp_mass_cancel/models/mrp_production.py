@@ -11,6 +11,6 @@ class MRPProduction(models.Model):
             'views': [(False, 'form')],
             'view_id': False,
             'target': 'new',
-            'context': {'default_sale_order_ids':[(6, 0, records.ids)],},
+            'context': {'default_mrp_production_ids':[(6, 0, records.ids)],},
         }
         
