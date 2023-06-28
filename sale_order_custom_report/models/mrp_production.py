@@ -68,8 +68,20 @@ class MrpProduction(models.Model):
     def _inverse_compromise_date(self):
         for order in self:
             date1 = order.sale_confirmation_date
-            date1 = dateutil.parser.parse(date1).date()
             date2 = order.compromise_date
-            date2 = dateutil.parser.parse(date2).date()
-            total_days = date2 - date1
-            order.update({"estimated_days": int(str(total_days.days))})
+
+            if date1:
+                if isinstance(date1, str):
+                    date1 = dateutil.parser.parse(date1).date()
+                else:
+                    date1 = date1.date()
+
+            if date2:
+                if isinstance(date2, str):
+                    date2 = dateutil.parser.parse(date2).date()
+                else:
+                    date2 = date2.date()
+
+            if date1 and date2:
+                total_days = date2 - date1
+                order.update({"estimated_days": int(str(total_days.days))})

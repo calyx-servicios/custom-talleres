@@ -8,7 +8,7 @@
     "author": "Calyx",
     "website": "http://www.calyxservicios.com.ar",
     "category": "Tools",
-    "version": "11.0.3.0.0",
+    "version": "11.0.3.1.0",
     "depends": ["base", "sale", "mrp", "sale_order_workflow", "web_notify"],
     "data": [
         "report/sale_custom_report.xml",
