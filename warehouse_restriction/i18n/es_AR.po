@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-11 14:01+0000\n"
-"PO-Revision-Date: 2023-07-11 14:01+0000\n"
+"POT-Creation-Date: 2023-07-12 21:27+0000\n"
+"PO-Revision-Date: 2023-07-12 21:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,8 +26,29 @@ msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
 #. module: warehouse_restriction
-#: code:addons/warehouse_restriction/models/sale_order.py:20
+#: model:ir.model,name:warehouse_restriction.model_search_assistant
+msgid "Search Assistant"
+msgstr "Asistente de búsqueda"
+
+#. module: warehouse_restriction
+#: model:ir.model,name:warehouse_restriction.model_search_assistant_line
+msgid "Search Assistant Line"
+msgstr "Asistente de búsqueda Línea"
+
+#. module: warehouse_restriction
+#: model:ir.model.fields,field_description:warehouse_restriction.field_search_assistant_line_to_design
+msgid "To Design"
+msgstr "A diseñar"
+
+#. module: warehouse_restriction
+#: model:ir.model.fields,field_description:warehouse_restriction.field_search_assistant_line_to_quote
+msgid "To Quote"
+msgstr "A Cotizar"
+
+#. module: warehouse_restriction
+#: code:addons/warehouse_restriction/models/sale_order.py:21
+#: code:addons/warehouse_restriction/models/sale_order.py:35
 #, python-format
 msgid "You cannot use this warehouse. If there are not products with the to quote or to design actives"
-msgstr "No puede usarse este Almacén. Para usarlo necesita tener productos con los campos "A diseñar" y "A Cotizar activados"
+msgstr "No puede usarse este Almacén. Para usarlo necesita tener productos con los campos \"A diseñar\" y \"A Cotizar activados"
 

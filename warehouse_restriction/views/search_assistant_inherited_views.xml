@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="search_assistant_inherited_form_view" model="ir.ui.view">
+        <field name="name">search.assistant.inherited.view.form</field>
+        <field name="model">search.assistant</field>
+        <field name="inherit_id" ref="search_assistant.view_search_assistant_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='line_ids']//field[@name='product_id']" position="after">
+                <field name="to_quote"/>
+                <field name="to_design"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
