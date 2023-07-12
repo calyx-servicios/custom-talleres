@@ -1,7 +1,7 @@
 {
     "name": "Tags Report",
     "summary": """
-        This module adds the tags to 
+        This module adds the tags to
         the manufacturing report.
     """,
     "author": "Calyx Servicios S.A.",
@@ -9,7 +9,7 @@
     "website": "https://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
     "category": "Manufacturing",
-    "version": "11.0.1.1.0",
+    "version": "11.0.1.2.0",
     "development_status": "Production/Stable",
     "application": False,
     "installable": True,
