@@ -20,22 +20,26 @@ class MrpProduction(models.Model):
     @api.multi
     def print_custom_sale_report(self):
         """
-            Print the report based in the workcenter routing BOM
+        Print the report based on the workcenter routing BOM
         """
         self.ensure_one()
         if self.sale_id:
             self.sale_id.create_attach_img()
-            action = self.env.ref(
-                "sale_order_custom_report.action_sale_order_custom_report"
-            )
+            action = self.env.ref("sale_order_custom_report.action_sale_order_custom_report")
             vals = action.read()[0]
             context = vals.get("context", {})
             context["active_id"] = self.sale_id.id
             context["active_ids"] = [self.sale_id.id]
             vals["context"] = context
+        else:
+            action = self.env.ref("sale_order_custom_report.action_mrp_production_custom_report")
+            vals = action.read()[0]
+            context = vals.get("context", {})
+            context["active_id"] = self.id
+            context["active_ids"] = [self.id]
+            vals["context"] = context
 
-            return vals
-
+        return vals
 
     @api.multi
     @api.onchange("estimated_days")
@@ -68,8 +72,20 @@ class MrpProduction(models.Model):
     def _inverse_compromise_date(self):
         for order in self:
             date1 = order.sale_confirmation_date
-            date1 = dateutil.parser.parse(date1).date()
             date2 = order.compromise_date
-            date2 = dateutil.parser.parse(date2).date()
-            total_days = date2 - date1
-            order.update({"estimated_days": int(str(total_days.days))})
+
+            if date1:
+                if isinstance(date1, str):
+                    date1 = dateutil.parser.parse(date1).date()
+                else:
+                    date1 = date1.date()
+
+            if date2:
+                if isinstance(date2, str):
+                    date2 = dateutil.parser.parse(date2).date()
+                else:
+                    date2 = date2.date()
+
+            if date1 and date2:
+                total_days = date2 - date1
+                order.update({"estimated_days": int(str(total_days.days))})
