@@ -20,22 +20,26 @@ class MrpProduction(models.Model):
     @api.multi
     def print_custom_sale_report(self):
         """
-            Print the report based in the workcenter routing BOM
+        Print the report based on the workcenter routing BOM
         """
         self.ensure_one()
         if self.sale_id:
             self.sale_id.create_attach_img()
-            action = self.env.ref(
-                "sale_order_custom_report.action_sale_order_custom_report"
-            )
+            action = self.env.ref("sale_order_custom_report.action_sale_order_custom_report")
             vals = action.read()[0]
             context = vals.get("context", {})
             context["active_id"] = self.sale_id.id
             context["active_ids"] = [self.sale_id.id]
             vals["context"] = context
+        else:
+            action = self.env.ref("sale_order_custom_report.action_mrp_production_custom_report")
+            vals = action.read()[0]
+            context = vals.get("context", {})
+            context["active_id"] = self.id
+            context["active_ids"] = [self.id]
+            vals["context"] = context
 
-            return vals
-
+        return vals
 
     @api.multi
     @api.onchange("estimated_days")
