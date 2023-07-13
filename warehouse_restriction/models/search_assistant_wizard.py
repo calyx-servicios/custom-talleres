@@ -48,7 +48,8 @@ class SearchAssistant(models.TransientModel):
             'template_id': product_id.product_tmpl_id.id, #Se agrego campo custom para el cliente Talleres
             'variants_status_ok': True, #Se agrego campo custom para el cliente Talleres
             "to_quote" : to_quote,
-            "to_design" :to_design
+            "to_design" :to_design,
+            "price_unit": 0 if (to_quote and to_design) else product_id.price_unit
         }
         values.update(
             line_obj._prepare_add_missing_fields(values))
@@ -70,5 +71,12 @@ class SearchAssistant(models.TransientModel):
         if not self.selected:
             self.write({"to_design":False,
                         "to_quote":False,})
-                # self.to_design = False
-                # self.to_quote = False
+
+
+    @api.multi
+    @api.onchange("to_quote")
+    def quote_design_selection(self):
+        if not self.to_quote:
+            self.write({"to_design": False})
+        else:
+            self.write({"to_design": True})
