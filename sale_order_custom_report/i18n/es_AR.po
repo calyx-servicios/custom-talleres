@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-01 18:18+0000\n"
-"PO-Revision-Date: 2022-08-01 18:18+0000\n"
+"POT-Creation-Date: 2023-07-13 13:05+0000\n"
+"PO-Revision-Date: 2023-07-13 13:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "<br/>\n"
 "                                                <span style=\"font-size:20px !important\">FIN PRODUCCION: </span>"
@@ -23,16 +24,19 @@ msgstr "<br/>\n"
 "                                                <span style=\"font-size:20px !important\">FIN PRODUCCION: </span>"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "<span style=\"font-size:20px !important\">Nro: </span>"
 msgstr "<span style=\"font-size:20px !important\">Nro: </span>"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_blueprints
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_blueprints
 msgid "<span style=\"font-size:20px !important;font-weight: bold;\">Orden Nro: </span>"
 msgstr "<span style=\"font-size:20px !important;font-weight: bold;\">Orden Nro: </span>"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "<span>Alta del pedido:</span>\n"
 "                <br/>\n"
@@ -72,6 +76,7 @@ msgstr "<span>Alta del pedido:</span>\n"
 "                <br/>"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Atributos"
 msgstr "Atributos"
@@ -88,16 +93,19 @@ msgid "BluePrint Name"
 msgstr "BluePrint Name"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_blueprints
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_blueprints
 msgid "Can."
 msgstr "Can."
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Cant."
 msgstr "Cant."
 
 #. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_production_compromise_date
 #: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_inherited
 #: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_tree_inherited
 msgid "Commitment Date"
@@ -109,6 +117,7 @@ msgid "Confirmation Date"
 msgstr "Fecha de confirmación"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Código"
 msgstr "Código"
@@ -124,6 +133,11 @@ msgid "Estimated Days"
 msgstr "Días Estimados"
 
 #. module: sale_order_custom_report
+#: model:ir.model.fields,field_description:sale_order_custom_report.field_mrp_production_end_date
+msgid "Finish date"
+msgstr "Fecha de finalización"
+
+#. module: sale_order_custom_report
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_mrp_custom_report_button
 msgid "Imprimir"
 msgstr "Imprimir"
@@ -134,36 +148,44 @@ msgid "Manufacturing Order"
 msgstr "Orden de Producción"
 
 #. module: sale_order_custom_report
+#: model:ir.actions.report,name:sale_order_custom_report.action_mrp_production_custom_report
 #: model:ir.actions.report,name:sale_order_custom_report.action_sale_order_custom_report
 msgid "Mrp Custom Report"
 msgstr "Mrp Custom Report"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "NST"
 msgstr "NST"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "ORDEN DE PRODUCCION:"
 msgstr "ORDEN DE PRODUCCION:"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Obs:"
 msgstr "Obs:"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_blueprints
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_blueprints
 msgid "Observación"
 msgstr "Observación"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Pedidos"
 msgstr "Pedidos"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_blueprints
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_blueprints
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Producto"
@@ -175,16 +197,24 @@ msgid "Quotation"
 msgstr "Presupuesto"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "STD"
 msgstr "STD"
 
 #. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_header
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_header
 msgid "Talleres Sustentables"
 msgstr "Talleres Sustentables"
 
 #. module: sale_order_custom_report
+#: model:ir.model.fields,help:sale_order_custom_report.field_mrp_production_compromise_date
+msgid "This date is the result of the addition between the sale order confirmation day and the estimated days"
+msgstr "Esta fecha es el resultado de la suma entre el día de confirmación de la orden de venta y los días estimados"
+
+#. module: sale_order_custom_report
+#: model:ir.ui.view,arch_db:sale_order_custom_report.mrp_production_custom_cover_page
 #: model:ir.ui.view,arch_db:sale_order_custom_report.sale_order_custom_cover_page
 msgid "Tipo"
 msgstr "Tipo"
