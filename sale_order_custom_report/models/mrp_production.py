@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from datetime import timedelta
+from datetime import timedelta, datetime
 import dateutil.parser
 
 
@@ -15,6 +15,8 @@ class MrpProduction(models.Model):
                                     inverse="_inverse_compromise_date",
                                     readonly=False,
                                     help="This date is the result of the addition between the sale order confirmation day and the estimated days")
+
+    end_date = fields.Date(string="Finish date", compute="get_end_date")
 
 
     @api.multi
@@ -89,3 +91,13 @@ class MrpProduction(models.Model):
             if date1 and date2:
                 total_days = date2 - date1
                 order.update({"estimated_days": int(str(total_days.days))})
+
+    def get_end_date(self):
+        for record in self:
+            if record.date_planned_start and record.estimated_days:
+                start_date = datetime.strptime(record.date_planned_start.split()[0], '%Y-%m-%d').date()
+                estimated_days = timedelta(days=record.estimated_days)
+                end_date = start_date + estimated_days
+                record.end_date = end_date.strftime('%Y-%m-%d')
+            else:
+                record.end_date = False
