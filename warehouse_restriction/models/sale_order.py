@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
     @api.constrains("warehouse_id")
     def check_warehouse_sale_order(self):
         for rec in self:
-            if rec.state == "draft":
+            if rec.state == "draft" and rec.quote_status != "quoted":
                 context = [
                     ("order_id", "=", rec.id),
                     ("to_quote","=", False),
@@ -29,7 +29,7 @@ class SaleOrderLine(models.Model):
     @api.constrains("to_quote", "to_design")
     def check_products_design_quote(self):
         for rec in self:
-            if rec.order_id.state == "draft":
+            if rec.order_id.state == "draft" and rec.order_id.quote_status != "quoted":
                 if not rec.to_quote or  not rec.to_design:
                     if rec.order_id.warehouse_id.name == "Taller":
                         raise UserError(_("You cannot use this warehouse. If there are not products with the to quote or to design actives"))   
