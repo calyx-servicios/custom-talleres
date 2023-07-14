@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="assigned_pickings" model="ir.actions.act_window">
+            <field name="name">Assigned Pickings</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('printed','=',False),('state', '=','assigned')]</field>
+            <field name="context">{'group_by':'location_id'}</field>
+        </record>
+
+
+    <record id="assigned_pickings_tree" model="ir.ui.view">
+        <field name="name">assigned.stock.pickings.tree.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">scheduled_date desc</attribute>
+            </xpath>
+        </field>
+
+    </record>
+    <menuitem id="assigned_pickings_menu" 
+        name="Assigned Pickings" 
+        parent="stock.menu_stock_warehouse_mgmt" 
+        sequence="5" 
+        action="assigned_pickings" 
+        groups="stock.group_stock_manager,stock.group_stock_user"/>
+</odoo>
