@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 21:36+0000\n"
-"PO-Revision-Date: 2022-08-07 21:36+0000\n"
+"POT-Creation-Date: 2023-07-17 15:56+0000\n"
+"PO-Revision-Date: 2023-07-17 15:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:746
+#: code:addons/sale_order_workflow/models/sale_order.py:714
 #, python-format
 msgid "\n"
 "There are %s %s available accross all warehouses."
@@ -32,6 +32,11 @@ msgstr "# de Producciones"
 #: model:ir.ui.view,arch_db:sale_order_workflow.report_delivery_document_frei_plac
 msgid "A Cobrar"
 msgstr "A Cobrar"
+
+#. module: sale_order_workflow
+#: model:ir.ui.view,arch_db:sale_order_workflow.report_delivery_document_frei_plac
+msgid "Amount Residual"
+msgstr "Saldo a Pagar"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_mrp_production_attachment_ids
@@ -100,21 +105,6 @@ msgid "Create from sale?"
 msgstr "Creado desde ventas?"
 
 #. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_create_uid
-msgid "Created by"
-msgstr "Creado por"
-
-#. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_create_date
-msgid "Created on"
-msgstr "Creado en"
-
-#. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_description
-msgid "Description"
-msgstr "Descripción"
-
-#. module: sale_order_workflow
 #: model:ir.ui.menu,name:sale_order_workflow.design_sale_order_menu
 #: model:ir.ui.menu,name:sale_order_workflow.menu_action_design_sale_order
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_design_tree
@@ -142,11 +132,6 @@ msgstr "Diseño?"
 #: selection:sale.order,design_status:0
 msgid "Designed"
 msgstr "Diseñado"
-
-#. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_display_name
-msgid "Display Name"
-msgstr "Mostrar Nombre"
 
 #. module: sale_order_workflow
 #: selection:sale.order,picking_status:0
@@ -203,11 +188,6 @@ msgid "Has Custom Product Design"
 msgstr "Has Custom Product Design"
 
 #. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_id
-msgid "ID"
-msgstr "ID"
-
-#. module: sale_order_workflow
 #: selection:sale.order,design_status:0
 msgid "In Design"
 msgstr "En Diseño"
@@ -230,7 +210,7 @@ msgstr "Factura extra"
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_stock_picking_freigt_placement_status
 msgid "Invoice Status"
-msgstr "Estado de la factura"
+msgstr "Estado factura"
 
 #. module: sale_order_workflow
 #: model:ir.model.fields,field_description:sale_order_workflow.field_stock_picking_extra_freigt_placement_status
@@ -244,21 +224,6 @@ msgid "Invoiced"
 msgstr "Facturado"
 
 #. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone___last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
-
-#. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_write_uid
-msgid "Last Updated by"
-msgstr "Última actualización por"
-
-#. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_write_date
-msgid "Last Updated on"
-msgstr "Última actualización en"
-
-#. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_mrp_production
 msgid "Manufacturing Order"
 msgstr "Orden de Producción"
@@ -269,23 +234,17 @@ msgid "Manufacturing Orders"
 msgstr "Órdenes de producción"
 
 #. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_ids_name
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_name_10196
-msgid "Name"
-msgstr "Nombre"
-
-#. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:526
-#: code:addons/sale_order_workflow/models/sale_order.py:635
-#: code:addons/sale_order_workflow/models/sale_order.py:646
-#: code:addons/sale_order_workflow/models/sale_order.py:652
+#: code:addons/sale_order_workflow/models/sale_order.py:495
+#: code:addons/sale_order_workflow/models/sale_order.py:603
+#: code:addons/sale_order_workflow/models/sale_order.py:614
+#: code:addons/sale_order_workflow/models/sale_order.py:620
 #: selection:sale.order,picking_status:0
 #, python-format
 msgid "New"
 msgstr "Nuevo"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:755
+#: code:addons/sale_order_workflow/models/sale_order.py:723
 #, python-format
 msgid "Not enough inventory!"
 msgstr "¡No posee suficiente inventario!"
@@ -385,7 +344,7 @@ msgid "Production Status"
 msgstr "Estado de Producción"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:312
+#: code:addons/sale_order_workflow/models/sale_order.py:310
 #: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_production_ids
 #, python-format
 msgid "Productions"
@@ -437,7 +396,7 @@ msgstr "Ordenes a Diseñar"
 #. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de pedido de ventas"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_order_workflow
 #: model:ir.ui.view,arch_db:sale_order_workflow.sale_order_design_form
@@ -518,20 +477,18 @@ msgid "With Quotation"
 msgstr "Con Cotización"
 
 #. module: sale_order_workflow
-#: code:addons/sale_order_workflow/models/sale_order.py:728
+#: code:addons/sale_order_workflow/models/sale_order.py:696
 #, python-format
 msgid "You plan to sell %s %s but you only have %s %s available in %s warehouse."
 msgstr "Esta intentando vender %s %s pero solo posee %s %s disponible en %s."
 
 #. module: sale_order_workflow
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_order_zone_ids
-#: model:ir.model.fields,field_description:sale_order_workflow.field_sale_report_sale_order_zone_ids
-#: model:ir.ui.view,arch_db:sale_order_workflow.view_sale_order_zone_filter
-msgid "Zone"
-msgstr "Zona"
-
-#. module: sale_order_workflow
 #: model:ir.model,name:sale_order_workflow.model_product_attribute_value
 msgid "product.attribute.value"
 msgstr "product.attribute.value"
+
+#. module: sale_order_workflow
+#: model:ir.model,name:sale_order_workflow.model_sale_order_zone
+msgid "sale.order.zone"
+msgstr "sale.order.zone"
 
