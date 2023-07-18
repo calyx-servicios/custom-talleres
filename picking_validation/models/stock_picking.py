@@ -8,5 +8,4 @@ class StockPicking(models.Model):
     @api.multi
     def button_validate(self):
         res  = super(StockPicking, self).button_validate()
-        self.do_print_picking()
-        return res
+        return super(StockPicking, self).do_print_picking()
