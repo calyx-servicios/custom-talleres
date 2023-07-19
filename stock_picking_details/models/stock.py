@@ -51,9 +51,10 @@ class StockPicking(models.Model):
             rec.calcule_amount_residual = total_amount_residual
 
     def button_validate(self):
-        if not self.pickup_store:
-            if self.calcule_amount_residual > 0:
-                raise UserError(_('You still have balance to pay on this order!'))
+        for sale in self.sale_id:
+            if not sale.pickup_store:
+                if self.calcule_amount_residual > 0:
+                    raise UserError(_('You still have balance to pay on this order!'))
 
         return super().button_validate()
 
