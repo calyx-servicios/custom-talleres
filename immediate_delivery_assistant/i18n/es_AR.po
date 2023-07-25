@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* immediate_delivery_assistant
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-25 15:06+0000\n"
+"PO-Revision-Date: 2023-07-25 15:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: immediate_delivery_assistant
+#: model:ir.model.fields,field_description:immediate_delivery_assistant.field_product_product_immediate_delivery
+#: model:ir.model.fields,field_description:immediate_delivery_assistant.field_product_template_immediate_delivery
+msgid "Immediate Delivery"
+msgstr "Entrega Inmediata"
+
+#. module: immediate_delivery_assistant
+#: model:ir.model,name:immediate_delivery_assistant.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: immediate_delivery_assistant
+#: model:ir.model,name:immediate_delivery_assistant.model_search_assistant
+msgid "Search Assistant"
+msgstr "Asistente de búsqueda"
+
