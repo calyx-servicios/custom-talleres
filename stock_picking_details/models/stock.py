@@ -19,36 +19,40 @@ class StockPicking(models.Model):
     req_authorization = fields.Boolean(
         string="Req Authorization", required=True, default=False
     )    
-    calcule_amount_residual = fields.Float(
+
+
+    currency_id = fields.Many2one('res.currency', string="Currency")
+    calcule_amount_residual = fields.Monetary(
         string="Amount Residual",
-        compute="_compute_amount_residual"
+        related="sale_id.calcule_amount_residual",
+        currency_id="res.currency",
     )
           
-    @api.model
-    def _compute_amount_residual(self):
-        for rec in self:
-            i = 0
-            total_amount_residual = 0.00
-            double_orders = []
-            if rec.origin:
-                origin = rec.origin.split()
-                simple_orders = rec.origin.split()
-                for order in origin:
-                    if order == "-":
-                        double_orders += [origin[i-1] + " " + order + " " + origin[i+1]]
-                        if origin[i-1]:
-                            simple_orders.remove(origin[i-1])
-                        simple_orders.remove(order)
-                        simple_orders.remove(origin[i+1])
-                    i += 1
+    # @api.model
+    # def _compute_amount_residual(self):
+    #     for rec in self:
+    #         i = 0
+    #         total_amount_residual = 0.00
+    #         double_orders = []
+    #         if rec.origin:
+    #             origin = rec.origin.split()
+    #             simple_orders = rec.origin.split()
+    #             for order in origin:
+    #                 if order == "-":
+    #                     double_orders += [origin[i-1] + " " + order + " " + origin[i+1]]
+    #                     if origin[i-1]:
+    #                         simple_orders.remove(origin[i-1])
+    #                     simple_orders.remove(order)
+    #                     simple_orders.remove(origin[i+1])
+    #                 i += 1
                 
-                simple_orders.extend(double_orders)
-                for order in simple_orders:
-                    record = self.env['sale.order'].search([('name', '=', order)], limit=1)
-                    if record and record.calcule_amount_residual:
-                        total_amount_residual += record.calcule_amount_residual
+    #             simple_orders.extend(double_orders)
+    #             for order in simple_orders:
+    #                 record = self.env['sale.order'].search([('name', '=', order)], limit=1)
+    #                 if record and record.calcule_amount_residual:
+    #                     total_amount_residual += record.calcule_amount_residual
     
-            rec.calcule_amount_residual = total_amount_residual
+    #         rec.calcule_amount_residual = total_amount_residual
 
     def button_validate(self):
         for sale in self.sale_id:
