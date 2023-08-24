@@ -23,7 +23,7 @@
         <field name="inherit_id" ref="stock.vpicktree"/>
         <field name="arch" type="xml">
             <field name="origin" position="after">
-                <field name="calcule_amount_residual"/>
+                <field name="calcule_amount_residual" widget="monetary"/>
             </field>
         </field>
     </record>
