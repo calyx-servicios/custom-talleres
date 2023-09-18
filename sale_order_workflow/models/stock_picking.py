@@ -10,8 +10,8 @@ _logger = logging.getLogger(__name__)
 class stockPicking(models.Model):
     _inherit = "stock.picking"
 
-    freight = fields.Float(string="Freight", track_visibility='onchange')
-    placement = fields.Float(string="Placement", track_visibility='onchange')
+    freight = fields.Float(related="sale_id.freight", string="Freight", track_visibility='onchange')
+    placement = fields.Float(related="sale_id.placement", string="Placement", track_visibility='onchange')
 
     invoice_freight_placement_id = fields.Many2one(
         "account.invoice", string="Invoice"
