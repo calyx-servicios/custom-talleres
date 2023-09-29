@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_production_days_inherited_form" model="ir.ui.view">
+        <field name="name"></field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_workflow.view_quotation_tree_wf"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="production_days" options='{"fg_color": "red:production_days &lt; (&apos;0&apos;);
+                            green:production_days &gt; (&apos;0&apos;);red:production_days == (&apos;0&apos;)"}'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
