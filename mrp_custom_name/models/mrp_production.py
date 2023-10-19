@@ -15,8 +15,8 @@ class MrpProduction(models.Model):
     @api.model
     def create(self, vals):
         if not vals.get("origin"):
-                prefix = "OTIS/"
-                name = prefix + str(vals["otis_number"])
-        vals["name"] = name
+            prefix = "OTIS/"
+            name = prefix + str(vals["otis_number"])
+            vals["name"] = name
         res = super(MrpProduction, self).create(vals)
         return res
