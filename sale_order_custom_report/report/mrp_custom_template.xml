@@ -156,6 +156,7 @@
                     <t t-else="not doc.sale_id">
                         <th style="text-align:center;border: solid 1px black;">Producto</th>
                         <th style="text-align:center;border: solid 1px black;">Cant.</th>
+                        <th style="text-align:center;border: solid 1px black;">Atributos</th>
                     </t>
                 </thead>
                 <tbody>
@@ -213,8 +214,12 @@
                             </td>
                             <td style="text-align:center;border: solid 1px black;">
                                 <span t-esc="doc.product_qty" t-options="{'widget':'integer'}"/>
-                            </td>
-
+                            </td>    
+                            <td style="text-align:center;border: solid 1px black;">
+                                <t t-foreach="doc.product_id.attribute_value_ids.mapped('name')" t-as="attribute">
+                                    <t t-esc="attribute" style="text-align:center;border: solid 1px black;"/>
+                                </t>
+                           </td>
                         </tr>
                     </t>
                 </tbody>
