@@ -1,5 +1,5 @@
 ====================
-Invoice Report
+Stock Report
 ====================
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Stable-brightgreen
@@ -15,7 +15,7 @@ Invoice Report
 
 |badge1| |badge2| |badge3|
 
-New Custom Invoice Report
+New Custom Stock Report
 
 Credits
 =======
