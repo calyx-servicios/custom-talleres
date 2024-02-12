@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <template id="custom_view_stock_product_tree2" name="Custom Body" inherit_id="stock_account.view_stock_product_tree2">
-		<xpath expr="//field[@name='uom_id']" position="after">
-            <field name="lst_price" string="Sell Price"></field>
-        </xpath>
+    <template id="custom_view_stock_product_tree2" name="Custom Stock Product Tree View" inherit_id="stock_account.view_stock_product_tree2">
         <xpath expr="//field[@name='stock_value']" position="replace">
             <field name="stock_values" string="Stock Value"></field>
         </xpath>
