@@ -1,6 +1,6 @@
-====================
+============
 Stock Report
-====================
+============
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Stable-brightgreen
     :target: https://odoo-community.org/page/development-status
@@ -44,4 +44,6 @@ This module is maintained by Calyx Servicios S.A.
 CALYX SERVICIOS S.A. is part of the PGK Consultores economic group, member of an important global network, a world organization.
 The PGK Consultores group is one of the 20 largest consultant-studios in Argentina with nearly 300 professionals.
 
-This module is part of the `Sustentar <https://github.com/calyx-servicios/sustentar.git>`_ project on GitHub.
+This module is part of the `Talleres <https://github.com/calyx-servicios/custom-talleres.git>`_ project on GitHub.
+
+
