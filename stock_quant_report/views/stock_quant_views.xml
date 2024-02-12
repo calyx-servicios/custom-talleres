@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="custom_view_stock_quant_tree" name="Custom Body" inherit_id="stock.view_stock_quant_tree">
+		<xpath expr="//field[@name='quantity']" position="after">
+            <field name="real_stock" strng="Real Stock"></field>
+        </xpath>
+    </template>
+</odoo>
