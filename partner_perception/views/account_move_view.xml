@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="partner_perception_view_move_form_inherit" model="ir.ui.view">
+	    <field name="model">account.move</field>
+	    <field name="name">Account Invoice</field>
+	    <field name="inherit_id" ref="account.view_move_form"/>
+	    <field name="arch" type="xml">
+	        <xpath expr="//button[@name='preview_invoice']" position="after">
+				<button name="partner_perceptions" type="object" string="Partner Perception" />
+	        </xpath>
+	    </field>
+	</record>
+</odoo>
+
