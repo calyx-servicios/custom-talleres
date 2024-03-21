@@ -5,11 +5,11 @@
         This module add taxes in partner on invoice
     """,
     "author": "Calyx Servicios S.A.",
-    "maintainers": ["GeorginaGuzman", "PerezGabriela"],
+    "maintainers": ["GeorginaGuzman", "PerezGabriela","mparadiso233"],
     "website": "http://odoo.calyx-cloud.com.ar/",
     "license": "AGPL-3",
     "category": "Stock",
-    "version": "13.0.3.0.1",
+    "version": "11.0.3.0.1",
     "installable": True,
     "application": False,
     "depends": [
